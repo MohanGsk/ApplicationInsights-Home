@@ -9,6 +9,8 @@ Welcome to the central repository for Application Insights projects. We intend t
 
 [Node.js](https://github.com/Microsoft/AppInsights-node.js)
 
+[Wordpress](https://wordpress.org/plugins/application-insights/)
+
 
 
 
