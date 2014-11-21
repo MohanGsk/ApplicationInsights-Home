@@ -7,7 +7,7 @@ Welcome to the central repository for Application Insights projects. We intend t
 
 [Python](https://github.com/Microsoft/AppInsights-Python)
 
-[Node.js](https://github.com/Microsoft/AppInsights-Python)
+[Node.js](https://github.com/Microsoft/AppInsights-node.js)
 
 
 
