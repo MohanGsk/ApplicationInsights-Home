@@ -7,11 +7,13 @@ More information about Application Insights can be found [here](http://azure.mic
 
 ##Our Repositories##
 
+[Node.js](https://github.com/Microsoft/AppInsights-node.js)
+
+[PHP](https://github.com/Microsoft/AppInsights-PHP)
+
 [Python](https://github.com/Microsoft/AppInsights-Python)
 
 [Ruby](https://github.com/Microsoft/AppInsights-Ruby)
-
-[Node.js](https://github.com/Microsoft/AppInsights-node.js)
 
 [Wordpress](https://wordpress.org/plugins/application-insights/)
 
