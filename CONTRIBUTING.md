@@ -1,6 +1,6 @@
 # How to Contribute
 
-One of the best ways to contribute is to participate in disccusions and discuss issues. You can also contribute by submitting pull requests with code changes.
+One of the best ways to contribute is to participate in discussions and discuss issues. You can also contribute by submitting pull requests with code changes.
 
 ## General feedback and discussion
 Please start a discuss on the [Home repo issue tracker](https://github.com/Microsoft/AppInsights-Home/issues). If you have feedback regarding the overall feature set of Application Insights, you can also participate at the [Application Insights User Voice](http://aka.ms/aiuservoice).
@@ -12,6 +12,7 @@ Please log a new issue in the appropriate GitHub repo.
 * [Node.js](https://github.com/Microsoft/AppInsights-node.js/issues)
 * [PHP](https://github.com/Microsoft/AppInsights-PHP/issues)
 * [Ruby](https://github.com/Microsoft/AppInsights-Ruby/issues)
+* [WordPress](https://github.com/Microsoft/AppInsights-WordPress/issues)
 
 ## General Contributing Guide
 
