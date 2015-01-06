@@ -10,6 +10,8 @@ Please log a new issue in the appropriate GitHub repo.
 
 * [Python](https://github.com/Microsoft/AppInsights-Python/issues)
 * [Node.js](https://github.com/Microsoft/AppInsights-node.js/issues)
+* [PHP](https://github.com/Microsoft/AppInsights-PHP/issues)
+* [Ruby](https://github.com/Microsoft/AppInsights-Ruby/issues)
 
 ## General Contributing Guide
 
