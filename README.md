@@ -15,7 +15,7 @@ More information about Application Insights can be found [here](http://azure.mic
 
 [Ruby](https://github.com/Microsoft/AppInsights-Ruby)
 
-[Wordpress](https://wordpress.org/plugins/application-insights/)
+WordPress on [GitHub](https://github.com/Microsoft/AppInsights-WordPress) and Release Version on [Wordpress.org](https://wordpress.org/plugins/application-insights/)
 
 
 
