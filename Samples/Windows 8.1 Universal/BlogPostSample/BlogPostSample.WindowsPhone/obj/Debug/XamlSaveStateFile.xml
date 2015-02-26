@@ -1,0 +1,8 @@
+<XamlCompilerSaveState>
+  <ReferenceAssemblyList>
+    <ReferenceAssembly PathName="c:\users\joshweb\documents\visual studio 2013\projects\packages\microsoft.applicationinsights.runtimetelemetry.0.13.2-build00132\lib\portable-win81+wpa81\microsoft.applicationinsights.extensibility.runtimetelemetry.winmd" HashGuid="b165ee8a-5420-8062-b1b0-b238111490fe" />
+    <ReferenceAssembly PathName="c:\users\joshweb\documents\visual studio 2013\projects\packages\microsoft.applicationinsights.windowsphone.0.13.2-build00132\lib\wpa81\microsoft.applicationinsights.extensibility.windows.winmd" HashGuid="2cc9fd37-9839-0765-e369-aa937f791053" />
+    <ReferenceAssembly PathName="c:\users\joshweb\documents\visual studio 2013\projects\packages\microsoft.applicationinsights.0.13.2-build00132\lib\portable-win81+wpa81\microsoft.applicationinsights.winmd" HashGuid="7ee7f5d0-d7d0-4f7a-ab62-8b74771831d6" />
+    <ReferenceAssembly PathName="c:\users\joshweb\documents\visual studio 2013\projects\packages\microsoft.diagnostics.tracing.eventsource.redist.1.1.16-beta\lib\net45\microsoft.diagnostics.tracing.eventsource.dll" HashGuid="80297b0f-1235-0f77-6fca-4fb05d72d4c7" />
+  </ReferenceAssemblyList>
+</XamlCompilerSaveState>
