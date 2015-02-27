@@ -7,6 +7,10 @@ More information about Application Insights can be found [here](http://azure.mic
 
 ##Our Repositories##
 
+[Android](https://github.com/Microsoft/AppInsights-Android)
+
+[iOS](https://github.com/Microsoft/AppInsights-iOS)
+
 [Node.js](https://github.com/Microsoft/AppInsights-node.js)
 
 [PHP](https://github.com/Microsoft/AppInsights-PHP)
