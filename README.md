@@ -11,6 +11,8 @@ More information about Application Insights can be found [here](http://azure.mic
 
 [iOS](https://github.com/Microsoft/AppInsights-iOS)
 
+[Java](https://github.com/Microsoft/AppInsights-Java)
+
 [Node.js](https://github.com/Microsoft/AppInsights-node.js)
 
 [PHP](https://github.com/Microsoft/AppInsights-PHP)
