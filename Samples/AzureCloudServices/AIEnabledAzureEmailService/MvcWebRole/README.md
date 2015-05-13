@@ -12,9 +12,6 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
 	* ASP.NET MVC Web API: Per above both requests “/api/movies/” and “/api/movies/5” will be result in “GET movies”. To support Web API better, request name includes the list of all names of routing parameters if “action” parameter wasn’t found. In this case, the requests will be reported as “GET movies” and “GET movies[id]”.
     * If routing table is empty or doesn’t have “controller” - HttpRequest.Path will be used as a request name. This property doesn’t include domain name and query string.
     * NOTE: Request names are case-sensitive. If the default rules do not work for your application (each request gets a unique name for instance) - you can fix that by providing a custom WebOperationNameTelemetryInitializer implementation to override default behavior.
-* **Page Views**
-  * Collected automatically by adding the [JavaScript nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.JavaScript)
-  * You could also just add a JavaScript snippet to shared "master" file as shown [here](Views/Shared/_Layout.cshtml#L9)
 * **Dependency**
   * NOTE: ASYNC HTTP/SQL calls are automatically collected if you are running on .NET Framework versions 4.5.1 or higher
   * This web role has ASYNC HTTP calls, and therefore we get the dependencies out of the box
@@ -26,6 +23,9 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
     * [AiHandleErrorAttribute](Telemetry/AiHandleErrorAttribute.cs) set up [here](App_Start/FilterConfig.cs#L12) for MVC5 controllers
 	* [AiWebApiExceptionLogger](Telemetry/AiWebApiExceptionLogger.cs) set up [here](App_Start/WebApiConfig.cs#L25) for Web API 2 controllers
 	* See [this article](http://azure.microsoft.com/en-us/documentation/articles/app-insights-asp-net-exceptions/), for information on how you can collect unhandled exceptions from other application types 
+* **Page Views**
+  * Collected automatically by adding the [JavaScript nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.JavaScript)
+  * You could also just add a JavaScript snippet to shared "master" file as shown [here](Views/Shared/_Layout.cshtml#L9)
 * **Traces**
   * This web role uses System.Diagnostics traces. They are automatically collected with the [TraceListener](http://www.nuget.org/packages/Microsoft.ApplicationInsights.TraceListener) nuget added
   * NLog, log4Net etc. also supported. See this [article](http://azure.microsoft.com/en-us/documentation/articles/app-insights-search-diagnostic-logs/) for more information on collecting traces from your worker roles
