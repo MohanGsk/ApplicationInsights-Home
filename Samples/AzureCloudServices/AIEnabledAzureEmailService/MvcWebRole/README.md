@@ -49,6 +49,8 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
 **Environment support:** To collect AI telemetry from multiple environments (DEV/INT/Pre-Prod/PROD etc): 
 * Set the Instrumentation key in the respective CSCFG files
 * Configure it at application start up time, in the global.asax.cs file for web roles as shown [here](Global.asax.cs#L27)
+* The JavaScript can also read from the same as shown [here](Views/Shared/_Layout.cshtml#L9). 
+  * Note that this has a slight performance overhead, but is helpful if you are looking to report both client and server side telemetry to the same instrumentation key
 
 #Important
 * If user/session telemetry is not applicable for your web/worker role, we recommend you remove the following telemetry modules and initializers from the ApplicationInsights.config file

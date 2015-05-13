@@ -15,8 +15,8 @@ This sample worker role is instrumented with the [Application Insights for Web] 
   * This worker role has SYNC HTTP dependency calls, and is set up to use the [Application Insights Agent](http://azure.microsoft.com/en-us/documentation/articles/app-insights-monitor-performance-live-website-now/) AKA "Status Monitor", that collects them
   * To use the AI Agent with your web/worker roles:
     * Add the [AppInsightsAgent](AppInsightsAgent) folder and the 2 files in it to your web/worker role projects. Be sure to set them up to be copied always into the output directory
-	* Add the start up task to the CSDEF file as shown [here](../AzureEmailService/ServiceDefinition.csdef#L31)
-	* For worker roles, add 3 environment variables as shown [here](../AzureEmailService/ServiceDefinition.csdef#L41)
+	* Add the start up task to the CSDEF file as shown [here](../AzureEmailService/ServiceDefinition.csdef#L24)
+	* For worker roles, add 3 environment variables as shown [here](../AzureEmailService/ServiceDefinition.csdef#L34)
   * In addition to collecting SYNC dependency calls, the [Application Insights Agent](http://azure.microsoft.com/en-us/documentation/articles/app-insights-monitor-performance-live-website-now/) has additional capabilities such as collection of SQL statements etc.
 * **Exception**
   * Add a TrackException(ex) call to report any exceptions you would like to collect, as shown [here](WorkerRoleA.cs#L109)
@@ -42,9 +42,9 @@ This sample worker role is instrumented with the [Application Insights for Web] 
 #Important
 * We encourage you to add the [Application Insights for Web] (http://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) nuget as that adds modules that add server context like the Role information etc.
 * If user/session telemetry is not applicable for your web/worker role, we recommend you remove the following telemetry modules and initializers from the ApplicationInsights.config file
-  * [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L36)
-  * [WebUserTrackingTelemetryModule](ApplicationInsights.config#L37)
-  * [WebSessionTelemetryInitializer](ApplicationInsights.config#L67)
-  * [WebUserTelemetryInitializer](ApplicationInsights.config#L61)
+  * [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L34)
+  * [WebUserTrackingTelemetryModule](ApplicationInsights.config#L35)
+  * [WebSessionTelemetryInitializer](ApplicationInsights.config#L65)
+  * [WebUserTelemetryInitializer](ApplicationInsights.config#L59)
 * If your web/worker role has a mix of browser based clients & others, and you do have your web clients instrumented with the [JavaScript nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.JavaScript):
-  * Add <SetCookie>false</SetCookie> to the [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L36) and [WebUserTrackingTelemetryModule](ApplicationInsights.config#L37) as mentioned [here](ApplicationInsights.config#L44)
+  * Add SetCookie = false to the [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L36) and [WebUserTrackingTelemetryModule](ApplicationInsights.config#L37) as mentioned [here](ApplicationInsights.config#L42)
