@@ -1,0 +1,84 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+ 
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+ 
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+ 
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+#Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+*.coverage
+ipch/
+[Oo]bj/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+Ankh.NoLoad
+
+# Ignore NuGet packages.
+/NuGet.Packages/*
+
+# Ignore certain directories
+/TestResults/*
+/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/bin/*
+/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/MvcWebRoleContent/*
+/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/obj/*
+/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/Profiles/*
+/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/rcf/*
+/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/WorkerRoleAContent/*
+/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/WorkerRoleBContent/*
+Samples/AzureCloudServices/AIEnabledAzureEmailService/packages/*
+
+# Ignore install log
+*.InstallLog
