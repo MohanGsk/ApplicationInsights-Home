@@ -74,7 +74,6 @@ Ankh.NoLoad
 /Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/bin/*
 /Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/MvcWebRoleContent/*
 /Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/obj/*
-/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/Profiles/*
 /Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/rcf/*
 /Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/WorkerRoleAContent/*
 /Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/WorkerRoleBContent/*

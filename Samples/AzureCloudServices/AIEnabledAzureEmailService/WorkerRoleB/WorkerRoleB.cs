@@ -28,7 +28,7 @@ namespace WorkerRoleB
         private volatile bool onStopCalled = false;
         private volatile bool returnedFromRunMethod = false;
 
-        private static TelemetryClient AI_CLIENT = new TelemetryClient();
+        private TelemetryClient aiClient = new TelemetryClient();
         private static string SUCCESS_CODE = "200";
         private static string FAILURE_CODE = "500";
 
@@ -70,7 +70,7 @@ namespace WorkerRoleB
                     }
                     s1.Stop();
                     //TrackRequest(string name, DateTimeOffset timestamp, TimeSpan duration, string responseCode, bool success);
-                    AI_CLIENT.TrackRequest("CheckMessagesQueue", startTime, new TimeSpan(s1.ElapsedTicks), SUCCESS_CODE, true);
+                    aiClient.TrackRequest("CheckMessagesQueue", startTime, s1.Elapsed, SUCCESS_CODE, true);
                     if (messageFound == false)
                     {
                         System.Threading.Thread.Sleep(1000 * 60);
@@ -89,8 +89,8 @@ namespace WorkerRoleB
                     }
                     s1.Stop();
                     //TrackRequest(string name, DateTimeOffset timestamp, TimeSpan duration, string responseCode, bool success);
-                    AI_CLIENT.TrackRequest("CheckMessagesQueue", startTime, new TimeSpan(s1.ElapsedTicks), FAILURE_CODE, false);
-                    AI_CLIENT.TrackException(ex);
+                    aiClient.TrackRequest("CheckMessagesQueue", startTime, s1.Elapsed, FAILURE_CODE, false);
+                    aiClient.TrackException(ex);
                     Trace.TraceError(err);
                     // Don't fill up Trace storage if we have a bug in either process loop.
                     System.Threading.Thread.Sleep(1000 * 60);
@@ -119,7 +119,7 @@ namespace WorkerRoleB
                 Trace.TraceError("Deleting poison message:    message {0} Role Instance {1}.",
                     msg.ToString(), GetRoleInstance());
                 sendEmailQueue.DeleteMessage(msg);
-                AI_CLIENT.TrackEvent("PoisonMessageDeleted", new Dictionary<string, string> {{"DequeueCount", msg.DequeueCount.ToString()}} );
+                aiClient.TrackEvent("PoisonMessageDeleted", new Dictionary<string, string> {{"DequeueCount", msg.DequeueCount.ToString()}} );
                 return;
             }
             // Parse message retrieved from queue.
@@ -149,7 +149,7 @@ namespace WorkerRoleB
                     }
                     catch(Exception ex)
                     {
-                        AI_CLIENT.TrackException(ex);
+                        aiClient.TrackException(ex);
                     }
                     sendEmailQueue.DeleteMessage(msg);
                     return;
@@ -184,7 +184,7 @@ namespace WorkerRoleB
 
             // Delete the queue message.
             sendEmailQueue.DeleteMessage(msg);
-            AI_CLIENT.TrackEvent("EmailSent");
+            aiClient.TrackEvent("EmailSent");
             Trace.TraceInformation("ProcessQueueMessage complete:  partitionKey {0} rowKey {1} Role Instance {2}.",
                partitionKey, rowKey, GetRoleInstance());
         }

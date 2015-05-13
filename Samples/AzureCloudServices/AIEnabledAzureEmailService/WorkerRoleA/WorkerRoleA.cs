@@ -24,7 +24,7 @@ namespace WorkerRoleA
         private volatile bool onStopCalled = false;
         private volatile bool returnedFromRunMethod = false;
 
-        private static TelemetryClient AI_CLIENT = new TelemetryClient();
+        private TelemetryClient aiClient = new TelemetryClient();
         private static string SUCCESS_CODE = "200";
         private static string FAILURE_CODE = "500";
 
@@ -93,7 +93,7 @@ namespace WorkerRoleA
                         }
                     }
                     s1.Stop();
-                    AI_CLIENT.TrackRequest("CheckItemsTable",startTime, new TimeSpan(s1.ElapsedTicks), SUCCESS_CODE, true);
+                    aiClient.TrackRequest("CheckItemsTable",startTime, s1.Elapsed, SUCCESS_CODE, true);
                     // Sleep for one minute to minimize query costs. 
                     System.Threading.Thread.Sleep(1000 * 60);
                 }
@@ -105,8 +105,8 @@ namespace WorkerRoleA
                         err += " Inner Exception: " + ex.InnerException.Message;
                     }
                     s1.Stop();
-                    AI_CLIENT.TrackRequest("CheckItemsTable", startTime, new TimeSpan(s1.ElapsedTicks), FAILURE_CODE, false);
-                    AI_CLIENT.TrackException(ex);
+                    aiClient.TrackRequest("CheckItemsTable", startTime, s1.Elapsed, FAILURE_CODE, false);
+                    aiClient.TrackException(ex);
                     Trace.TraceError(err);
                     // Don't fill up Trace storage if we have a bug in queue process loop.
                     System.Threading.Thread.Sleep(1000 * 60);
@@ -134,7 +134,7 @@ namespace WorkerRoleA
                TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.NotEqual, "mailinglist"));
             var query = new TableQuery<Subscriber>().Where(filter);
             var subscribers = mailingListTable.ExecuteQuery(query).ToList();
-            AI_CLIENT.TrackMetric("SubscriberCount", subscribers.Count); 
+            aiClient.TrackMetric("SubscriberCount", subscribers.Count); 
             foreach (Subscriber subscriber in subscribers)
             {
                 // Verify that the subscriber email address has been verified.
@@ -175,7 +175,7 @@ namespace WorkerRoleA
                     {
                         err += " Inner Exception: " + ex.InnerException;
                     }
-                    AI_CLIENT.TrackException(ex);
+                    aiClient.TrackException(ex);
                     Trace.TraceError(err);
                 }
 

@@ -1,5 +1,8 @@
 ##ApplicationInsights: Azure Cloud Service
 
+**NOTE:** The purpose of this sample is to illustrate how an existing cloud service can be instrumented to report AI telemetry. 
+Please see the [original code sample](https://code.msdn.microsoft.com/windowsapps/Windows-Azure-Multi-Tier-eadceb36) or [Azure documentation](http://azure.microsoft.com/en-us/services/cloud-services/) for information on cloud services in general.
+
 This is a sample Azure Cloud Service: [AzureEmailService](https://code.msdn.microsoft.com/windowsapps/Windows-Azure-Multi-Tier-eadceb36) that has a web role and 2 worker roles onboarded to Application Insights to send the following telemetry:
 
 * Requests

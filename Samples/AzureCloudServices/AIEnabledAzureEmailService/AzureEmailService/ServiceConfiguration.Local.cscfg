@@ -4,30 +4,15 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="admin" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="RDP-PASSWORD" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2016-03-04T23:59:59.0000000-08:00" />
-      <Setting name="Telemetry.AI.InstrumentationKey" value="WEBROLE-DEV-IKEY"/>
+      <Setting name="Telemetry.AI.InstrumentationKey" value="WEBROLE-DEV-IKEY" />
     </ConfigurationSettings>
-    <Certificates>
-      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CERT-THUMBPRINT" thumbprintAlgorithm="sha1" />
-    </Certificates>
   </Role>
   <Role name="WorkerRoleA">
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="admin" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="RDP-PASSWORD" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2016-03-04T23:59:59.0000000-08:00" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
-      <Setting name="Telemetry.AI.InstrumentationKey" value="WORKERROLEA-DEV-IKEY"/>
-    </ConfigurationSettings>
-    <Certificates>
-      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CERT-THUMBPRINT" thumbprintAlgorithm="sha1" />
-    </Certificates>
+      <Setting name="Telemetry.AI.InstrumentationKey" value="WORKERROLEA-DEV-IKEY" />      
+    </ConfigurationSettings>    
   </Role>
   <Role name="WorkerRoleB">
     <Instances count="1" />
@@ -36,14 +21,7 @@
       <Setting name="SendGridUserName" value="yourusername" />
       <Setting name="SendGridPassword" value="yourpassword" />
       <Setting name="AzureMailServiceURL" value="http://yourURL.cloudapp.net" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="admin" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="RDP-PASSWORD" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2016-03-04T23:59:59.0000000-08:00" />
-      <Setting name="Telemetry.AI.InstrumentationKey" value="WORKERROLEB-DEV-IKEY"/>
-    </ConfigurationSettings>
-    <Certificates>
-      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="CERT-THUMBPRINT" thumbprintAlgorithm="sha1" />
-    </Certificates>
+      <Setting name="Telemetry.AI.InstrumentationKey" value="WORKERROLEB-DEV-IKEY" />
+    </ConfigurationSettings>    
   </Role>
 </ServiceConfiguration>
