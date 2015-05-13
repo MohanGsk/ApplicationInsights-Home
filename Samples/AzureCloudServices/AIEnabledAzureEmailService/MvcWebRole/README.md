@@ -10,7 +10,7 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
   * Collected out of the box with the [Application Insights for web nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.Web)
   * A request is considered failed if the response has a statusCode >= 400. If that does not work for you (401s are not failures for instance), you can override the default behavior:
     * Provide a custom implementation of the ITelemetryInitializer interface - as shown [here](Telemetry/MyTelemetryInitializer.cs)
-	* Add this to the list of TelemetryInitializers in ApplicationInsights.config as shown [here](ApplicationInsights.config#L69)
+	* Add this to the list of TelemetryInitializers in ApplicationInsights.config as shown [here](ApplicationInsights.config#L66)
   * Requests are groupable by the "Request Name" attribute, which allows us to provide meaningful aggregations on the number of calls, response times, failures etc. The default naming scheme is the following:
     * ASP.NET MVC: Request name is set to “VERB controller/action”.
 	* ASP.NET MVC Web API: Per above both requests “/api/movies/” and “/api/movies/5” will be result in “GET movies”. To support Web API better, request name includes the list of all names of routing parameters if “action” parameter wasn’t found. In this case, the requests will be reported as “GET movies” and “GET movies[id]”.
@@ -52,9 +52,9 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
 
 #Important
 * If user/session telemetry is not applicable for your web/worker role, we recommend you remove the following telemetry modules and initializers from the ApplicationInsights.config file
-  * [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L36)
-  * [WebUserTrackingTelemetryModule](ApplicationInsights.config#L37)
-  * [WebSessionTelemetryInitializer](ApplicationInsights.config#L67)
-  * [WebUserTelemetryInitializer](ApplicationInsights.config#L61)
+  * [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L34)
+  * [WebUserTrackingTelemetryModule](ApplicationInsights.config#L35)
+  * [WebSessionTelemetryInitializer](ApplicationInsights.config#L65)
+  * [WebUserTelemetryInitializer](ApplicationInsights.config#L59)
 * If your web/worker role has a mix of browser based clients & others, and you do have your web clients instrumented with the [JavaScript nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.JavaScript):
-  * Add <SetCookie>false</SetCookie> to the [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L36) and [WebUserTrackingTelemetryModule](ApplicationInsights.config#L37) as mentioned [here](ApplicationInsights.config#L44)
+  * Add SetCookie = false to the [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L36) and [WebUserTrackingTelemetryModule](ApplicationInsights.config#L37) as mentioned [here](ApplicationInsights.config#L44)
