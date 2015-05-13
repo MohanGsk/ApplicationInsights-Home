@@ -93,7 +93,7 @@ namespace WorkerRoleA
                         }
                     }
                     s1.Stop();
-                    AI_CLIENT.TrackRequest("CheckMessagesTable",startTime, new TimeSpan(s1.ElapsedTicks), SUCCESS_CODE, true);
+                    AI_CLIENT.TrackRequest("CheckItemsTable",startTime, new TimeSpan(s1.ElapsedTicks), SUCCESS_CODE, true);
                     // Sleep for one minute to minimize query costs. 
                     System.Threading.Thread.Sleep(1000 * 60);
                 }
@@ -105,7 +105,7 @@ namespace WorkerRoleA
                         err += " Inner Exception: " + ex.InnerException.Message;
                     }
                     s1.Stop();
-                    AI_CLIENT.TrackRequest("CheckMessagesTable", startTime, new TimeSpan(s1.ElapsedTicks), FAILURE_CODE, false);
+                    AI_CLIENT.TrackRequest("CheckItemsTable", startTime, new TimeSpan(s1.ElapsedTicks), FAILURE_CODE, false);
                     AI_CLIENT.TrackException(ex);
                     Trace.TraceError(err);
                     // Don't fill up Trace storage if we have a bug in queue process loop.

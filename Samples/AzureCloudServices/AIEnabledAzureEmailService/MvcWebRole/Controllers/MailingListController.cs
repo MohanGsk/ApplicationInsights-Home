@@ -74,12 +74,6 @@ namespace AzureEmailServiceControllers
                 Trace.TraceError(se.Message);
                 return View("Error");
             }
-            var x = new TelemetryClient();
-            for (int i = 0; i < 100; i++)
-            {
-                x.TrackMetric("Blah/x/y", 100);
-                x.TrackMetric("Foo", 100);
-            }
             
             return View(lists);
         }

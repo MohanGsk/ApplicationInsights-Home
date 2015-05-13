@@ -32,12 +32,17 @@ This sample worker role is instrumented with the [Application Insights for Web] 
 	* \Processor(_Total)\% Processor Time
   * You can specify additional custom or other windows performance counters as shown [here](ApplicationInsights.config#L14)
 
+**Environment support:** To collect AI telemetry from multiple environments (DEV/INT/Pre-Prod/PROD etc): 
+* Set the Instrumentation key in the respective CSCFG files
+* Configure it at role start up time, in the OnStart function as shown [here](WorkerRoleB.cs#L333)
 
 
 #Important
 * We encourage you to add the [Application Insights for Web] (http://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) nuget as that adds modules that add server context like the Role information etc.
-* If user/session telemetry is not applicable for your worker role, we recommend you remove the following telemetry modules and initializers from the ApplicationInsights.config file
+* If user/session telemetry is not applicable for your web/worker role, we recommend you remove the following telemetry modules and initializers from the ApplicationInsights.config file
   * [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L36)
   * [WebUserTrackingTelemetryModule](ApplicationInsights.config#L37)
   * [WebSessionTelemetryInitializer](ApplicationInsights.config#L67)
   * [WebUserTelemetryInitializer](ApplicationInsights.config#L61)
+* If your web/worker role has a mix of browser based clients & others, and you do have your web clients instrumented with the [JavaScript nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.JavaScript):
+  * Add <SetCookie>false</SetCookie> to the [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L36) and [WebUserTrackingTelemetryModule](ApplicationInsights.config#L37) as mentioned [here](ApplicationInsights.config#L44)
