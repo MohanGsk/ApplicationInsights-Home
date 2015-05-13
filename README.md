@@ -7,17 +7,19 @@ More information about Application Insights can be found [here](http://azure.mic
 
 ##Our Repositories##
 
-[iOS](https://github.com/Microsoft/ApplicationInsights-iOS)
-
 [Android](https://github.com/Microsoft/ApplicationInsights-Android)
 
-[JavaScript](https://github.com/Microsoft/ApplicationInsights-js)
-
 [Asp.Net v5](https://github.com/Microsoft/ApplicationInsights-aspnetv5)
+
+[iOS](https://github.com/Microsoft/ApplicationInsights-iOS)
+
+[JavaScript](https://github.com/Microsoft/ApplicationInsights-js)
 
 [Java](https://github.com/Microsoft/ApplicationInsights-Java)
 
 [Node.js](https://github.com/Microsoft/ApplicationInsights-node.js)
+
+[OSX] (https://github.com/Microsoft/ApplicationInsights-OSX)
 
 [PHP](https://github.com/Microsoft/ApplicationInsights-PHP)
 
