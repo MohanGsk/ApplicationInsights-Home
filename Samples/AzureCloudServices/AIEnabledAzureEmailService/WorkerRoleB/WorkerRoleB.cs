@@ -14,6 +14,8 @@ using SendGridMail;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using System.Collections.Generic;
+using Microsoft.ApplicationInsights.DataContracts;
+using MvcWebRole.Telemetry;
 
 namespace WorkerRoleB
 {
@@ -28,22 +30,17 @@ namespace WorkerRoleB
         private volatile bool onStopCalled = false;
         private volatile bool returnedFromRunMethod = false;
 
-        private TelemetryClient aiClient = new TelemetryClient();
-        private static string SUCCESS_CODE = "200";
-        private static string FAILURE_CODE = "500";
-
-
+        private static TelemetryClient AI_CLIENT = new TelemetryClient();
+        
         public override void Run()
         {
             CloudQueueMessage msg = null;
-            
             Trace.TraceInformation("WorkerRoleB start of Run()");
             while (true)
             {
-                Stopwatch s1 = Stopwatch.StartNew();
-                DateTimeOffset startTime = DateTimeOffset.UtcNow;
                 try
                 {
+                    var loopStart = DateTimeOffset.UtcNow;
                     bool messageFound = false;
 
                     // If OnStop has been called, return to do a graceful shutdown.
@@ -68,12 +65,14 @@ namespace WorkerRoleB
                         ProcessSubscribeQueueMessage(msg);
                         messageFound = true;
                     }
-                    s1.Stop();
-                    //TrackRequest(string name, DateTimeOffset timestamp, TimeSpan duration, string responseCode, bool success);
-                    aiClient.TrackRequest("CheckMessagesQueue", startTime, s1.Elapsed, SUCCESS_CODE, true);
+                    
                     if (messageFound == false)
                     {
                         System.Threading.Thread.Sleep(1000 * 60);
+                    }
+                    else
+                    {
+                        AI_CLIENT.TrackMetric("LoopWithMessagesTimeMs", ((TimeSpan)(DateTimeOffset.Now - loopStart)).Milliseconds);
                     }
                 }
                 catch (Exception ex)
@@ -87,13 +86,7 @@ namespace WorkerRoleB
                     {
                         err += " Last queue message retrieved: " + msg.AsString;
                     }
-                    s1.Stop();
-                    //TrackRequest(string name, DateTimeOffset timestamp, TimeSpan duration, string responseCode, bool success);
-                    aiClient.TrackRequest("CheckMessagesQueue", startTime, s1.Elapsed, FAILURE_CODE, false);
-                    aiClient.TrackException(ex);
-                    Trace.TraceError(err);
-                    // Don't fill up Trace storage if we have a bug in either process loop.
-                    System.Threading.Thread.Sleep(1000 * 60);
+                    Trace.TraceError(err, ex);                    
                 }
             }
         }
@@ -110,83 +103,118 @@ namespace WorkerRoleB
 
         private void ProcessQueueMessage(CloudQueueMessage msg)
         {
-            // Log and delete if this is a "poison" queue message (repeatedly processed
-            // and always causes an error that prevents processing from completing).
-            // Production applications should move the "poison" message to a "dead message"
-            // queue for analysis rather than deleting the message.           
-            if (msg.DequeueCount > 5)
+            Stopwatch requestTimer = Stopwatch.StartNew();
+            var request = RequestTelemetryHelper.StartNewRequest("ProcessEmailQueueMessage", DateTimeOffset.UtcNow);
+            try
             {
-                Trace.TraceError("Deleting poison message:    message {0} Role Instance {1}.",
-                    msg.ToString(), GetRoleInstance());
-                sendEmailQueue.DeleteMessage(msg);
-                aiClient.TrackEvent("PoisonMessageDeleted", new Dictionary<string, string> {{"DequeueCount", msg.DequeueCount.ToString()}} );
-                return;
-            }
-            // Parse message retrieved from queue.
-            // Example:  2012-01-01,0123456789email@domain.com,0
-            var messageParts = msg.AsString.Split(new char[] { ',' });
-            var partitionKey = messageParts[0];
-            var rowKey = messageParts[1];
-            var restartFlag = messageParts[2];
-            Trace.TraceInformation("ProcessQueueMessage start:  partitionKey {0} rowKey {1} Role Instance {2}.",
-                partitionKey, rowKey, GetRoleInstance());
-            // If this is a restart, verify that the email hasn't already been sent.
-            if (restartFlag == "1")
-            {
-                var retrieveOperationForRestart = TableOperation.Retrieve<SendEmail>(partitionKey, rowKey);
-                var retrievedResultForRestart = messagearchiveTable.Execute(retrieveOperationForRestart);
-                var messagearchiveRow = retrievedResultForRestart.Result as SendEmail;
-                if (messagearchiveRow != null)
+                // Log and delete if this is a "poison" queue message (repeatedly processed
+                // and always causes an error that prevents processing from completing).
+                // Production applications should move the "poison" message to a "dead message"
+                // queue for analysis rather than deleting the message.           
+                if (msg.DequeueCount > 5)
                 {
-                    // SendEmail row is in archive, so email is already sent. 
-                    // If there's a SendEmail Row in message table, delete it,
-                    // and delete the queue message.
-                    Trace.TraceInformation("Email already sent: partitionKey=" + partitionKey + " rowKey= " + rowKey);
-                    var deleteOperation = TableOperation.Delete(new SendEmail { PartitionKey = partitionKey, RowKey = rowKey, ETag = "*" });
-                    try
-                    {
-                        messageTable.Execute(deleteOperation);
-                    }
-                    catch(Exception ex)
-                    {
-                        aiClient.TrackException(ex);
-                    }
+                    Trace.TraceError("Deleting poison message:    message {0} Role Instance {1}.",
+                        msg.ToString(), GetRoleInstance());
                     sendEmailQueue.DeleteMessage(msg);
+                    request.Properties.Add(new KeyValuePair<string,string>("FailureCode","PoisonMessage"));
+                    request.Properties.Add(new KeyValuePair<string, string>("DequeueCount", msg.DequeueCount.ToString()));
+                    if (msg.InsertionTime != null)
+                    {
+                        request.Metrics.Add(new KeyValuePair<string, double>("EmailProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
+                    }
+                    RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
                     return;
                 }
+                // Parse message retrieved from queue.
+                // Example:  2012-01-01,0123456789email@domain.com,0
+                var messageParts = msg.AsString.Split(new char[] { ',' });
+                var partitionKey = messageParts[0];
+                var rowKey = messageParts[1];
+                var restartFlag = messageParts[2];
+                Trace.TraceInformation("ProcessQueueMessage start:  partitionKey {0} rowKey {1} Role Instance {2}.", partitionKey, rowKey, GetRoleInstance());
+                // If this is a restart, verify that the email hasn't already been sent.
+                if (restartFlag == "1")
+                {
+                    var retrieveOperationForRestart = TableOperation.Retrieve<SendEmail>(partitionKey, rowKey);
+                    var retrievedResultForRestart = messagearchiveTable.Execute(retrieveOperationForRestart);
+                    var messagearchiveRow = retrievedResultForRestart.Result as SendEmail;
+                    if (messagearchiveRow != null)
+                    {
+                        // SendEmail row is in archive, so email is already sent. 
+                        // If there's a SendEmail Row in message table, delete it,
+                        // and delete the queue message.
+                        Trace.TraceInformation("Email already sent: partitionKey=" + partitionKey + " rowKey= " + rowKey);
+                        var deleteOperation = TableOperation.Delete(new SendEmail { PartitionKey = partitionKey, RowKey = rowKey, ETag = "*" });
+                        try
+                        {
+                            messageTable.Execute(deleteOperation);
+                        }
+                        catch(Exception ex)
+                        {
+                            AI_CLIENT.TrackException(ex);
+                        }
+                        sendEmailQueue.DeleteMessage(msg);
+                        request.Properties.Add(new KeyValuePair<string, string>("SuccessCode", "NoOp-MessageAlreadySent"));
+                        if (msg.InsertionTime != null)
+                        {
+                            request.Metrics.Add(new KeyValuePair<string, double>("EmailProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
+                        }
+                        RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), true);
+                        return;
+                    }
+                }
+                // Get the row in the Message table that has data we need to send the email.
+                var retrieveOperation = TableOperation.Retrieve<SendEmail>(partitionKey, rowKey);
+                var retrievedResult = messageTable.Execute(retrieveOperation);
+                var emailRowInMessageTable = retrievedResult.Result as SendEmail;
+                if (emailRowInMessageTable == null)
+                {
+                    Trace.TraceError("SendEmail row not found:  partitionKey {0} rowKey {1} Role Instance {2}.",partitionKey, rowKey, GetRoleInstance());
+                    request.Properties.Add(new KeyValuePair<string, string>("FailureCode", "SendEmailRowNotFound"));
+                    if (msg.InsertionTime != null)
+                    {
+                        request.Metrics.Add(new KeyValuePair<string, double>("EmailProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
+                    }
+                    RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                    return;
+                }
+                // Derive blob names from the MessageRef.
+                var htmlMessageBodyRef = emailRowInMessageTable.MessageRef + ".htm";
+                var textMessageBodyRef = emailRowInMessageTable.MessageRef + ".txt";
+                // If the email hasn't already been sent, send email and archive the table row.
+                if (emailRowInMessageTable.EmailSent != true)
+                {
+                    SendEmailToList(emailRowInMessageTable, htmlMessageBodyRef, textMessageBodyRef);
+
+                    var emailRowToDelete = new SendEmail { PartitionKey = partitionKey, RowKey = rowKey, ETag = "*" };
+                    emailRowInMessageTable.EmailSent = true;
+
+                    var upsertOperation = TableOperation.InsertOrReplace(emailRowInMessageTable);
+                    messagearchiveTable.Execute(upsertOperation);
+                    var deleteOperation = TableOperation.Delete(emailRowToDelete);
+                    messageTable.Execute(deleteOperation);
+                }
+
+                // Delete the queue message.
+                sendEmailQueue.DeleteMessage(msg);
+                Trace.TraceInformation("ProcessQueueMessage complete:  partitionKey {0} rowKey {1} Role Instance {2}.", partitionKey, rowKey, GetRoleInstance());
+                request.Properties.Add(new KeyValuePair<string, string>("SuccessCode", "EmailSent"));
+                if (msg.InsertionTime != null)
+                {
+                    request.Metrics.Add(new KeyValuePair<string, double>("EmailProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
+                }
+                RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), true);
             }
-            // Get the row in the Message table that has data we need to send the email.
-            var retrieveOperation = TableOperation.Retrieve<SendEmail>(partitionKey, rowKey);
-            var retrievedResult = messageTable.Execute(retrieveOperation);
-            var emailRowInMessageTable = retrievedResult.Result as SendEmail;
-            if (emailRowInMessageTable == null)
+            catch (Exception ex)
             {
-                Trace.TraceError("SendEmail row not found:  partitionKey {0} rowKey {1} Role Instance {2}.",
-                    partitionKey, rowKey, GetRoleInstance());
-                return;
-            }
-            // Derive blob names from the MessageRef.
-            var htmlMessageBodyRef = emailRowInMessageTable.MessageRef + ".htm";
-            var textMessageBodyRef = emailRowInMessageTable.MessageRef + ".txt";
-            // If the email hasn't already been sent, send email and archive the table row.
-            if (emailRowInMessageTable.EmailSent != true)
-            {
-                SendEmailToList(emailRowInMessageTable, htmlMessageBodyRef, textMessageBodyRef);
-
-                var emailRowToDelete = new SendEmail { PartitionKey = partitionKey, RowKey = rowKey, ETag = "*" };
-                emailRowInMessageTable.EmailSent = true;
-
-                var upsertOperation = TableOperation.InsertOrReplace(emailRowInMessageTable);
-                messagearchiveTable.Execute(upsertOperation);
-                var deleteOperation = TableOperation.Delete(emailRowToDelete);
-                messageTable.Execute(deleteOperation);
-            }
-
-            // Delete the queue message.
-            sendEmailQueue.DeleteMessage(msg);
-            aiClient.TrackEvent("EmailSent");
-            Trace.TraceInformation("ProcessQueueMessage complete:  partitionKey {0} rowKey {1} Role Instance {2}.",
-               partitionKey, rowKey, GetRoleInstance());
+                request.Properties.Add(new KeyValuePair<string, string>("FailureCode", "Exception"));
+                if (msg.InsertionTime != null)
+                {
+                    request.Metrics.Add(new KeyValuePair<string, double>("FailedEmailProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
+                }
+                RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                throw ex;
+            }            
         }
 
         private void SendEmailToList(SendEmail emailRowInMessageTable, string htmlMessageBodyRef, string textMessageBodyRef)
@@ -233,43 +261,70 @@ namespace WorkerRoleB
 
         private void ProcessSubscribeQueueMessage(CloudQueueMessage msg)
         {
-            // Log and delete if this is a "poison" queue message (repeatedly processed
-            // and always causes an error that prevents processing from completing).
-            // Production applications should move the "poison" message to a "dead message"
-            // queue for analysis rather than deleting the message.  
-            if (msg.DequeueCount > 5)
+            Stopwatch requestTimer = Stopwatch.StartNew();
+            var request = RequestTelemetryHelper.StartNewRequest("ProcessSubscribeQueueMessage", DateTimeOffset.UtcNow);
+            try
             {
-                Trace.TraceError("Deleting poison subscribe message:    message {0}.",
-                    msg.AsString, GetRoleInstance());
+                // Log and delete if this is a "poison" queue message (repeatedly processed
+                // and always causes an error that prevents processing from completing).
+                // Production applications should move the "poison" message to a "dead message"
+                // queue for analysis rather than deleting the message.  
+                if (msg.DequeueCount > 5)
+                {
+                    Trace.TraceError("Deleting poison subscribe message:    message {0}.",
+                        msg.AsString, GetRoleInstance());
+                    subscribeQueue.DeleteMessage(msg);
+                    request.Properties.Add(new KeyValuePair<string, string>("FailureCode", "PoisonMessage"));
+                    request.Properties.Add(new KeyValuePair<string, string>("DequeueCount", msg.DequeueCount.ToString()));
+                    if (msg.InsertionTime != null)
+                    {
+                        request.Metrics.Add(new KeyValuePair<string, double>("SubscribeProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
+                    }
+                    RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                    return;
+                }
+                // Parse message retrieved from queue. Message consists of
+                // subscriber GUID and list name.
+                // Example:  57ab4c4b-d564-40e3-9a3f-81835b3e102e,contoso1
+                var messageParts = msg.AsString.Split(new char[] { ',' });
+                var subscriberGUID = messageParts[0];
+                var listName = messageParts[1];
+                Trace.TraceInformation("ProcessSubscribeQueueMessage start:    subscriber GUID {0} listName {1} Role Instance {2}.",
+                    subscriberGUID, listName, GetRoleInstance());
+                // Get subscriber info. 
+                string filter = TableQuery.CombineFilters(
+                    TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, listName),
+                    TableOperators.And,
+                    TableQuery.GenerateFilterCondition("SubscriberGUID", QueryComparisons.Equal, subscriberGUID));
+                var query = new TableQuery<Subscriber>().Where(filter);
+                var subscriber = mailingListTable.ExecuteQuery(query).ToList().Single();
+                // Get mailing list info.
+                var retrieveOperation = TableOperation.Retrieve<MailingList>(subscriber.ListName, "mailinglist");
+                var retrievedResult = mailingListTable.Execute(retrieveOperation);
+                var mailingList = retrievedResult.Result as MailingList;
+
+                SendSubscribeEmail(subscriberGUID, subscriber, mailingList);
+
                 subscribeQueue.DeleteMessage(msg);
-                return;
+
+                Trace.TraceInformation("ProcessSubscribeQueueMessage complete: subscriber GUID {0} Role Instance {1}.", subscriberGUID, GetRoleInstance());
+                if (msg.InsertionTime != null)
+                {
+                    request.Metrics.Add(new KeyValuePair<string, double>("SubscribeProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
+                }
+                RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), true);
             }
-            // Parse message retrieved from queue. Message consists of
-            // subscriber GUID and list name.
-            // Example:  57ab4c4b-d564-40e3-9a3f-81835b3e102e,contoso1
-            var messageParts = msg.AsString.Split(new char[] { ',' });
-            var subscriberGUID = messageParts[0];
-            var listName = messageParts[1];
-            Trace.TraceInformation("ProcessSubscribeQueueMessage start:    subscriber GUID {0} listName {1} Role Instance {2}.",
-                subscriberGUID, listName, GetRoleInstance());
-            // Get subscriber info. 
-            string filter = TableQuery.CombineFilters(
-                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, listName),
-                TableOperators.And,
-                TableQuery.GenerateFilterCondition("SubscriberGUID", QueryComparisons.Equal, subscriberGUID));
-            var query = new TableQuery<Subscriber>().Where(filter);
-            var subscriber = mailingListTable.ExecuteQuery(query).ToList().Single();
-            // Get mailing list info.
-            var retrieveOperation = TableOperation.Retrieve<MailingList>(subscriber.ListName, "mailinglist");
-            var retrievedResult = mailingListTable.Execute(retrieveOperation);
-            var mailingList = retrievedResult.Result as MailingList;
-
-            SendSubscribeEmail(subscriberGUID, subscriber, mailingList);
-
-            subscribeQueue.DeleteMessage(msg);
-
-            Trace.TraceInformation("ProcessSubscribeQueueMessage complete: subscriber GUID {0} Role Instance {1}.",
-                subscriberGUID, GetRoleInstance());
+            catch (Exception ex)
+            {
+                request.Properties.Add(new KeyValuePair<string, string>("FailureCode", "Exception"));
+                if (msg.InsertionTime != null)
+                {
+                    request.Metrics.Add(new KeyValuePair<string, double>("FailedSubscribeProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
+                }
+                RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                throw ex;
+            }
+            
         }
 
         private static void SendSubscribeEmail(string subscriberGUID, Subscriber subscriber, MailingList mailingList)
@@ -302,6 +357,7 @@ namespace WorkerRoleB
 
         public override bool OnStart()
         {
+            TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("Telemetry.AI.InstrumentationKey");
             ServicePointManager.DefaultConnectionLimit = Environment.ProcessorCount * 12;
 
             Trace.TraceInformation("Initializing storage account in worker role B");
@@ -330,7 +386,7 @@ namespace WorkerRoleB
             this.messageTable.CreateIfNotExists();
             this.mailingListTable.CreateIfNotExists();
             this.messagearchiveTable.CreateIfNotExists();
-            TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("Telemetry.AI.InstrumentationKey");
+            
             return base.OnStart();
         }
     }
