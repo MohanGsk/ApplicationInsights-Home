@@ -25,10 +25,8 @@ namespace WorkerRoleA
         private volatile bool onStopCalled = false;
         private volatile bool returnedFromRunMethod = false;
 
-        private static TelemetryClient AI_CLIENT = new TelemetryClient();
-        private static string SUCCESS_CODE = "200";
-        private static string FAILURE_CODE = "500";
-
+        private TelemetryClient aiClient = new TelemetryClient();
+        
         public override void Run()
         {
             Trace.TraceInformation("WorkerRoleA entering Run()");
@@ -134,7 +132,7 @@ namespace WorkerRoleA
                TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.NotEqual, "mailinglist"));
             var query = new TableQuery<Subscriber>().Where(filter);
             var subscribers = mailingListTable.ExecuteQuery(query).ToList();
-            AI_CLIENT.TrackMetric("SubscriberCount", subscribers.Count); 
+            aiClient.TrackMetric("SubscriberCount", subscribers.Count); 
             foreach (Subscriber subscriber in subscribers)
             {
                 // Verify that the subscriber email address has been verified.
@@ -175,7 +173,7 @@ namespace WorkerRoleA
                     {
                         err += " Inner Exception: " + ex.InnerException;
                     }
-                    AI_CLIENT.TrackException(ex);
+                    aiClient.TrackException(ex);
                     Trace.TraceError(err);
                 }
 

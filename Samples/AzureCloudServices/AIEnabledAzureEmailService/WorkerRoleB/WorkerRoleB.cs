@@ -30,7 +30,7 @@ namespace WorkerRoleB
         private volatile bool onStopCalled = false;
         private volatile bool returnedFromRunMethod = false;
 
-        private static TelemetryClient AI_CLIENT = new TelemetryClient();
+        private static TelemetryClient aiClient = new TelemetryClient();
         
         public override void Run()
         {
@@ -72,7 +72,7 @@ namespace WorkerRoleB
                     }
                     else
                     {
-                        AI_CLIENT.TrackMetric("LoopWithMessagesTimeMs", ((TimeSpan)(DateTimeOffset.Now - loopStart)).Milliseconds);
+                        aiClient.TrackMetric("LoopWithMessagesTimeMs", ((TimeSpan)(DateTimeOffset.Now - loopStart)).Milliseconds);
                     }
                 }
                 catch (Exception ex)
@@ -151,7 +151,7 @@ namespace WorkerRoleB
                         }
                         catch(Exception ex)
                         {
-                            AI_CLIENT.TrackException(ex);
+                            aiClient.TrackException(ex);
                         }
                         sendEmailQueue.DeleteMessage(msg);
                         request.Properties.Add(new KeyValuePair<string, string>("SuccessCode", "NoOp-MessageAlreadySent"));
