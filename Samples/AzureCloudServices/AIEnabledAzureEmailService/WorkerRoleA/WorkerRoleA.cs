@@ -92,10 +92,7 @@ namespace WorkerRoleA
                         {
                             CheckAndArchiveIfComplete(messageToProcess);
                         }
-                    }
-                    
-                    // Sleep for one minute to minimize query costs. 
-                    System.Threading.Thread.Sleep(1000 * 60);
+                    }                    
                 }
                 catch (Exception ex)
                 {
@@ -105,9 +102,7 @@ namespace WorkerRoleA
                     {
                         err += " Inner Exception: " + ex.InnerException.Message;
                     }
-                    Trace.TraceError(err, ex);
-                    // Don't fill up Trace storage if we have a bug in queue process loop.
-                    System.Threading.Thread.Sleep(1000 * 60);
+                    Trace.TraceError(err, ex);                    
                 }
                 RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), requestSuccess);
             }
