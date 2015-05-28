@@ -34,7 +34,7 @@ namespace WorkerRoleA
             {
                 Stopwatch requestTimer = Stopwatch.StartNew();
                 var request = RequestTelemetryHelper.StartNewRequest("ProcessMessageWorkflow", DateTimeOffset.UtcNow);
-                bool requestSuccess = true;
+                
                 try
                 {
                     var tomorrow = DateTime.Today.AddDays(1.0).ToString("yyyy-MM-dd");
@@ -92,19 +92,24 @@ namespace WorkerRoleA
                         {
                             CheckAndArchiveIfComplete(messageToProcess);
                         }
-                    }                    
+                    }
+                    RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), true);    
+                    // Sleep for one minute to minimize query costs. 
+                    System.Threading.Thread.Sleep(1000 * 60);
                 }
                 catch (Exception ex)
                 {
-                    requestSuccess = false;
                     string err = ex.Message;
                     if (ex.InnerException != null)
                     {
                         err += " Inner Exception: " + ex.InnerException.Message;
                     }
-                    Trace.TraceError(err, ex);                    
+                    Trace.TraceError(err, ex);
+                    RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                    // Don't fill up Trace storage if we have a bug in queue process loop.
+                    System.Threading.Thread.Sleep(1000 * 60);
                 }
-                RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), requestSuccess);
+                
             }
         }
 

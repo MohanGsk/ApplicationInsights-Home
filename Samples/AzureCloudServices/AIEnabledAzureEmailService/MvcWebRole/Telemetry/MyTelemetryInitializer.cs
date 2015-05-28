@@ -1,4 +1,5 @@
-﻿using Microsoft.ApplicationInsights.Channel;
+﻿using System;
+using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
 
@@ -15,9 +16,14 @@ namespace MvcWebRole.Telemetry
         {
             var requestTelemetry = telemetry as RequestTelemetry;
             if (requestTelemetry == null) return;
-            if (requestTelemetry.ResponseCode != "401") return;
-            requestTelemetry.Success = true;
-            requestTelemetry.Context.Properties["Overridden401"] = "true";
+            int code;
+            bool parsed = Int32.TryParse(requestTelemetry.ResponseCode, out code);
+            if (!parsed) return;
+            if (code >= 400 && code < 500)
+            {
+                requestTelemetry.Success = true;
+                requestTelemetry.Context.Properties["Overridden400s"] = "true";
+            }            
         }
     }
 }
