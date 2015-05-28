@@ -71,13 +71,13 @@ Ankh.NoLoad
 
 # Ignore certain directories
 /TestResults/*
-/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/bin/*
-/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/MvcWebRoleContent/*
-/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/obj/*
-/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/rcf/*
-/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/WorkerRoleAContent/*
-/Samples/AzureCloudServices/AIEnabledAzureEmailService/AzureEmailService/WorkerRoleBContent/*
-Samples/AzureCloudServices/AIEnabledAzureEmailService/packages/*
+/Samples/AzureEmailService/AzureEmailService/bin/*
+/Samples/AzureEmailService/AzureEmailService/MvcWebRoleContent/*
+/Samples/AzureEmailService/AzureEmailService/obj/*
+/Samples/AzureEmailService/AzureEmailService/rcf/*
+/Samples/AzureEmailService/AzureEmailService/WorkerRoleAContent/*
+/Samples/AzureEmailService/AzureEmailService/WorkerRoleBContent/*
+Samples/AzureEmailService/packages/*
 
 # Ignore install log
 *.InstallLog
