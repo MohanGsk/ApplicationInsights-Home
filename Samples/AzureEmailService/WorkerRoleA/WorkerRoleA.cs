@@ -173,8 +173,7 @@ namespace WorkerRoleA
                     {
                         err += " Inner Exception: " + ex.InnerException;
                     }
-                    aiClient.TrackException(ex);
-                    Trace.TraceError(err);
+                    Trace.TraceError(err, ex);
                 }
 
                 // Create the queue message.
