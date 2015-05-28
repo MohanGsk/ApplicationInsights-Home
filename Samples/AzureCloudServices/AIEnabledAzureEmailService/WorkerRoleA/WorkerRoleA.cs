@@ -1,18 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Services.Client;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using Microsoft.WindowsAzure.Diagnostics;
+using System.Runtime.Remoting.Messaging;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.WindowsAzure.ServiceRuntime;
-using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Table;
 using MvcWebRole.Models;
-using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights;
-using MvcWebRole.Telemetry;
+using WorkerRoleA.Telemetry;
 
 namespace WorkerRoleA
 {
@@ -26,7 +24,8 @@ namespace WorkerRoleA
         private volatile bool returnedFromRunMethod = false;
 
         private TelemetryClient aiClient = new TelemetryClient();
-        
+        private static string CORRELATION_SLOT = "CORRELATION-ID";
+
         public override void Run()
         {
             Trace.TraceInformation("WorkerRoleA entering Run()");
@@ -34,7 +33,8 @@ namespace WorkerRoleA
             {
                 Stopwatch requestTimer = Stopwatch.StartNew();
                 var request = RequestTelemetryHelper.StartNewRequest("ProcessMessageWorkflow", DateTimeOffset.UtcNow);
-                
+                CallContext.LogicalSetData(CORRELATION_SLOT, request.Id);
+                //Thread.SetData(Thread.GetNamedDataSlot(CORRELATION_SLOT), request.Id);                
                 try
                 {
                     var tomorrow = DateTime.Today.AddDays(1.0).ToString("yyyy-MM-dd");
@@ -94,8 +94,8 @@ namespace WorkerRoleA
                         }
                     }
                     RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), true);    
-                    // Sleep for one minute to minimize query costs. 
-                    System.Threading.Thread.Sleep(1000 * 60);
+                    // Sleep to minimize query costs. 
+                    System.Threading.Thread.Sleep(1000 * 30);
                 }
                 catch (Exception ex)
                 {
@@ -231,6 +231,7 @@ namespace WorkerRoleA
         public override bool OnStart()
         {
             TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("Telemetry.AI.InstrumentationKey");
+            TelemetryConfiguration.Active.TelemetryInitializers.Add(new ItemCorrelationTelemetryInitializer());
             ServicePointManager.DefaultConnectionLimit = Environment.ProcessorCount * 12;
 
             Trace.TraceInformation("Initializing storage account in WorkerA");
