@@ -1,21 +1,20 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using Microsoft.WindowsAzure.Diagnostics;
+using System.Runtime.Remoting.Messaging;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Table;
 using MvcWebRole.Models;
 using SendGridMail;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
-using System.Collections.Generic;
-using Microsoft.ApplicationInsights.DataContracts;
-using MvcWebRole.Telemetry;
+using WorkerRoleB.Telemetry;
 
 namespace WorkerRoleB
 {
@@ -30,8 +29,8 @@ namespace WorkerRoleB
         private volatile bool onStopCalled = false;
         private volatile bool returnedFromRunMethod = false;
 
-        private static TelemetryClient aiClient = new TelemetryClient();
-        
+        private TelemetryClient aiClient = new TelemetryClient();
+        private static string CORRELATION_SLOT = "CORRELATION-ID";
         public override void Run()
         {
             CloudQueueMessage msg = null;
@@ -68,7 +67,7 @@ namespace WorkerRoleB
                     
                     if (messageFound == false)
                     {
-                        System.Threading.Thread.Sleep(1000 * 60);
+                        System.Threading.Thread.Sleep(1000 * 30);
                     }
                     else
                     {
@@ -105,6 +104,8 @@ namespace WorkerRoleB
         {
             Stopwatch requestTimer = Stopwatch.StartNew();
             var request = RequestTelemetryHelper.StartNewRequest("ProcessEmailQueueMessage", DateTimeOffset.UtcNow);
+            CallContext.LogicalSetData(CORRELATION_SLOT, request.Id);
+            //Thread.SetData(Thread.GetNamedDataSlot(CORRELATION_SLOT), request.Id);
             try
             {
                 // Log and delete if this is a "poison" queue message (repeatedly processed
@@ -263,6 +264,8 @@ namespace WorkerRoleB
         {
             Stopwatch requestTimer = Stopwatch.StartNew();
             var request = RequestTelemetryHelper.StartNewRequest("ProcessSubscribeQueueMessage", DateTimeOffset.UtcNow);
+            CallContext.LogicalSetData(CORRELATION_SLOT, request.Id);
+            //Thread.SetData(Thread.GetNamedDataSlot(CORRELATION_SLOT), request.Id);
             try
             {
                 // Log and delete if this is a "poison" queue message (repeatedly processed
@@ -358,6 +361,7 @@ namespace WorkerRoleB
         public override bool OnStart()
         {
             TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("Telemetry.AI.InstrumentationKey");
+            TelemetryConfiguration.Active.TelemetryInitializers.Add(new ItemCorrelationTelemetryInitializer());
             ServicePointManager.DefaultConnectionLimit = Environment.ProcessorCount * 12;
 
             Trace.TraceInformation("Initializing storage account in worker role B");
