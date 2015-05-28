@@ -15,6 +15,16 @@
       <Setting name="StorageConnectionString" />
       <Setting name="Telemetry.AI.InstrumentationKey" />
     </ConfigurationSettings>
+    <Startup>
+      <Task commandLine="AppInsightsAgent\InstallAgent.bat" executionContext="elevated" taskType="simple">
+        <Environment>
+          <Variable name="ApplicationInsightsAgent.DownloadLink" value="http://go.microsoft.com/fwlink/?LinkID=522371" />
+          <Variable name="RoleEnvironment.IsEmulated">
+            <RoleInstanceValue xpath="/RoleEnvironment/Deployment/@emulated" />
+          </Variable>
+        </Environment>
+      </Task>
+    </Startup>
   </WebRole>
   <WorkerRole name="WorkerRoleA" vmsize="Small">
     <ConfigurationSettings>
