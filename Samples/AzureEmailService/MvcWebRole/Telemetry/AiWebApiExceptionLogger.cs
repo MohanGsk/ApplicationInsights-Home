@@ -1,9 +1,5 @@
-﻿using Microsoft.ApplicationInsights;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http.ExceptionHandling;
+﻿using System.Web.Http.ExceptionHandling;
+using Microsoft.ApplicationInsights;
 
 namespace MvcWebRole.Telemetry
 {
