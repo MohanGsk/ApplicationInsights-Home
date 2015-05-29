@@ -8,6 +8,9 @@ This is a sample Azure Cloud Service: [AzureEmailService](https://code.msdn.micr
 In addition to collecting the following telemetry, we will also show how you can use the SDK to enable powerful diagnostics with correlated telemetry. With the web role this is available out of the box. We correlate the traces, exceptions, dependency calls to the specific request instance for you.
 For worker roles, you can do the same (enrich with custom logic!) with a custom TelemetryInitializer as we show in the sample.
 
+**Prerequisite:** You need to create the Application Insights resources which will be containers for the telemetry your application generates. See [this](https://azure.microsoft.com/en-us/documentation/articles/app-insights-start-monitoring-app-health-usage/) for more information on how you can create the resources, get the instrumentation keys etc. 
+  * You can manage roles/environments to AI resource mappings however you like: You could have a separate resource for each role & environment (recommended, sample shows how) or manage an AI resource per logical group of resources
+
 Click through to the [web role](MvcWebRole) or either worker role [A](WorkerRoleA) or [B](WorkerRoleB) for documentation on how each is configured to collect the following telemetry.
 
 * Requests

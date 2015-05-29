@@ -16,6 +16,7 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
 	* ASP.NET MVC Web API: Per above both requests “/api/movies/” and “/api/movies/5” will be result in “GET movies”. To support Web API better, request name includes the list of all names of routing parameters if “action” parameter wasn’t found. In this case, the requests will be reported as “GET movies” and “GET movies[id]”.
     * If routing table is empty or doesn’t have “controller” - HttpRequest.Path will be used as a request name. This property doesn’t include domain name and query string.
     * NOTE: Request names are case-sensitive. If the default rules do not work for your application (each request gets a unique name for instance) - you could provide a custom WebOperationNameTelemetryInitializer implementation to override default behavior.
+	![webrole overview blade](./readme_media/webroleoverview.png)
 * **Dependency**
   * This web role is set up with the [Application Insights Agent](http://azure.microsoft.com/en-us/documentation/articles/app-insights-monitor-performance-live-website-now/) AKA "Status Monitor"
   * In addition to collecting SYNC/ASYNC dependency calls, using the AI Agent also gets you additional information such as SQL statements
@@ -55,7 +56,7 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
 * The JavaScript can also read from the same as shown [here](Views/Shared/_Layout.cshtml#L9). 
   * Note that this has a slight performance overhead, but is helpful if you are looking to report both client and server side telemetry to the same instrumentation key
 
-#Important
+###Important
 * If user/session telemetry is not applicable for your web/worker role, we recommend you remove the following telemetry modules and initializers from the ApplicationInsights.config file
   * [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L9)
   * [WebUserTrackingTelemetryModule](ApplicationInsights.config#L10)

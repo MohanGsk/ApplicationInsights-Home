@@ -67,7 +67,7 @@ With web roles traces, exceptions, dependency calls etc. are correlated out of t
 * Set the Instrumentation key in the respective CSCFG files
 * Configure it at role start up time, in the OnStart function as shown [here](WorkerRoleB.cs#L363)
 
-#Important
+###Important
 * We encourage you to add the [Application Insights for Web] (http://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) nuget as that adds modules that add server context like the Role information etc.
 * If user/session telemetry is not applicable for your web/worker role, we recommend you remove the following telemetry modules and initializers from the ApplicationInsights.config file
   * [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L34)
