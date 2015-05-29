@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="AzureEmailService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2014-06.2.4">
+  <Role name="MvcWebRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Telemetry.AI.InstrumentationKey" value="WEBROLE-DEV-IKEY" />
+    </ConfigurationSettings>
+  </Role>
+  <Role name="WorkerRoleA">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Telemetry.AI.InstrumentationKey" value="WORKERROLEA-DEV-IKEY" />      
+    </ConfigurationSettings>    
+  </Role>
+  <Role name="WorkerRoleB">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="SendGridUserName" value="yourusername" />
+      <Setting name="SendGridPassword" value="yourpassword" />
+      <Setting name="AzureMailServiceURL" value="http://yourURL.cloudapp.net" />
+      <Setting name="Telemetry.AI.InstrumentationKey" value="WORKERROLEB-DEV-IKEY" />
+    </ConfigurationSettings>    
+  </Role>
+</ServiceConfiguration>

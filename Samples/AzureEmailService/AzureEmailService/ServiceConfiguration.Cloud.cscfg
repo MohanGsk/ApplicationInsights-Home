@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="AzureEmailService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2014-06.2.4">
+  <Role name="MvcWebRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=http;AccountName=YOUR-STORAGE-ACCOUNT;AccountKey=YOUR-STORAGE-ACCOUNT-KEY" />
+      <Setting name="Telemetry.AI.InstrumentationKey" value="WEBROLE-PROD-IKEY" />      
+    </ConfigurationSettings>    
+  </Role>
+  <Role name="WorkerRoleA">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=http;AccountName=YOUR-STORAGE-ACCOUNT;AccountKey=YOUR-STORAGE-ACCOUNT-KEY" />
+      <Setting name="Telemetry.AI.InstrumentationKey" value="WORKERROLEA-PROD-IKEY" />      
+    </ConfigurationSettings>    
+  </Role>
+  <Role name="WorkerRoleB">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=http;AccountName=YOUR-STORAGE-ACCOUNT;AccountKey=YOUR-STORAGE-ACCOUNT-KEY" />
+      <Setting name="SendGridUserName" value="SEND-GRID-USERNAME" />
+      <Setting name="SendGridPassword" value="SEND-GRID-PASSWORD" />
+      <Setting name="AzureMailServiceURL" value="smtp.sendgrid.net" />
+      <Setting name="Telemetry.AI.InstrumentationKey" value="WORKERROLEB-PROD-IKEY" />      
+    </ConfigurationSettings>    
+  </Role>
+</ServiceConfiguration>
