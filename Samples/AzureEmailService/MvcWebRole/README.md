@@ -26,9 +26,9 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
 	* NOTE: *Worker roles* require 3 environment variables as shown [here](../AzureEmailService/ServiceDefinition.csdef#L44). This is not required for web roles
 
 * Rich diagnostics with the automatically correlated requests and dependencies:
-  <img src="http://i.imgur.com/RDxktEK.png" width="450">
+  <img src="http://i.imgur.com/SMxacy4.png" width="450">
 * Performance of the web role, with dependency information:
-  <img src="http://i.imgur.com/hbSYkBJ.png" width="450">
+  <img src="http://i.imgur.com/6yOBtKu.png" width="450">
 
 * **Exception**
   * This web role has MVC5 and Web API 2 controllers. The unhandled exceptions from the 2 are captured with the following:
@@ -53,13 +53,13 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
 	* \ASP.NET Applications(??APP_W3SVC_PROC??)\Request Execution Time
 	* \ASP.NET Applications(??APP_W3SVC_PROC??)\Requests In Application Queue
   * You can specify additional custom or other windows performance counters as shown [here](ApplicationInsights.config#L22)
-    <img src="http://i.imgur.com/TQWk0si.png" width="450">
+    <img src="http://i.imgur.com/ogrk8Ub.png" width="450">
 
 * **Page Views**
   * Collected automatically by adding the [JavaScript nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.JavaScript)
   * You could also just add a JavaScript snippet to shared "master" file as shown [here](Views/Shared/_Layout.cshtml#L9)
   * See [JavaScript SDK](https://azure.microsoft.com/en-us/documentation/articles/app-insights-web-track-usage/) for more information on custom usage telemetry you could collect
-  <img src="http://i.imgur.com/TorDxCM.png" width="450">
+  <img src="http://i.imgur.com/L1INBSd.png" width="450">
   
 **Environment support:** To collect AI telemetry from multiple environments (DEV/INT/Pre-Prod/PROD etc): 
 * Set the Instrumentation key in the respective CSCFG files

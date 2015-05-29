@@ -34,7 +34,7 @@ With web roles traces, exceptions, dependency calls etc. are correlated out of t
 	* For worker roles, add 3 environment variables as shown [here](../AzureEmailService/ServiceDefinition.csdef#L70)
   * In addition to collecting SYNC dependency calls, the [Application Insights Agent](http://azure.microsoft.com/en-us/documentation/articles/app-insights-monitor-performance-live-website-now/) has additional capabilities such as collection of SQL statements etc.
   * Here's a screenshot on the requests and dependency information for this worker role:
-<img src="http://i.imgur.com/SfoAxQP.png" width="450">
+<img src="http://i.imgur.com/FMufgma.png" width="450">
 
 * **Exception**
   * With System.Diagnostics traces, if you log out the exception, and have added the AI trace listener nuget - we will automatically collect and send those. [loc](WorkerRoleB.cs#L88)
@@ -46,7 +46,7 @@ With web roles traces, exceptions, dependency calls etc. are correlated out of t
 
 * **Custom Events & Metrics**
   * This worker role is instrumented to send a custom metric "LoopWithMessagesTimeMs" as shown [here](WorkerRoleB.cs#L74).
-    <img src="http://i.imgur.com/vkKTZbH.png" width="450">
+    <img src="http://i.imgur.com/jZ1HNt3.png" width="450">
 
 * **Performance Counters**
   * The following counters are collected by default:
@@ -57,7 +57,7 @@ With web roles traces, exceptions, dependency calls etc. are correlated out of t
 	* \Process(??APP_WIN32_PROC??)\IO Data Bytes/sec
 	* \Processor(_Total)\% Processor Time
   * You can specify additional custom or other windows performance counters as shown [here](ApplicationInsights.config#L14)
-<img src="http://i.imgur.com/qnKWJGB.png" width="450">
+<img src="http://i.imgur.com/D7DZGnm.png" width="450">
 
 * **Correlated Telemetry**
   * It is a rich diagnostic experience, when you can see what led to a failed or high latency request. With a custom telemetry initializer, you can set a common Operation.Id context attribute for all the telemetry to achieve this.
@@ -66,7 +66,7 @@ With web roles traces, exceptions, dependency calls etc. are correlated out of t
 	* Add a custom TelemetryInitializer implementation, that will set the Operation.Id to the correlationId set above. Shown here: [ItemCorrelationTelemetryInitializer] (Telemetry/ItemCorrelationTelemetryInitializer.cs#L13)
 	* Add the custom telemetry initializer. You could do that in the ApplicationInsights.config file, or in code as shown [here](WorkerRoleB.cs#L364)
 	* That's it! The portal experience is already wired up to help you see all associated telemetry at a glace:
-<img src="http://i.imgur.com/rVMfPBb.png" width="450">
+<img src="http://i.imgur.com/EKtdr1B.png" width="450">
 
 **Environment support:** To collect AI telemetry from multiple environments (DEV/INT/Pre-Prod/PROD etc): 
 * Set the Instrumentation key in the respective CSCFG files
