@@ -8,6 +8,8 @@ This is a sample Azure Cloud Service: [AzureEmailService](https://code.msdn.micr
 In addition to collecting the following telemetry, we will also show how you can use the SDK to enable powerful diagnostics with correlated telemetry. With the web role this is available out of the box. We correlate the traces, exceptions, dependency calls to the specific request instance for you.
 For worker roles, you can do the same (enrich with custom logic!) with a custom TelemetryInitializer as we show in the sample.
 
+Click through to the [web role](MvcWebRole) or either worker role [A](WorkerRoleA) or [B](WorkerRoleB) for documentation on how each is configured to collect the following telemetry.
+
 * Requests
   * The web role has a sample of how you can override the default behavior on the requests that are reported as failed
   * The worker roles show how you can instrument different operations in them, reported as requests
