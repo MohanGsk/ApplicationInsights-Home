@@ -16,7 +16,8 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
 	* ASP.NET MVC Web API: Per above both requests “/api/movies/” and “/api/movies/5” will be result in “GET movies”. To support Web API better, request name includes the list of all names of routing parameters if “action” parameter wasn’t found. In this case, the requests will be reported as “GET movies” and “GET movies[id]”.
     * If routing table is empty or doesn’t have “controller” - HttpRequest.Path will be used as a request name. This property doesn’t include domain name and query string.
     * NOTE: Request names are case-sensitive. If the default rules do not work for your application (each request gets a unique name for instance) - you could provide a custom WebOperationNameTelemetryInitializer implementation to override default behavior.
-	![webrole overview blade](./readme_media/webroleoverview.png)
+	![webrole overview blade](../readme_media/webroleoverview.png)
+
 * **Dependency**
   * This web role is set up with the [Application Insights Agent](http://azure.microsoft.com/en-us/documentation/articles/app-insights-monitor-performance-live-website-now/) AKA "Status Monitor"
   * In addition to collecting SYNC/ASYNC dependency calls, using the AI Agent also gets you additional information such as SQL statements
@@ -24,19 +25,23 @@ This sample web role is instrumented with the [Application Insights for Web] (ht
     * Add the [AppInsightsAgent](AppInsightsAgent) folder and the 2 files in it to your web/worker role projects. Be sure to set them up to be copied always into the output directory
 	* Add the start up task to the CSDEF file as shown [here](../AzureEmailService/ServiceDefinition.csdef#L18)
 	* NOTE: *Worker roles* require 3 environment variables as shown [here](../AzureEmailService/ServiceDefinition.csdef#L44). This is not required for web roles
+
 * **Exception**
   * This web role has MVC5 and Web API 2 controllers. The unhandled exceptions from the 2 are captured with the following:
     * [AiHandleErrorAttribute](Telemetry/AiHandleErrorAttribute.cs) set up [here](App_Start/FilterConfig.cs#L12) for MVC5 controllers
 	* [AiWebApiExceptionLogger](Telemetry/AiWebApiExceptionLogger.cs) set up [here](App_Start/WebApiConfig.cs#L25) for Web API 2 controllers
 	* See [this article](http://azure.microsoft.com/en-us/documentation/articles/app-insights-asp-net-exceptions/), for information on how you can collect unhandled exceptions from other application types 
+
 * **Page Views**
   * Collected automatically by adding the [JavaScript nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.JavaScript)
   * You could also just add a JavaScript snippet to shared "master" file as shown [here](Views/Shared/_Layout.cshtml#L9)
   * See [JavaScript SDK](https://azure.microsoft.com/en-us/documentation/articles/app-insights-web-track-usage/) for more information on custom usage telemetry you could collect
+
 * **Traces**
   * This web role uses System.Diagnostics traces. They are automatically collected with the [TraceListener](http://www.nuget.org/packages/Microsoft.ApplicationInsights.TraceListener) nuget added
   * NLog, log4Net etc. also supported. See this [article](http://azure.microsoft.com/en-us/documentation/articles/app-insights-search-diagnostic-logs/) for more information on collecting traces from your worker roles
   * If you trace exceptions, the rich detail with exceptions will automatically be collected
+
 * **Performance Counters**
   * The following counters are collected by default:
     * \Process(??APP_WIN32_PROC??)\% Processor Time
