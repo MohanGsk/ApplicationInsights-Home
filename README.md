@@ -11,6 +11,8 @@ More information about Application Insights can be found [here](http://azure.mic
 
 [Asp.Net v5](https://github.com/Microsoft/ApplicationInsights-aspnetv5)
 
+[C++](https://github.com/Microsoft/ApplicationInsights-CPP)
+
 [iOS](https://github.com/Microsoft/ApplicationInsights-iOS)
 
 [JavaScript](https://github.com/Microsoft/ApplicationInsights-js)
