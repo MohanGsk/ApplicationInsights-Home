@@ -39,8 +39,8 @@ To track dependencies, you have to set up the web role with the [Application Ins
 To use the Application Insights Agent with your web roles:
 
 * Add the [AppInsightsAgent](AppInsightsAgent) folder and the 2 files in it to your web/worker role projects. Be sure to set their build properties so that they are always copied into the output directory. These files install the agent.
- * Add the start up task to the CSDEF file as shown [here](../AzureEmailService/ServiceDefinition.csdef#L18)
- * NOTE: *Worker roles* require 3 environment variables as shown [here](../AzureEmailService/ServiceDefinition.csdef#L44). This is not required for web roles.
+* Add the start up task to the CSDEF file as shown [here](../AzureEmailService/ServiceDefinition.csdef#L18)
+* NOTE: *Worker roles* require 3 environment variables as shown [here](../AzureEmailService/ServiceDefinition.csdef#L44). This is not required for web roles.
 
 Here's an example of what you see at the Application Insights portal:
 
