@@ -6,7 +6,7 @@ The only changes we've made to the original code are related to Application Insi
 
 We began by instrumenting this worker role with the [Application Insights for Web] (http://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) NuGet package. That package collects a variety of telemetry. We also added some logic to collect additional diagnostic telemetry.
 
-To monitor web roles, there are some specific customizations that are advisable to get the best results.
+To monitor worker roles, there are some specific customizations that are advisable to get the best results.
 
 **Important**: Please be sure to set the ApplicationInsights.config file to be copied always to the output directory. This is only required for worker roles.
 
