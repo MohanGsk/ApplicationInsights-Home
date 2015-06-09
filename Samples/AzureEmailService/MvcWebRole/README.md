@@ -14,8 +14,8 @@ The [Application Insights for web NuGet package](http://www.nuget.org/packages/M
 
 An HTTP request is considered failed if the response has a statusCode >= 400, by default. If that does not work for you (for example if you don't consider 401 a failure), you can override the default behavior:
 
-    * Provide a custom implementation of the ITelemetryInitializer interface, like the example [here](Telemetry/MyTelemetryInitializer.cs)
-    * Add this to the list of TelemetryInitializers in ApplicationInsights.config as shown [here](ApplicationInsights.config#L56). You can also [write code to add the initializer](http://go.microsoft.com/fwlink/?LinkID=401493#telemetry-initializers).
+* Provide a custom implementation of the ITelemetryInitializer interface, like the example [here](Telemetry/MyTelemetryInitializer.cs
+* Add this to the list of TelemetryInitializers in ApplicationInsights.config as shown [here](ApplicationInsights.config#L56). You can also [write code to add the initializer](http://go.microsoft.com/fwlink/?LinkID=401493#telemetry-initializers).
     
 #### Request name
 
@@ -23,10 +23,10 @@ In the Application Insights portal, you can group Request telemetry by the "Requ
 
 The default naming scheme is the following:
 
-    * ASP.NET MVC: Request name is set to [VERB controller/action]( http://www.asp.net/mvc/overview/getting-started/introduction/adding-a-controller). For example, a request with URL http://myhost.com/api/movies will be reported as "GET api/movies".
-    * If the URL contains an MVC parameter segment such as “http://myhost.com/api/movies/5”, the request will be reported using the name of the parameter defined in the registered route maps. Using the default map, this would be “GET api/movies[id]”.
-    * If the routing table is empty or doesn’t have “controller”, HttpRequest.Path will be used as a request name. This property doesn’t include domain name and query string.
-    * NOTE: Request names are case-sensitive. 
+* ASP.NET MVC: Request name is set to [VERB controller/action]( http://www.asp.net/mvc/overview/getting-started/introduction/adding-a-controller). For example, a request with URL http://myhost.com/api/movies will be reported as "GET api/movies".
+* If the URL contains an MVC parameter segment such as “http://myhost.com/api/movies/5”, the request will be reported using the name of the parameter defined in the registered route maps. Using the default map, this would be “GET api/movies[id]”.
+* If the routing table is empty or doesn’t have “controller”, HttpRequest.Path will be used as a request name. This property doesn’t include domain name and query string.
+* NOTE: Request names are case-sensitive. 
     
 If the default rules do not work for your application (for example, each request gets a unique name), you could provide a custom WebOperationNameTelemetryInitializer implementation to override the default behavior.
 
@@ -38,9 +38,9 @@ To track dependencies, you have to set up the web role with the [Application Ins
  
 To use the Application Insights Agent with your web roles:
 
-    * Add the [AppInsightsAgent](AppInsightsAgent) folder and the 2 files in it to your web/worker role projects. Be sure to set their build properties so that they are always copied into the output directory. These files install the agent.
-	* Add the start up task to the CSDEF file as shown [here](../AzureEmailService/ServiceDefinition.csdef#L18)
-	* NOTE: *Worker roles* require 3 environment variables as shown [here](../AzureEmailService/ServiceDefinition.csdef#L44). This is not required for web roles.
+* Add the [AppInsightsAgent](AppInsightsAgent) folder and the 2 files in it to your web/worker role projects. Be sure to set their build properties so that they are always copied into the output directory. These files install the agent.
+ * Add the start up task to the CSDEF file as shown [here](../AzureEmailService/ServiceDefinition.csdef#L18)
+ * NOTE: *Worker roles* require 3 environment variables as shown [here](../AzureEmailService/ServiceDefinition.csdef#L44). This is not required for web roles.
 
 Here's an example of what you see at the Application Insights portal:
 
@@ -54,8 +54,8 @@ Here's an example of what you see at the Application Insights portal:
 
 This web role has MVC5 and Web API 2 controllers. The unhandled exceptions from the 2 are captured with the following:
 
-    * [AiHandleErrorAttribute](Telemetry/AiHandleErrorAttribute.cs) set up [here](App_Start/FilterConfig.cs#L12) for MVC5 controllers
-	* [AiWebApiExceptionLogger](Telemetry/AiWebApiExceptionLogger.cs) set up [here](App_Start/WebApiConfig.cs#L25) for Web API 2 controllers
+* [AiHandleErrorAttribute](Telemetry/AiHandleErrorAttribute.cs) set up [here](App_Start/FilterConfig.cs#L12) for MVC5 controllers
+* [AiWebApiExceptionLogger](Telemetry/AiWebApiExceptionLogger.cs) set up [here](App_Start/WebApiConfig.cs#L25) for Web API 2 controllers
 
 See [this article](http://azure.microsoft.com/documentation/articles/app-insights-asp-net-exceptions/), for information on how you can collect unhandled exceptions from other application types.
 
@@ -89,8 +89,8 @@ You can specify additional custom or other windows performance counters as shown
 
 Collected automatically by adding the [JavaScript nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.JavaScript) 
 
-  * You could also just add a JavaScript snippet to shared "master" file as shown [here](Views/Shared/_Layout.cshtml#L9)
-  * See [JavaScript SDK](https://azure.microsoft.com/documentation/articles/app-insights-web-track-usage/) for more information on custom usage telemetry you could collect
+* You could also just add a JavaScript snippet to shared "master" file as shown [here](Views/Shared/_Layout.cshtml#L9)
+* See [JavaScript SDK](https://azure.microsoft.com/documentation/articles/app-insights-web-track-usage/) for more information on custom usage telemetry you could collect
   <img src="http://i.imgur.com/L1INBSd.png" width="450">
   
 ## Environment support
@@ -102,7 +102,7 @@ To collect AI telemetry from multiple environments (DEV/INT/Pre-Prod/PROD etc):
 * The JavaScript can also read from the same as shown [here](Views/Shared/_Layout.cshtml#L9). 
   * Note that this has a slight performance overhead, but is helpful if you are looking to report both client and server side telemetry to the same instrumentation key
 
-###Important
+## Important
 
 * If user/session telemetry is not applicable for your web/worker role, we recommend you remove the following telemetry modules and initializers from the ApplicationInsights.config file
   * [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L9)
