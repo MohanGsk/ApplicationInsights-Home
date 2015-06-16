@@ -100,10 +100,3 @@ To collect Application Insights telemetry from multiple environments (DEV/INT/Pr
 ###Important
 
 * We encourage you to add the [Application Insights for Web] (http://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) nuget as that adds modules that add server context like the Role information etc.
-* If user/session telemetry is not applicable for your web/worker role, we recommend you remove the following telemetry modules and initializers from the ApplicationInsights.config file
-  * [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L34)
-  * [WebUserTrackingTelemetryModule](ApplicationInsights.config#L35)
-  * [WebSessionTelemetryInitializer](ApplicationInsights.config#L65)
-  * [WebUserTelemetryInitializer](ApplicationInsights.config#L59)
-* If your web/worker role has a mix of browser based clients & others, and you do have your web clients instrumented with the [JavaScript nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.JavaScript):
-  * Add SetCookie = false to the [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L36) and [WebUserTrackingTelemetryModule](ApplicationInsights.config#L37) as mentioned [here](ApplicationInsights.config#L42)
