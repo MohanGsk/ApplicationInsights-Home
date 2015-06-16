@@ -123,7 +123,7 @@ namespace WorkerRoleB
                     {
                         request.Metrics.Add(new KeyValuePair<string, double>("EmailProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
                     }
-                    RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                    RequestTelemetryHelper.DispatchRequest(request, requestTimer.Elapsed, false);
                     return;
                 }
                 // Parse message retrieved from queue.
@@ -160,7 +160,7 @@ namespace WorkerRoleB
                         {
                             request.Metrics.Add(new KeyValuePair<string, double>("EmailProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
                         }
-                        RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), true);
+                        RequestTelemetryHelper.DispatchRequest(request, requestTimer.Elapsed, true);
                         return;
                     }
                 }
@@ -176,7 +176,7 @@ namespace WorkerRoleB
                     {
                         request.Metrics.Add(new KeyValuePair<string, double>("EmailProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
                     }
-                    RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                    RequestTelemetryHelper.DispatchRequest(request, requestTimer.Elapsed, false);
                     return;
                 }
                 // Derive blob names from the MessageRef.
@@ -204,7 +204,7 @@ namespace WorkerRoleB
                 {
                     request.Metrics.Add(new KeyValuePair<string, double>("EmailProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
                 }
-                RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), true);
+                RequestTelemetryHelper.DispatchRequest(request, requestTimer.Elapsed, true);
             }
             catch (Exception ex)
             {
@@ -213,7 +213,7 @@ namespace WorkerRoleB
                 {
                     request.Metrics.Add(new KeyValuePair<string, double>("FailedEmailProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
                 }
-                RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                RequestTelemetryHelper.DispatchRequest(request, requestTimer.Elapsed, false);
                 throw ex;
             }            
         }
@@ -283,7 +283,7 @@ namespace WorkerRoleB
                     {
                         request.Metrics.Add(new KeyValuePair<string, double>("SubscribeProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
                     }
-                    RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                    RequestTelemetryHelper.DispatchRequest(request, requestTimer.Elapsed, false);
                     return;
                 }
                 // Parse message retrieved from queue. Message consists of
@@ -315,7 +315,7 @@ namespace WorkerRoleB
                 {
                     request.Metrics.Add(new KeyValuePair<string, double>("SubscribeProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
                 }
-                RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), true);
+                RequestTelemetryHelper.DispatchRequest(request, requestTimer.Elapsed, true);
             }
             catch (Exception ex)
             {
@@ -324,7 +324,7 @@ namespace WorkerRoleB
                 {
                     request.Metrics.Add(new KeyValuePair<string, double>("FailedSubscribeProcessingTimeMs", ((TimeSpan)(DateTimeOffset.Now - msg.InsertionTime)).Milliseconds));
                 }
-                RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                RequestTelemetryHelper.DispatchRequest(request, requestTimer.Elapsed, false);
                 throw ex;
             }
             

@@ -101,13 +101,3 @@ To collect AI telemetry from multiple environments (DEV/INT/Pre-Prod/PROD etc):
 * Configure it at application start up time, in the global.asax.cs file for web roles as shown [here](Global.asax.cs#L27)
 * The JavaScript can also read from the same as shown [here](Views/Shared/_Layout.cshtml#L9). 
   * Note that this has a slight performance overhead, but is helpful if you are looking to report both client and server side telemetry to the same instrumentation key
-
-## Important
-
-* If user/session telemetry is not applicable for your web/worker role, we recommend you remove the following telemetry modules and initializers from the ApplicationInsights.config file
-  * [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L9)
-  * [WebUserTrackingTelemetryModule](ApplicationInsights.config#L10)
-  * [WebSessionTelemetryInitializer](ApplicationInsights.config#L63)
-  * [WebUserTelemetryInitializer](ApplicationInsights.config#L62)
-* If your web/worker role has a mix of browser based clients & others, and you do have your web clients instrumented with the [JavaScript nuget](http://www.nuget.org/packages/Microsoft.ApplicationInsights.JavaScript):
-  * Add SetCookie = false to the [WebSessionTrackingTelemetryModule](ApplicationInsights.config#L9) and [WebUserTrackingTelemetryModule](ApplicationInsights.config#L10) as mentioned [here](ApplicationInsights.config#L17)

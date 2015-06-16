@@ -93,7 +93,7 @@ namespace WorkerRoleA
                             CheckAndArchiveIfComplete(messageToProcess);
                         }
                     }
-                    RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), true);    
+                    RequestTelemetryHelper.DispatchRequest(request, requestTimer.Elapsed, true);    
                     // Sleep to minimize query costs. 
                     System.Threading.Thread.Sleep(1000 * 30);
                 }
@@ -105,7 +105,7 @@ namespace WorkerRoleA
                         err += " Inner Exception: " + ex.InnerException.Message;
                     }
                     Trace.TraceError(err, ex);
-                    RequestTelemetryHelper.DispatchRequest(request, new TimeSpan(requestTimer.ElapsedTicks), false);
+                    RequestTelemetryHelper.DispatchRequest(request, requestTimer.Elapsed, false);
                     // Don't fill up Trace storage if we have a bug in queue process loop.
                     System.Threading.Thread.Sleep(1000 * 60);
                 }
