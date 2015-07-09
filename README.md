@@ -11,6 +11,8 @@ More information about Application Insights can be found [here](http://azure.mic
 
 [Asp.Net v5](https://github.com/Microsoft/ApplicationInsights-aspnetv5)
 
+[C++ Universal apps](https://github.com/Microsoft/ApplicationInsights-CPP)
+
 [iOS](https://github.com/Microsoft/ApplicationInsights-iOS)
 
 [JavaScript](https://github.com/Microsoft/ApplicationInsights-js)
@@ -19,7 +21,7 @@ More information about Application Insights can be found [here](http://azure.mic
 
 [Node.js](https://github.com/Microsoft/ApplicationInsights-node.js)
 
-[OSX] (https://github.com/Microsoft/ApplicationInsights-OSX)
+[OSX](https://github.com/Microsoft/ApplicationInsights-OSX)
 
 [PHP](https://github.com/Microsoft/ApplicationInsights-PHP)
 
@@ -29,7 +31,7 @@ More information about Application Insights can be found [here](http://azure.mic
 
 WordPress on [GitHub](https://github.com/Microsoft/ApplicationInsights-WordPress) and Release Version on [Wordpress.org](https://wordpress.org/plugins/application-insights/)
 
-
+[Xamarin](https://github.com/Microsoft/ApplicationInsights-Xamarin)
 
 
 
