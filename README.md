@@ -13,6 +13,8 @@ More information about Application Insights can be found [here](http://azure.mic
 
 [C++ Universal apps](https://github.com/Microsoft/ApplicationInsights-CPP)
 
+[DotNet Core](https://github.com/Microsoft/ApplicationInsights-dotnet)
+
 [iOS](https://github.com/Microsoft/ApplicationInsights-iOS)
 
 [JavaScript](https://github.com/Microsoft/ApplicationInsights-js)
