@@ -4,6 +4,8 @@ Welcome to the central repository for Application Insights projects. We intend t
 
 More information about Application Insights can be found [here](http://azure.microsoft.com/documentation/articles/app-insights-get-started/).
 
+For SDK and service announcements - subscribe to [ApplicationInsights-Announcements](https://github.com/Microsoft/ApplicationInsights-Announcements)
+
 
 ##Our Repositories##
 
