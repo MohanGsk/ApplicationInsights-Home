@@ -111,14 +111,18 @@
     <Compile Include="WorkerRoleA.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="AppInsightsAgent\InstallAgent.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="AppInsightsAgent\InstallAgent.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ApplicationInsights.config" />
+    <None Include="ApplicationInsights.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="AppInsightsAgent\InstallAgent.bat">
       <Link>AppInsightsAgent\InstallAgent.bat</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

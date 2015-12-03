@@ -360,7 +360,7 @@ namespace WorkerRoleB
 
         public override bool OnStart()
         {
-            TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("Telemetry.AI.InstrumentationKey");
+            TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("APPINSIGHTS_INSTRUMENTATIONKEY");
             TelemetryConfiguration.Active.TelemetryInitializers.Add(new ItemCorrelationTelemetryInitializer());
             ServicePointManager.DefaultConnectionLimit = Environment.ProcessorCount * 12;
 

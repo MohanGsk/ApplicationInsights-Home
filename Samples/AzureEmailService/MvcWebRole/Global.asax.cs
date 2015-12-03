@@ -24,7 +24,7 @@ namespace MvcWebRole
             // Verify that all of the tables, queues, and blob containers used in this application
             // exist, and create any that don't already exist.
             CreateTablesQueuesBlobContainers();
-            TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("Telemetry.AI.InstrumentationKey"); 
+            TelemetryConfiguration.Active.InstrumentationKey = RoleEnvironment.GetConfigurationSettingValue("APPINSIGHTS_INSTRUMENTATIONKEY"); 
         }
 
         private static void CreateTablesQueuesBlobContainers()
