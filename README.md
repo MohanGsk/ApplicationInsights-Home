@@ -17,9 +17,11 @@ For SDK and service announcements - subscribe to [ApplicationInsights-Announceme
 
 [DotNet Core](https://github.com/Microsoft/ApplicationInsights-dotnet)
 
+[DotNet Logging Adaptors](https://github.com/Microsoft/ApplicationInsights-dotnet-logging)
+
 [DotNet Server](https://github.com/Microsoft/ApplicationInsights-server-dotnet)
 
-[DotNet Logging Adaptors](https://github.com/Microsoft/ApplicationInsights-dotnet-logging)
+[Go](https://github.com/Microsoft/ApplicationInsights-Go)
 
 [iOS](https://github.com/Microsoft/ApplicationInsights-iOS)
 
