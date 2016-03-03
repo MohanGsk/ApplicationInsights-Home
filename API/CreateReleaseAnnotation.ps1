@@ -17,7 +17,7 @@ param(
 # 4. Client, such as a powershell script, knows that status code “302” means redirection to new a location, and the target location is “http://www.bing.com”
 function GetRequestUrlFromFwLink($fwLink)
 {
-    $request = Invoke-WebRequest -Uri $fwLink -MaximumRedirection 0 -ErrorAction Ignore
+    $request = Invoke-WebRequest -Uri $fwLink -MaximumRedirection 0 -UseBasicParsing -ErrorAction Ignore
     if ($request.StatusCode -eq "302") {
         return $request.Headers.Location
     }
@@ -30,18 +30,26 @@ function CreateAnnotation($grpEnv)
 	$retries = 1
 	$success = $false
 	while (!$success -and $retries -lt 6) {
-		Write-Host "Invoke a web request to create a new release annotation. Attempting $retries"
+	    $location = "$grpEnv/applications/$applicationId/Annotations?api-version=2015-11"
+		    
+		Write-Host "Invoke a web request for $location to create a new release annotation. Attempting $retries"
 		set-variable -Name createResultStatus -Force -Scope Local -Value $null
 		set-variable -Name createResultStatusDescription -Force -Scope Local -Value $null
 		set-variable -Name result -Force -Scope Local
 
 		try {
-			$result = Invoke-RestMethod -Uri "$grpEnv/applications/$applicationId/Annotations?api-version=2015-11" -Method Put -Body $bodyJson -Headers $headers -ContentType "application/json; charset=utf-8"
+			$result = Invoke-WebRequest -Uri $location -Method Put -Body $bodyJson -Headers $headers -ContentType "application/json; charset=utf-8" -UseBasicParsing
 		} catch {
-		    if ($_.Exception -and $_.Exception.Response) {
-				$createResultStatus = $_.Exception.Response.StatusCode.value__
-				$createResultStatusDescription = $_.Exception.Response.StatusDescription
-			}
+		    if ($_.Exception){
+		        if($_.Exception.Response) {
+    				$createResultStatus = $_.Exception.Response.StatusCode.value__
+    				$createResultStatusDescription = $_.Exception.Response.StatusDescription
+    			}
+    			else {
+    				$createResultStatus = "Exception"
+    				$createResultStatusDescription = $_.Exception.Message
+    			}
+		    }
 		}
 
 		if ($result -eq $null) {
