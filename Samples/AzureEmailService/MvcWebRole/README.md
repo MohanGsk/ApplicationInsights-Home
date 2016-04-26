@@ -4,7 +4,11 @@ This sample illustrates how an existing cloud service can be instrumented to rep
 Please see the [original code sample](https://code.msdn.microsoft.com/windowsapps/Windows-Azure-Multi-Tier-eadceb36) or [Azure documentation](http://azure.microsoft.com/en-us/services/cloud-services/) for information on cloud services in general.
 The only changes to the original code are lines related to Application Insights telemetry.
 
-This sample web role is instrumented with the [Application Insights for Web] (http://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) NuGet package. It reports the following telemetry:
+This sample web role is instrumented with the [Application Insights for Web] (http://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) NuGet package. 
+
+- Please make sure that the ApplicationInsights.config file Build Action is Content and Copy To Output Directory is set to Copy always.
+
+It reports the following telemetry:
 
 ## Reporting HTTP Requests
 
