@@ -8,9 +8,7 @@ We began by instrumenting this worker role with the [Application Insights for We
 
 To monitor worker roles, there are some specific customizations that are advisable to get the best results.
 
-**Important**: 
-- Please be sure to set the ApplicationInsights.config file Build Action to Content.
-- Please be sure to set the ApplicationInsights.config file to be copied always to the output directory. This is only required for worker roles.
+**Important**: Please be sure to set the ApplicationInsights.config file to be copied always to the output directory. This is only required for worker roles.
 
 ## Report Requests
 
