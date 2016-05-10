@@ -80,7 +80,7 @@ function CreateAnnotation($grpEnv)
 
 # Need powershell version 3 or greater for script to run
 $minimumPowershellMajorVersion = 3
-if ($PSVersionTable.PSVersion.Major -le $minimumPowershellMajorVersion) {
+if ($PSVersionTable.PSVersion.Major -lt $minimumPowershellMajorVersion) {
    Write-Host "Need powershell version $minimumPowershellMajorVersion or greater to create release annotation"
    return
 }
