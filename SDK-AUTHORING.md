@@ -36,6 +36,7 @@ E.g.
     "ai.internal.sdkVersion:" "dotnet:2.0.0"
   }
 }
+```
 
 ### SDK Version Format
 
