@@ -14,6 +14,12 @@ Please log a new issue in the appropriate GitHub repo.
 * [Ruby](https://github.com/Microsoft/AppInsights-Ruby/issues)
 * [WordPress](https://github.com/Microsoft/AppInsights-WordPress/issues)
 
+## Specifications
+Please read our specifications on the endpoint request-response protocol and SDK authoring before contributing to a client SDK.
+
+* [Endpoint Protocol](ENDPOINT-PROTOCOL.md)
+* [SDK Authoring](SDK-AUTHORING.md)
+
 ## General Contributing Guide
 
 1. Unless it is a trivial change, make sure that there is a corresponding issue for your change first. If there is none, create one.
