@@ -23,9 +23,13 @@ A data collection endpoint response is a standard HTTP response with a JSON payl
 
 ### Response Status Codes
 
-Clients are expected to handle the HTTP Status Code in the response properly to ensure complete delivery of their data. Specifically, the data collection endpoint propogates transisent errors back to the client and expects the client to retry and send the data again.
+Clients are expected to handle the status codes in the response properly to ensure complete delivery of their data. Specifically, the data collection endpoint propogates transisent errors back to the client and expects the client to retry and send the data again.
 
-Status codes that have a specific endpoint status are listed below.
+Two distinct status codes are returned. The first, being the HTTP Status Code on the HTTP response. The second, being an individual status code for each telemetry item that was not accepted in the request batch. This allows clients to handle the status of each telemetry item individually. See [Response Body](#Response Body) for detailed information on individual error status codes. Only items rejected will have an individual status code returned in the repsonse body. Items accepted can be assumed to have a status code of 200.
+
+The status represented by both the HTTP Status Code and the Telemetry Item statusCode is the same.
+
+Status codes that have a specific endpoint status distinct from the general HTTP status are listed below.
 
 | Status Code                 | Endpoint Status    | Should retry? | Description                                                                                                                              |
 |-----------------------------|--------------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------|
@@ -42,7 +46,7 @@ Status codes that have a specific endpoint status are listed below.
 
  * 429 & 503 should retry according to the [Retry-After policy](#Retry-After Policy).
  
- * If one or more items but not all were accepted, 206 (Partial Accept) is returned. Each individual item may have a specific error code as defined by the response body definition below.
+ * If one or more items but not all were accepted, 206 (Partial Accept) is returned as the HTTP Status Code. Each individual item may have a specific error status code as defined by the response body definition below allowing the SDK to know the status of specific items.
 
  * If no items were accepted, the endpoint returns the status code of the first item in the payload. Each individual item may have a specific error code as defined by the response body definition below.
 
@@ -81,12 +85,14 @@ An example of a response body is:
     },
     {
       "index": 2,
-      "statusCode": 402,
-      "message": "Monthly quota exceeded"
+      "statusCode": 500,
+      "message": "Internal Server Error"
     }
   ]
 }
 ```
+
+This payload would have a HTTP Status Code of 206, as 3 items were accepted and 2 items were rejected.
 
 ### Retry-After Policy
 
