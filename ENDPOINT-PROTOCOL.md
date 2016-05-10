@@ -34,12 +34,12 @@ Status codes that have a specific endpoint status distinct from the general HTTP
 | Status Code                 | Endpoint Status    | Should retry? | Description                                                                                                                              |
 |-----------------------------|--------------------|---------------|------------------------------------------------------------------------------------------------------------------------------------------|
 | 200 - OK                    |      Accepted      |       No      | All of the telemetry items were accepted and processed.                                                                                  |
-| 206 - Partial Content       | Partially accepted |     Maybe     | One or more of the telemetry items were accepted and processed.                                                                          |
+| 206 - Partial Content       | Partially accepted |     Maybe     | HTTP Status: One or more of the telemetry items were accepted and processed; Item error statusCode: Item was sampled.                    |                                                    |
 | 400 - Bad Request           |    Not accepted    |       No      | Invalid data was provided and the payload was rejected.                                                                                  |
 | 402 - Payment Required      |    Not accepted    |       No      | Quota was exceeded and the telemetry items were rejected.                                                                                |
-| 429 - Too Many Requests     |    Not accepted    |      Yes      | Burst throttling limit was exceeded and the telemetry items were rejected. Client should retry according to the retry policy. |
+| 429 - Too Many Requests     |    Not accepted    |      Yes      | Burst throttling limit was exceeded and the telemetry items were rejected. Client should retry according to the retry policy.            |
 | 500 - Internal Server Error |    Not accepted    |      Yes      | An error occurred and the telemetry items were not processed.                                                                            |
-| 503 - Service Unavailable   |    Not accepted    |      Yes      | Service is currently unavailable. Client should retry according to the retry policy.                                          |
+| 503 - Service Unavailable   |    Not accepted    |      Yes      | Service is currently unavailable. Client should retry according to the retry policy.                                                     |
 
 
 **Note:**
@@ -47,6 +47,8 @@ Status codes that have a specific endpoint status distinct from the general HTTP
  * 429 & 503 should retry according to the [Retry-After policy](#Retry-After Policy).
  
  * If one or more items but not all were accepted, 206 (Partial Accept) is returned as the HTTP Status Code. Each individual item may have a specific error status code as defined by the response body definition below allowing the SDK to know the status of specific items.
+ 
+ * If the item was sampled, 206 is returned as the telemetry item specific error statusCode. These items have been accepted and sampled so they should be considered accepted and not retried.
 
  * If no items were accepted, the endpoint returns the status code of the first item in the payload. Each individual item may have a specific error code as defined by the response body definition below.
 
