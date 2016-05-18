@@ -39,6 +39,8 @@ For SDK and service announcements - subscribe to [ApplicationInsights-Announceme
 
 [Ruby](https://github.com/Microsoft/ApplicationInsights-Ruby)
 
+[StatsD](https://github.com/Microsoft/ApplicationInsights-statsd)
+
 WordPress on [GitHub](https://github.com/Microsoft/ApplicationInsights-WordPress) and Release Version on [Wordpress.org](https://wordpress.org/plugins/application-insights/)
 
 [Xamarin](https://github.com/Microsoft/ApplicationInsights-Xamarin)
