@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PingMeshWeb", "PingMeshWeb\PingMeshWeb.csproj", "{81EB9557-485F-427B-A9D3-94CC1740CABE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{18A90476-1553-4E32-998C-6D7CD16D299B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{C662DA9F-D176-473C-BB1B-F58FB371CD55}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\ConfigureWebServer.ps1 = PublishScripts\Scripts\ConfigureWebServer.ps1
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{5F1A734D-796C-4262-9A63-0CE6BA2F03F9}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\PingMeshWeb.json = PublishScripts\Templates\PingMeshWeb.json
+		PublishScripts\Templates\PingMeshWeb.param.dev.json = PublishScripts\Templates\PingMeshWeb.param.dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PingMesh", "PingMesh\PingMesh.csproj", "{3FB4C6A9-06D0-48A5-B52E-D29C577078A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81EB9557-485F-427B-A9D3-94CC1740CABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81EB9557-485F-427B-A9D3-94CC1740CABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81EB9557-485F-427B-A9D3-94CC1740CABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81EB9557-485F-427B-A9D3-94CC1740CABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FB4C6A9-06D0-48A5-B52E-D29C577078A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FB4C6A9-06D0-48A5-B52E-D29C577078A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FB4C6A9-06D0-48A5-B52E-D29C577078A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FB4C6A9-06D0-48A5-B52E-D29C577078A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C662DA9F-D176-473C-BB1B-F58FB371CD55} = {18A90476-1553-4E32-998C-6D7CD16D299B}
+		{5F1A734D-796C-4262-9A63-0CE6BA2F03F9} = {18A90476-1553-4E32-998C-6D7CD16D299B}
+	EndGlobalSection
+EndGlobal

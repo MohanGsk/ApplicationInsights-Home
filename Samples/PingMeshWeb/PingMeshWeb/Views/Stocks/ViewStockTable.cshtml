@@ -1,0 +1,46 @@
+﻿@model IEnumerable<PingMeshWeb.Controllers.Stock>
+
+@{
+    ViewData["Title"] = "View Stocks in Table";
+}
+
+<style>
+    /* set the CSS */
+
+    body {
+        font: 12px Calibri;
+    }
+
+    .line {
+        stroke: black;
+        stroke-width: 1;
+        fill: none;
+        shape-rendering: crispEdges;
+    }
+
+    .x-axis path, .y-axis path,
+    .x-axis line, .y-axis line {
+        fill: none;
+        stroke: grey;
+        stroke-width: 1;
+        shape-rendering: crispEdges;
+    }
+
+    .area {
+        fill: url(#gradient); /*the stroke (the colour of the area fill) is being determined at a link within the page which is set by the anchor #line-gradient.*/
+        stroke-width: 0px;
+        stroke-opacity: 0.01;
+    }
+</style>
+
+<h2>Stock History</h2>
+<text id="date-start" value="2000-01-01" />
+<text id="date-end" value="2016-05-01" />
+<p> &nbsp;</p>
+<div style="width:400px;  align-items:flex-start">
+    <div style="text-align:left" id="div-stocktable"></div>
+</div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.9/d3.min.js"></script>
+    <script src="~/scripts/stockTable.js"></script>
+}
