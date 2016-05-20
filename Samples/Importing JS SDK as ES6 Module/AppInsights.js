@@ -40,7 +40,7 @@ export default class AppInsights {
             if (!aiConfig.disableExceptionTracking) {
                 AppInsights._createLazyMethod("_onerror");
                 var originalOnError = window["_onerror"];
-                window[method] = function(message, url, lineNumber, columnNumber, error) {
+                window["_onerror"] = function(message, url, lineNumber, columnNumber, error) {
                     var handled = originalOnError && originalOnError(message, url, lineNumber, columnNumber, error);
                     if (handled !== true) {
                         appInsights["_onerror"](message, url, lineNumber, columnNumber, error);
