@@ -1,0 +1,1 @@
+Importing AppInsights JS SDK as ES6 Module
