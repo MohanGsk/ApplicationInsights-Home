@@ -1,9 +1,10 @@
-# Sample usage .\CreateReleaseAnnotation.ps1 -applicationId "<appId>" -apiKey "<apiKey>" -releaseName "<releaseName>" -releaseProperties @{"ReleaseDescription"="Release with annotation";"TriggerBy"="John Doe"}
+# Sample usage .\CreateReleaseAnnotation.ps1 -applicationId "<appId>" -apiKey "<apiKey>" -releaseName "<releaseName>" -releaseProperties @{"ReleaseDescription"="Release with annotation";"TriggerBy"="John Doe"} -eventDateTime "2016-07-07T06:23:44"
 param(
     [parameter(Mandatory = $true)][string]$applicationId,
     [parameter(Mandatory = $true)][string]$apiKey,
     [parameter(Mandatory = $true)][string]$releaseName,
-    [parameter(Mandatory = $false)]$releaseProperties
+    [parameter(Mandatory = $false)]$releaseProperties,
+    [parameter(Mandatory = $false)][DateTime]$eventDateTime
 )
 
 # background info on how fwlink works: After you submit a web request, many sites redirect through a series of intermediate pages before you finally land on the destination page.
@@ -91,7 +92,18 @@ set-variable -Name requestBody -Force -Scope Script
 $requestBody = @{}
 $requestBody.Id = [GUID]::NewGuid()
 $requestBody.AnnotationName = $releaseName
-$requestBody.EventTime = $currentTime.GetDateTimeFormats("s")[0] # GetDateTimeFormats returns an array
+if ($eventDateTime -eq $null) {
+    $requestBody.EventTime = $currentTime.GetDateTimeFormats("s")[0] # GetDateTimeFormats returns an array 
+} else {
+    # input must be between NOW and 90 days back maximum
+    $maxDaysBack = $currentTime.AddDays(-90)
+    if ($eventDateTime -lt $maxDaysBack -Or $eventDateTime -gt $currentTime) {
+        $output = "-eventDateTime value must be between NOW and 90 days back maximum"
+        throw $output
+    }
+    
+    $requestBody.EventTime = $eventDateTime.GetDateTimeFormats("s")[0]
+}
 $requestBody.Category = "Deployment"
 
 if ($releaseProperties -eq $null) {
