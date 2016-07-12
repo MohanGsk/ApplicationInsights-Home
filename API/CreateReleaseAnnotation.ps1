@@ -4,7 +4,7 @@ param(
     [parameter(Mandatory = $true)][string]$apiKey,
     [parameter(Mandatory = $true)][string]$releaseName,
     [parameter(Mandatory = $false)]$releaseProperties,
-    [parameter(Mandatory = $false)]$eventDateTime
+    [parameter(Mandatory = $false)][DateTime]$eventDateTime
 )
 
 # background info on how fwlink works: After you submit a web request, many sites redirect through a series of intermediate pages before you finally land on the destination page.
@@ -95,7 +95,14 @@ $requestBody.AnnotationName = $releaseName
 if ($eventDateTime -eq $null) {
     $requestBody.EventTime = $currentTime.GetDateTimeFormats("s")[0] # GetDateTimeFormats returns an array 
 } else {
-    $requestBody.EventTime = $eventDateTime # format example: "2016-05-12T09:23:44"
+    # input must be between NOW and 90 days back maximum
+    $maxDaysBack = $currentTime.AddDays(-90)
+    if ($eventDateTime -lt $maxDaysBack -Or $eventDateTime -gt $currentTime) {
+        $output = "-eventDateTime value must be between NOW and 90 days back maximum"
+        throw $output
+    }
+    
+    $requestBody.EventTime = $eventDateTime.GetDateTimeFormats("s")[0]
 }
 $requestBody.Category = "Deployment"
 
