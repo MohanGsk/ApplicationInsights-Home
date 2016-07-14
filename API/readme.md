@@ -1,4 +1,4 @@
-This directory contains various scripts that are used to compliment our Application Insights user experience.
+This directory contains various scripts that are used to complement our Application Insights user experience.
 
 - CreateReleaseAnnotation.ps1: Create a release annotation using a PowerShell script. 
 
