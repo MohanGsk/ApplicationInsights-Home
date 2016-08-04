@@ -1,0 +1,21 @@
+{
+    "namespaces":  [
+                       {
+                           "name":  "AI"
+                       }
+                   ],
+    "imports":  [
+
+                ],
+    "declarations":  [
+                         {
+                             "structBase":  null,
+                             "tag":  "Struct",
+                             "structFields":  "",
+                             "declParams":  "",
+                             "declNamespaces":  "",
+                             "declName":  "Base",
+                             "declAttributes":  ""
+                         }
+                     ]
+}

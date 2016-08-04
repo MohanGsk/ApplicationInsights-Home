@@ -1,0 +1,19 @@
+{
+    "namespaces":  [
+                       {
+                           "name":  "AI"
+                       }
+                   ],
+    "imports":  [
+
+                ],
+    "declarations":  [
+                         {
+                             "tag":  "Enum",
+                             "enumConstants":  "    ",
+                             "declNamespaces":  "",
+                             "declName":  "SeverityLevel",
+                             "declAttributes":  ""
+                         }
+                     ]
+}

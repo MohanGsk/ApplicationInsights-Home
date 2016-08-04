@@ -1,0 +1,21 @@
+{
+    "namespaces":  [
+                       {
+                           "name":  "AI"
+                       }
+                   ],
+    "imports":  [
+                    "Domain.bond"
+                ],
+    "declarations":  [
+                         {
+                             "structBase":  "@{declaration=; type=user}",
+                             "tag":  "Struct",
+                             "structFields":  "   ",
+                             "declParams":  "",
+                             "declNamespaces":  "",
+                             "declName":  "EventData",
+                             "declAttributes":  ""
+                         }
+                     ]
+}
