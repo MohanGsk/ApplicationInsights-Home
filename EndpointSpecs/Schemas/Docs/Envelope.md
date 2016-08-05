@@ -26,7 +26,7 @@ System variables for a telemetry item.
     
 1. **sampleRate** : double
 
-    Sampling rate used in application. This telemetry item represents 1 / sampleRate actual telemetry item.
+    Sampling rate used in application. This telemetry item represents 1 / sampleRate actual telemetry items.
     
     Default value: 100.0
     

@@ -1,6 +1,6 @@
 
 #AI.RequestData
-Instance of Request represents completion of an external request to the application to do work, and contains a summary of that request execution and the results.
+An instance of Request represents completion of an external request to the application to do work and contains a summary of that request execution and the results.
 
 1. **ver** : int
 
@@ -20,7 +20,7 @@ Instance of Request represents completion of an external request to the applicat
     
 1. **responseCode** : string
 
-    Result of a request execution. Http status code for http requests.
+    Result of a request execution. HTTP status code for HTTP requests.
     
     Max length: 1024
     
@@ -30,7 +30,7 @@ Instance of Request represents completion of an external request to the applicat
     
 1. **source** : string
 
-    Source of the request. Examples are instrumentation key of the caller, ip address of the caller.
+    Source of the request. Examples are the instrumentation key of the caller or the ip address of the caller.
     
     Max length: 1024
     
@@ -38,7 +38,7 @@ Instance of Request represents completion of an external request to the applicat
     
 1. **name** : string
 
-    Name of the request. Represents code path taken to process request. Low cardinality value to allow better grouping of requests. For http requests represents http method and url path template like 'GET /values/{id}'.
+    Name of the request. Represents code path taken to process request. Low cardinality value to allow better grouping of requests. For HTTP requests it represents the HTTP method and URL path template like 'GET /values/{id}'.
     
     Max length: 1024
     
@@ -46,7 +46,7 @@ Instance of Request represents completion of an external request to the applicat
     
 1. **url** : string
 
-    Request url with all query string parameters
+    Request URL with all query string parameters.
     
     Max length: 2048
     

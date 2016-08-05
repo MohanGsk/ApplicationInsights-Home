@@ -1,6 +1,6 @@
 
 #AI.ExceptionData
-Instance of Exception represents handled or unhandled exception that occurred during execution of the monitored application.
+An instance of Exception represents a handled or unhandled exception that occurred during execution of the monitored application.
 
 1. **ver** : int
 
@@ -40,7 +40,7 @@ Instance of Exception represents handled or unhandled exception that occurred du
         
     1. **hasFullStack** : bool
     
-        Indicates if full exception stack is provided in the exception. Stack may be trimmed, such as in the case of StackOverflow exception.
+        Indicates if full exception stack is provided in the exception. The stack may be trimmed, such as in the case of a StackOverflow exception.
         
         Default value: true
         
@@ -82,7 +82,7 @@ Instance of Exception represents handled or unhandled exception that occurred du
             
         1. **fileName** : string
         
-            File name or Url of the method implementation.
+            File name or URL of the method implementation.
             
             Max length: 1024
             

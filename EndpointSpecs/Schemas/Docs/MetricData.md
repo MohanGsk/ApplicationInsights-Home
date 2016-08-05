@@ -1,6 +1,6 @@
 
 #AI.MetricData
-Instance of the Metric item is a list of measurements (single data points) and/or aggregations
+An instance of the Metric item is a list of measurements (single data points) and/or aggregations.
 
 1. **ver** : int
 

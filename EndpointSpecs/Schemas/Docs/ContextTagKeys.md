@@ -32,7 +32,7 @@
     
 1. **"ai.device.model"** : string
 
-    Model of the device end user of the application using. Used for client scenarios. If empty, derived from user agent.
+    Model of the device the end user of the application is using. Used for client scenarios. If this field is empty then it is derived from the user agent.
     
     Max length: 256
     
@@ -42,6 +42,8 @@
     
 1. **"ai.device.oemName"** : string
 
+    Client device OEM name taken from the browser.
+    
     Max length: 256
     
     Default value: "ai.device.oemName"
@@ -50,7 +52,7 @@
     
 1. **"ai.device.osVersion"** : string
 
-    Operation system name and version of the device end user of the application using. If empty derived from user agent. Example 'Windows 10 Pro 10.0.10586.0'
+    Operating system name and version of the device the end user of the application is using. If this field is empty then it is derived from the user agent. Example 'Windows 10 Pro 10.0.10586.0'
     
     Max length: 256
     
@@ -60,7 +62,7 @@
     
 1. **"ai.device.type"** : string
 
-    Type of the device end user of the application is using. Used primarily to distinguish JavaScript telemetry from server side telemetry. Examples: 'PC', 'Phone', 'Browser'. 'PC' is a default value.
+    The type of the device the end user of the application is using. Used primarily to distinguish JavaScript telemetry from server side telemetry. Examples: 'PC', 'Phone', 'Browser'. 'PC' is the default value.
     
     Max length: 64
     
@@ -120,7 +122,7 @@
     
 1. **"ai.operation.correlationVector"** : string
 
-    The cV is a light weight vector clock which can be used to identify and order related events across clients and services.
+    The correlation vector is a light weight vector clock which can be used to identify and order related events across clients and services.
     
     Max length: 64
     
@@ -152,7 +154,7 @@
     
 1. **"ai.user.accountId"** : string
 
-    In multi-tenant applications account ID or name that user is acting with. Examples may be subscription ID for Azure portal or blog name blogging platform.
+    In multi-tenant applications this is the account ID or name which the user is acting with. Examples may be subscription ID for Azure portal or blog name blogging platform.
     
     Max length: 1024
     
@@ -162,7 +164,7 @@
     
 1. **"ai.user.userAgent"** : string
 
-    The browser's user agent string as reported by the browser. This property will be used to extract informaiton regarding customer browser, but will not be stored. Use custom properties to store the original user agent.
+    The browser's user agent string as reported by the browser. This property will be used to extract informaiton regarding the customer's browser but will not be stored. Use custom properties to store the original user agent.
     
     Max length: 2048
     
@@ -172,7 +174,7 @@
     
 1. **"ai.user.id"** : string
 
-    Anonymous user id. Represents the end user of the application. When telemetry is sent from a service, the user context is about the user than initiated the operation in the service.
+    Anonymous user id. Represents the end user of the application. When telemetry is sent from a service, the user context is about the user that initiated the operation in the service.
     
     Max length: 128
     
@@ -182,7 +184,7 @@
     
 1. **"ai.user.authUserId"** : string
 
-    Authenticated user id. As opposite to ai.user.id represents the user with by the friendly name. Since it's PII information it is not collected by default by most SDKs.
+    Authenticated user id. The opposite of ai.user.id, this represents the user with a friendly name. Since it's PII information it is not collected by default by most SDKs.
     
     Max length: 1024
     
@@ -192,7 +194,7 @@
     
 1. **"ai.cloud.role"** : string
 
-    Name of the role application is part of. Maps directly to the role name in azure.
+    Name of the role the application is a part of. Maps directly to the role name in azure.
     
     Max length: 256
     
@@ -202,7 +204,7 @@
     
 1. **"ai.cloud.roleInstance"** : string
 
-    Name of the instance where application is running. Computer name for on-premisis, instance name for Azure.
+    Name of the instance where the application is running. Computer name for on-premisis, instance name for Azure.
     
     Max length: 256
     

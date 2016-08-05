@@ -1,6 +1,6 @@
 
 #AI.PageViewData
-Instance of PageView represents a generic action on a page like a button click. It is also the base type for PageView.
+An instance of PageView represents a generic action on a page like a button click. It is also the base type for PageView.
 
 1. **ver** : int
 
@@ -36,7 +36,7 @@ Instance of PageView represents a generic action on a page like a button click. 
     
 1. **url** : string
 
-    Request url with all query string parameters
+    Request URL with all query string parameters
     
     Max length: 2048
     

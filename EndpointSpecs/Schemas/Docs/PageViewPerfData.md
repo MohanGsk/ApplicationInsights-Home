@@ -1,6 +1,6 @@
 
 #AI.PageViewPerfData
-Instance of PageView represents: page view with no performance data, page view with performance data, just the performance data of an earlier page request
+An instance of PageViewPerf represents: a page view with no performance data, a page view with performance data, or just the performance data of an earlier page request.
 
 1. **ver** : int
 
@@ -36,7 +36,7 @@ Instance of PageView represents: page view with no performance data, page view w
     
 1. **url** : string
 
-    Request url with all query string parameters
+    Request URL with all query string parameters
     
     Max length: 2048
     

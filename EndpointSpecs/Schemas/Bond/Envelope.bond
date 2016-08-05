@@ -24,7 +24,7 @@ struct Envelope
     30: required string 	 time;
     
     [Name("SamplingRate")]
-    [Description("Sampling rate used in application. This telemetry item represents 1 / sampleRate actual telemetry item.")]
+    [Description("Sampling rate used in application. This telemetry item represents 1 / sampleRate actual telemetry items.")]
     40: double 	 sampleRate = 100.0;
     
     [Description("Sequence field used to track absolute order of uploaded events.")]

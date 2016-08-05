@@ -1,6 +1,6 @@
 
 #AI.RemoteDependencyData
-Instance of Remote Dependency represents an interaction of the monitored component with a remote component/service like SQL or http endpoint.
+An instance of Remote Dependency represents an interaction of the monitored component with a remote component/service like SQL or an HTTP endpoint.
 
 1. **ver** : int
 
@@ -10,7 +10,7 @@ Instance of Remote Dependency represents an interaction of the monitored compone
     
 1. **name** : string
 
-    Name of the command initiated with this dependency call. Low cardinality value. Example are stored procedure name, url path template.
+    Name of the command initiated with this dependency call. Low cardinality value. Examples are stored procedure name and URL path template.
     
     Max length: 1024
     
@@ -24,7 +24,7 @@ Instance of Remote Dependency represents an interaction of the monitored compone
     
 1. **resultCode** : string
 
-    Result code of a dependency call. Examples are SQL error code, http status code.
+    Result code of a dependency call. Examples are SQL error code and HTTP status code.
     
     Max length: 1024
     
@@ -46,7 +46,7 @@ Instance of Remote Dependency represents an interaction of the monitored compone
     
 1. **data** : string
 
-    Command initiated by this dependency call. Examples are SQL statement, http url with all query parameters.
+    Command initiated by this dependency call. Examples are SQL statement and HTTP URL's with all query parameters.
     
     Max length: 8192
     
@@ -54,7 +54,7 @@ Instance of Remote Dependency represents an interaction of the monitored compone
     
 1. **dependencyTypeName** : string
 
-    Dependency type name. Very low cardinality value for logical grouping of dependencies and interpretation of other fields like commandName and resultCode. Examples are SQL, Azure table, HTTP.
+    Dependency type name. Very low cardinality value for logical grouping of dependencies and interpretation of other fields like commandName and resultCode. Examples are SQL, Azure table, and HTTP.
     
     Max length: 1024
     
