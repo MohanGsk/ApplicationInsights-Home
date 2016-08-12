@@ -52,7 +52,7 @@ An instance of Remote Dependency represents an interaction of the monitored comp
     
     This field is optional.
     
-1. **dependencyTypeName** : string
+1. **type** : string
 
     Dependency type name. Very low cardinality value for logical grouping of dependencies and interpretation of other fields like commandName and resultCode. Examples are SQL, Azure table, and HTTP.
     

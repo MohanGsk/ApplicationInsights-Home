@@ -1,15 +1,16 @@
-$generatorPath = "C:\src\mseng\AppInsights-Common"
-$schemasPath = "C:\src\mseng\DataCollectionSchemas"
+Param(
+  [string]$generatorRepositoryRoot,
+  [string]$schemasRepositoryRoot
+)
 
 $currentDir = $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
 
 
 #fix path
-$generatorPath = "$generatorPath\..\bin\Debug\BondSchemaGenerator\BondSchemaGenerator"
-$schemasPath = "$schemasPath\v2\Bond"
+$generatorPath = "$generatorRepositoryRoot\..\bin\Debug\BondSchemaGenerator\BondSchemaGenerator"
+$schemasPath = "$schemasRepositoryRoot\v2\Bond"
 
 & "$generatorPath\BondSchemaGenerator.exe" -v -i "$schemasPath\AppInsightsTypes.bond" -i "$schemasPath\ContextTagKeys.bond" -o "$currentDir\..\Schemas\Bond\" -e BondLanguage -t BondLayout -n test --flatten false
-
 
 & "$generatorPath\BondSchemaGenerator.exe" -v -i "$schemasPath\AppInsightsTypes.bond" -i "$schemasPath\ContextTagKeys.bond" -o "$currentDir\..\Schemas\Docs\" -e DocsLanguage -t DocsLayout -n test --flatten false
 

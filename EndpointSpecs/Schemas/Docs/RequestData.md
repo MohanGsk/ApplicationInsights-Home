@@ -28,14 +28,6 @@ An instance of Request represents completion of an external request to the appli
 
     Indication of successfull or unsuccessfull call.
     
-1. **source** : string
-
-    Source of the request. Examples are the instrumentation key of the caller or the ip address of the caller.
-    
-    Max length: 1024
-    
-    This field is optional.
-    
 1. **name** : string
 
     Name of the request. Represents code path taken to process request. Low cardinality value to allow better grouping of requests. For HTTP requests it represents the HTTP method and URL path template like 'GET /values/{id}'.
