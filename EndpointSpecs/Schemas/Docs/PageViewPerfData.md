@@ -48,24 +48,6 @@ An instance of PageViewPerf represents: a page view with no performance data, a 
     
     This field is optional.
     
-1. **referrer** : string
-
-    Referrer url. Never used so far.
-    
-    Max length: 1024
-    
-    This field is optional.
-    
-1. **referrerData** : string
-
-    ???
-    
-    **Question**: What is this field for?
-    
-    Max length: 8192
-    
-    This field is optional.
-    
 1. **perfTotal** : string
 
     Performance total in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff

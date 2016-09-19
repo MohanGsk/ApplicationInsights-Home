@@ -14,15 +14,11 @@ Instances of AvailabilityData represent the result of executing an availability 
     
     Max length: 64
     
-    This field is optional.
-    
 1. **name** : string
 
     Name of the test that these availability results represents.
     
     Max length: 1024
-    
-    This field is optional.
     
 1. **duration** : string
 

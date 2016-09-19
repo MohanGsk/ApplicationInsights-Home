@@ -34,8 +34,6 @@ An instance of Remote Dependency represents an interaction of the monitored comp
 
     Request duration in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff.
     
-    This field is optional.
-    
 1. **success** : bool
 
     Indication of successfull or unsuccessfull call.

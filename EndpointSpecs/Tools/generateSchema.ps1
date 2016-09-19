@@ -12,7 +12,10 @@ $schemasPath = "$schemasRepositoryRoot\v2\Bond"
 
 & "$generatorPath\BondSchemaGenerator.exe" -v -i "$schemasPath\AppInsightsTypes.bond" -i "$schemasPath\ContextTagKeys.bond" -o "$currentDir\..\Schemas\Bond\" -e BondLanguage -t BondLayout -n test --flatten false
 
-& "$generatorPath\BondSchemaGenerator.exe" -v -i "$schemasPath\AppInsightsTypes.bond" -i "$schemasPath\ContextTagKeys.bond" -o "$currentDir\..\Schemas\Docs\" -e DocsLanguage -t DocsLayout -n test --flatten false
+dir "$currentDir\..\Schemas\Bond\" | ForEach-Object {
+  & "$generatorPath\BondSchemaGenerator.exe" -v -i $_.FullName -o "$currentDir\..\Schemas\Docs\" -e DocsLanguage -t DocsLayout -n test --flatten false
+} 
+
 
 #mkdir -Force .\obj
 #Invoke-WebRequest -o ".\obj\nuget.exe" https://api.nuget.org/downloads/nuget.exe

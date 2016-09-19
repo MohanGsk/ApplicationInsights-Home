@@ -36,7 +36,7 @@ An instance of Exception represents a handled or unhandled exception that occurr
     
         Exception message.
         
-        Max length: 1024
+        Max length: 32768
         
     1. **hasFullStack** : bool
     
