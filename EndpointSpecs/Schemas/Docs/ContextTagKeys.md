@@ -72,7 +72,7 @@
     
 1. **"ai.location.ip"** : string
 
-    The IPv4 IP address of the client device. IPv6 is not currently supported. Information in the location context fields is always about the end user. When telemetry is sent from a service, the location context is about the user that initiated the operation in the service.
+    The IP address of the client device. IPv4 and IPv6 is supported. Information in the location context fields is always about the end user. When telemetry is sent from a service, the location context is about the user that initiated the operation in the service.
     
     Max length: 45
     
