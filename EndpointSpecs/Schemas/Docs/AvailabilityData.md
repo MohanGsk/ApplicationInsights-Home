@@ -32,6 +32,8 @@ Instances of AvailabilityData represent the result of executing an availability 
 
     Success flag.
     
+    This field is optional.
+    
 1. **runLocation** : string
 
     Name of the location where the test was run from.
