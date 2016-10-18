@@ -232,3 +232,13 @@
     
     This field is optional.
     
+1. **"ai.internal.nodeName"** : string
+
+    This is the node name used for billing purposes. Use it to override the standard detection of nodes.
+    
+    Max length: 256
+    
+    Default value: "ai.internal.nodeName"
+    
+    This field is optional.
+    
