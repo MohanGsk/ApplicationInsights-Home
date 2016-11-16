@@ -98,6 +98,7 @@ This link sets feature flags in the portal that allows you to use the preview fe
 open up one of the Application Insights resources (e.g. teamstandup-web) and select the "App Map" tile.
 
 For the best experience, maximize (full-screen) the map and pin it to your dashboard using the controls in the upper-right corner of the map.
+
 ![Opening the app map in the portal][open-app-map]
 
 ## Using the new map
