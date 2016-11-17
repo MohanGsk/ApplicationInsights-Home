@@ -22,8 +22,8 @@ exception experiences. These features require installing beta SDKs and turning o
 ## Overview
 We are previewing two improvements to the Application Map:
 * You can see multiple server nodes from different AI resources on the same application map as well as calls between server nodes.
-Previously you could only one server node at a time on the map. 
-* A new error pane that shows up when you click on server nodes, summarizing exceptions that occured in that node by request URL
+Previously you could only see one server node at a time on the map. 
+* A new error pane that shows up when you click on server nodes, summarizing exceptions that occured for that node by request URL
 and call stacks. Clicking on an exception takes you to a refreshed version of our exception details page.
 
 ![You can select a server node and get easy access to exception][error-pane-flow]
@@ -40,9 +40,9 @@ To see cross-server calls on the application map, you need to:
 * Install the preview versions of the Application Insights SDKs that reports cross-server calls to Application Insights
 
 ### Configuring your resource group
-In many cases, the resources you want to show  on will be contained in a single resource group. The app map will find server nodes
-by first searching the resource group and including any servers that have a corresponding AI resource. It will also detect server nodes
-by following any dependency calls made from servers in the current resource group.
+In many cases, the resources you want to show will be contained in a single resource group. The app map will find server nodes
+by looking for all Application Insights resources within the current resource group. It will also detect server nodes
+by following any dependency calls tracked by Application Insights resources in the current resource group.
 
 The following picture shows how the resource group resource group for the example TeamStandup app which has
 one Node.js server (teamstandup-web) and one .NET API server (teamstandup-api):
@@ -52,7 +52,7 @@ one Node.js server (teamstandup-web) and one .NET API server (teamstandup-api):
 Note how there is one Application Insights resource for each of the server nodes.
 
 ### Installing the .NET SDK
-For .NET, you need to install a pre-beta version of the Application Insights SDK from myget. Add the myget nuget package source
+For .NET, you need to install a pre-release beta version of the Application Insights SDK from myget. Add the myget nuget package source
 by going to Tools -> Options -> NuGet Package Manager, adding a new source with the following source url:
 ```
  https://www.myget.org/F/applicationinsights/
@@ -71,6 +71,10 @@ as you may accidentally install development versions of Application Insights SDK
 The first time you install Application Insights using the IDE, you will be prompted to add code to your project to
 send exceptions to Application Insights. This should automatically report exceptions that occur in MVC, but for Web API
 and other project types see [reporting exceptions explicitly](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-asp-net-exceptions#reporting-exceptions-explicitly).
+
+You will need to [configure instrumentation for your web app](https://docs.microsoft.com/en-us/azure/application-insights/app-insights-monitor-performance-live-website-now)
+to see calls between server nodes. For Azure App Service, you can simply open the Application Insights resource in the portal
+and you will be prompted to install an extension.
 
 ### Setting up the Node.js SDK
 For node.js, simply install the latest applicationinsights SDK from npm using:
@@ -94,7 +98,7 @@ To use these features in the portal, visit the Azure portal using the following 
 
 [https://portal.azure.com/?appInsightsExtension_OverrideSettings=appMapMultiServerNode:true%2cappMapErrorPane:true](https://portal.azure.com/?appInsightsExtension_OverrideSettings=appMapMultiServerNode:true%2cappMapErrorPane:true)
 
-This link sets feature flags in the portal that allows you to use the preview features. To get to the application map,
+This link sets feature flags in the portal that allow you to use the preview features. To get to the application map,
 open up one of the Application Insights resources (e.g. teamstandup-web) and select the "App Map" tile.
 
 For the best experience, maximize (full-screen) the map and pin it to your dashboard using the controls in the upper-right corner of the map.
