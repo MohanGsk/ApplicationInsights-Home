@@ -52,7 +52,7 @@ one Node.js server (teamstandup-web) and one .NET API server (teamstandup-api):
 Note how there is one Application Insights resource for each of the server nodes.
 
 ### Installing the .NET SDK
-For .NET, you need to install a pre-release beta version of the Application Insights SDK from myget. Add the myget nuget package source
+For .NET, you need to install a pre-release development version of the Application Insights SDK from myget. Add the myget nuget package source
 by going to Tools -> Options -> NuGet Package Manager, adding a new source with the following source url:
 ```
  https://www.myget.org/F/applicationinsights/
