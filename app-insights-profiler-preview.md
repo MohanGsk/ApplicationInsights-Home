@@ -4,7 +4,7 @@
 [Azure Application Insights](app-insights-overview.md) includes a profiling tool that shows you how much time is spent in each method in your live web application. It automatically highlights the 'hot path' that is using the most time. You can enroll in the preview trial of this tool. 
 
 
-<a id="installation></a>
+<a id="installation"></a>
 ## Prerequisites
 
 - The app you want to profile is an ASP.NET application running as an Azure Web App.
