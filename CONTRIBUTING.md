@@ -17,8 +17,8 @@ Please log a new issue in the appropriate GitHub repo.
 ## Specifications
 Please read our specifications on the endpoint request-response protocol and SDK authoring before contributing to a client SDK.
 
-* [Endpoint Protocol](ENDPOINT-PROTOCOL.md)
-* [SDK Authoring](SDK-AUTHORING.md)
+* [Endpoint Protocol](EndpointSpecs/ENDPOINT-PROTOCOL.md)
+* [SDK Authoring](EndpointSpecs/SDK-AUTHORING.md)
 
 ## General Contributing Guide
 
