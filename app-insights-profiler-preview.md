@@ -11,8 +11,6 @@
 - Application Insights SDK 2.2 Beta or later is enabled on your web app.
 - The Web App Service Plan must be Basic tier or above.
 
-To enroll in the preview program for Application Insights Profiler, please send your Azure subscription id to serviceprofilerhelp@microsoft.com. You will receive a confirmation email.
-
 ## Set up the profiler through the linked Application Insights resource
 
 1. After receiving the confirmation email, please verify you have created an Application Insights resource associated with the Web App you want to profile.
