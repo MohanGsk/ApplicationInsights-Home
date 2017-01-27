@@ -13,7 +13,7 @@
 
 ## Set up the profiler through the linked Application Insights resource
 
-1. After receiving the confirmation email, please verify you have created an Application Insights resource associated with the Web App you want to profile.
+1. Please verify you have created an Application Insights resource associated with the Web App you want to profile.
     * Open the Web App resource in [Azure portal](https://portal.azure.com).
     * Open "MONITORING -> Application Insights" to open Application Insight blade.
     * If there is no associated Application Insights resource, either create new or select existing one.
@@ -29,7 +29,7 @@
 
 ## Set up the profiler manually
 
-1. After receiving the confirmation email, if you have already enabled Application Insights SDK 2.2 and above on the Web App, you can manually set up the profiler.
+1. If you have already enabled Application Insights SDK 2.2 and above on the Web App, you can manually set up the profiler.
 2. Open the Web App resource in [Azure portal](https://portal.azure.com).
 3. Select "SETTINGS -> Application settings" to open Application settings blade.
 4. Update the following settings
