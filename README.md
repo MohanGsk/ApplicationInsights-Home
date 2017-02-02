@@ -6,6 +6,8 @@ More information about Application Insights can be found [here](http://azure.mic
 
 For SDK and service announcements - subscribe to [ApplicationInsights-Announcements](https://github.com/Microsoft/ApplicationInsights-Announcements)
 
+SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-Home/wiki/SDK-Release-Schedule)
+
 
 ##Our Repositories##
 
