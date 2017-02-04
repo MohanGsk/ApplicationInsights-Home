@@ -7,7 +7,8 @@
 <a id="installation"></a>
 ## Prerequisites
 
-- The app you want to profile is an ASP.NET application running as an Azure Web App.
+- The app you want to profile is an ASP.NET application running as an Azure Web App. 
+    * Azure WebJobs and ASP.NET Core Apps are currently NOT supported. 
 - Application Insights SDK 2.2 Beta or later is enabled on your web app.
 - The Web App Service Plan must be Basic tier or above.
 
@@ -35,7 +36,7 @@
 4. Update the following settings
     * Set ".Net Framework version" to v4.6.
     * Set "Always On" to On.
-    * Add app setting "APPINSIGHTS_INSTRUMENTATIONKEY" and set the value to the same instrumentation key used by the SDK.
+    * Add app setting "__APPINSIGHTS_INSTRUMENTATIONKEY__" and set the value to the same instrumentation key used by the SDK.
 4. Select "DEVELOPMENT TOOLS -> Extensions" to open Extensions blade.
 5. Click "Add" button and choose "Application Insights Profiler".
 6. After the extension is installed, the profiler agent will run as a continuous web job in the Web App.
