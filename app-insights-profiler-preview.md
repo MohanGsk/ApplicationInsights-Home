@@ -12,34 +12,30 @@
 - Application Insights SDK 2.2 Beta or later is enabled on your web app.
 - The Web App Service Plan must be Basic tier or above.
 
-## Set up the profiler through the linked Application Insights resource
+## Set up the profiler through Application Insights resource
 
-1. Please verify you have created an Application Insights resource associated with the Web App you want to profile.
-    * Open the Web App resource in [Azure portal](https://portal.azure.com).
-    * Open "MONITORING -> Application Insights" to open Application Insight blade.
-    * If there is no associated Application Insights resource, either create new or select existing one.
-2. Open the Application Insights resource associated with the Web App. (From MONITORING -> Application Insights, scroll down and select VIEW MORE IN APPLICATION INSIGHTS.)
-3. Select "INVESTIGATE -> Performance" to open Performance blade.
-4. Click "Enable Application Insights Profiler" message popped up the top to open Enabling blade.
-5. Click "Enable Profiling" button to set up the profiler on the Web App which including
+1. Open the Application Insights resource for the Web App in [https://portal.azure.com](https://portal.azure.com).
+2. Select "INVESTIGATE -> Performance" to open Performance blade.
+3. Click "Configure" button on the toolbar to open Enabling blade.
+4. Select the app from the Web App list.
+5. Click "Start" button to set up the profiler including
     * Install Application Insights Profiler extension.
-    * Add APPINSIGHTS_INSTRUMENTATIONKEY to App Settings.
+    * Add APPINSIGHTS_INSTRUMENTATIONKEY to App Settings and set the value to current Application Insights resource.
     * Enable "Always On".
     * Set ".NET Framework version" to v4.6.
-6. After the enabling completes, the profiler agent will run as a continuous web job in the Web App.
+5. After the enabling completes, the profiler agent will run as a continuous web job (ApplicationInsightsProfiler) in the Web App.
 
-## Set up the profiler manually
+## Set up the profiler through Web App resource
 
-1. If you have already enabled Application Insights SDK 2.2 and above on the Web App, you can manually set up the profiler.
-2. Open the Web App resource in [Azure portal](https://portal.azure.com).
-3. Select "SETTINGS -> Application settings" to open Application settings blade.
-4. Update the following settings
+1. Open the Web App resource in [https://portal.azure.com](https://portal.azure.com).
+2. Select "SETTINGS -> Application settings" to open Application settings blade.
+3. Update the following settings
     * Set ".Net Framework version" to v4.6.
     * Set "Always On" to On.
     * Add app setting "__APPINSIGHTS_INSTRUMENTATIONKEY__" and set the value to the same instrumentation key used by the SDK.
 4. Select "DEVELOPMENT TOOLS -> Extensions" to open Extensions blade.
 5. Click "Add" button and choose "Application Insights Profiler".
-6. After the extension is installed, the profiler agent will run as a continuous web job in the Web App.
+6. After the extension is installed, the profiler agent will run as a continuous web job (ApplicationInsightsProfiler) in the Web App.
 
 ## Stop the profiler
 
@@ -166,7 +162,7 @@ resources (e.g. if on average you consume 2 CPUs over an interval than you will 
 
 ### How can I know if Application Insights profiler is running after installation?
 
-The profiler run as a continuous web job in Web App. You can open the Web App resource in https://portal.azure.com and check "ApplicationInsightsProfiler" status in WebJobs blade. If it's not running, you can click "Logs" button to find out more information.
+The profiler run as a continuous web job in Web App. You can open the Web App resource in https://portal.azure.com and check "ApplicationInsightsProfiler" status in WebJobs blade. If it's not running, you can click "Logs" button to find out more information. 
 
 ### Why can't I find any stack examples even the profiler is running?
 
