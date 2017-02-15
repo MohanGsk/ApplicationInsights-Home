@@ -13,7 +13,7 @@ SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-
 
 [Android](https://github.com/Microsoft/ApplicationInsights-Android)
 
-[Asp.Net v5](https://github.com/Microsoft/ApplicationInsights-aspnetv5)
+[Asp.Net Core (formerly Asp.Net 5)](https://github.com/Microsoft/ApplicationInsights-aspnetcore)
 
 [C++ Universal apps](https://github.com/Microsoft/ApplicationInsights-CPP)
 

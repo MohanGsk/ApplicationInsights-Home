@@ -35,7 +35,7 @@ These features are supported for server components using the following Applicati
 
 ## Getting Started
 To see cross-server calls on the application map, you need to:
-* Create one Application Insights resource and instrumentaiton key for each server component you want to show on the map
+* Create one Application Insights resource and instrumentation key for each server component you want to show on the map
 * Install the latest versions of the Application Insights SDKs to reports cross-server calls to Application Insights, for .NET you will need the beta SDK
 * Open the portal using [this link](https://portal.azure.com/?appInsightsExtension_OverrideSettings=appMapExperience:appMapLegacyErrorPaneMultiServer)
 
