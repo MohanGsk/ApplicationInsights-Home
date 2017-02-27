@@ -8,8 +8,10 @@
 ## Prerequisites
 
 - The app you want to profile is an ASP.NET application running as an Azure Web App. 
-    * Azure WebJobs and ASP.NET Core Apps are currently NOT supported. 
+    * ASP.NET Core application is supported on .NET Core runtime. It's currently NOT supported in full .NET Framework runtime. Please read [ASP.NET Core Support](#aspnetcore) for more information.
+    * Azure WebJobs are currently NOT supported.
 - Application Insights SDK 2.2 Beta or later is enabled on your web app.
+    * ASP.NET Core application requires [Application Insights for ASP.NET Core](https://github.com/Microsoft/ApplicationInsights-aspnetcore/wiki/Getting-Started) 2.0 or later.
 - The Web App Service Plan must be Basic tier or above.
 
 ## Set up the profiler through Application Insights resource
@@ -157,6 +159,14 @@ a bar whose height represents a scaled value. For nodes marked CPU_TIME or BLOCK
 the bar represents consuming 1 of those resources for the period of time of that bucket. For these metrics you can get greater than 100% by consuming multiple 
 resources (e.g. if on average you consume 2 CPUs over an interval than you will get 200%, which we currently do not visualize).
 
+## <a id="aspnetcore"></a> ASP.NET Core Support
+
+ASP.NET Core application is currently supported on .NET Core runtime but NOT supported in full .NET Framework runtime.
+
+The application also needs to include the following components to enable profiling.
+1. [Application Insights for ASP.NET Core 2.0 and above](https://github.com/Microsoft/ApplicationInsights-aspnetcore/wiki/Getting-Started).
+2. [System.Diagnostics.DiagnosticSource 4.4.0-beta-25022-02 and above](https://dotnet.myget.org/feed/dotnet-core/package/nuget/System.Diagnostics.DiagnosticSource/4.4.0-beta-25022-02).
+    * The pacakge is now available in myget. You need to add "https://dotnet.myget.org/F/dotnet-core/api/v3/index.json" to NuGet feed.
 
 ## <a id="troubleshooting"></a>Troubleshooting
 
@@ -172,11 +182,9 @@ Here are a few things you can check.
 2. Make sure your Web App has Application Insights SDK 2.2 Beta and above enabled.
 3. Make sure your Web App has the APPINSIGHTS_INSTRUMENTATIONKEY setting with the same instrumentation key used by AI SDK.
 4. Make sure your Web App is running on .Net Framework 4.6.
-
+5. If it's an ASP.NET Core application, please also check [the required dependencies](#aspnetcore).
 
 After the profiler is started, there is a short warm-up period when the profiler actively collects several performance traces. After that, the profiler will collect 2-minutes performance trace once an hour. If you keep sending the traffic to the Web App, you will eventually get the stack examples. We plan to provide the configuration option in future release.
-
-The profiler currently only supports ASP.NET application. We plan to support ASP.NET Core application soon.
 
 ### If I'm currently using Azure Service Profiler for my Web App, should I switch to Application Insights Profiler?  
 
