@@ -3,6 +3,7 @@
 
 [Azure Application Insights](app-insights-overview.md) includes a profiling tool that shows you how much time is spent in each method in your live web application. It automatically highlights the 'hot path' that is using the most time. You can enroll in the preview trial of this tool. 
 
+For additional help or feedback, please send mail to [serviceprofilerhelp@microsoft.com](mailto:serviceprofilerhelp@microsoft.com).
 
 <a id="installation"></a>
 ## Prerequisites
@@ -159,11 +160,12 @@ a bar whose height represents a scaled value. For nodes marked CPU_TIME or BLOCK
 the bar represents consuming 1 of those resources for the period of time of that bucket. For these metrics you can get greater than 100% by consuming multiple 
 resources (e.g. if on average you consume 2 CPUs over an interval than you will get 200%, which we currently do not visualize).
 
-## <a id="aspnetcore"></a> ASP.NET Core Support
+## <a id="aspnetcore"></a>ASP.NET Core Support
 
 ASP.NET Core application is currently supported on .NET Core runtime but NOT supported in full .NET Framework runtime.
 
 The application also needs to include the following components to enable profiling.
+
 1. [Application Insights for ASP.NET Core 2.0 and above](https://github.com/Microsoft/ApplicationInsights-aspnetcore/wiki/Getting-Started).
 2. [System.Diagnostics.DiagnosticSource 4.4.0-beta-25022-02 and above](https://dotnet.myget.org/feed/dotnet-core/package/nuget/System.Diagnostics.DiagnosticSource/4.4.0-beta-25022-02).
     * The pacakge is now available in myget. You need to add "https://dotnet.myget.org/F/dotnet-core/api/v3/index.json" to NuGet feed.
@@ -203,7 +205,7 @@ However a much simpler heuristic almost always works. Simply look at all paths. 
 Since it is likely that these are simply waiting on the other threads, concentrate on the rest and ignore the time in the uninteresting threads.   
 This simple, ‘obvious’ technique, almost always works.   
 
-If you have any further questions, please send mail to [serviceprofilerhelp@microsoft.com](mailto:serviceprofilerhelp@microsoft.com)
+If you have any further questions, please send mail to [serviceprofilerhelp@microsoft.com](mailto:serviceprofilerhelp@microsoft.com).
 
 ## Next steps
 
