@@ -166,9 +166,16 @@ ASP.NET Core application is currently supported on .NET Core runtime but NOT sup
 
 The application also needs to include the following components to enable profiling.
 
-1. [Application Insights for ASP.NET Core 2.0 and above](https://github.com/Microsoft/ApplicationInsights-aspnetcore/wiki/Getting-Started).
-2. [System.Diagnostics.DiagnosticSource 4.4.0-beta-25022-02 and above](https://dotnet.myget.org/feed/dotnet-core/package/nuget/System.Diagnostics.DiagnosticSource/4.4.0-beta-25022-02).
-    * The pacakge is now available in myget. You need to add "https://dotnet.myget.org/F/dotnet-core/api/v3/index.json" to NuGet feed.
+1. [Application Insights for ASP.NET Core 2.0](https://github.com/Microsoft/ApplicationInsights-aspnetcore/releases/tag/v2.0.0)
+    * [Getting started](https://github.com/Microsoft/ApplicationInsights-aspnetcore/wiki/Getting-Started)
+2. [System.Diagnostics.DiagnosticSource 4.4.0-beta-25022-02](https://dotnet.myget.org/feed/dotnet-core/package/nuget/System.Diagnostics.DiagnosticSource/4.4.0-beta-25022-02)
+    * In Visual Studio, select menu "Tools -> NuGet Package Manager -> Package Manager Settings".
+    * In Options dialog, select "NuGet Package Manager -> Package Sources".
+    * Click "+" button to add a new package source with Name "DotNet-Core-MyGet" and Value "https://dotnet.myget.org/F/dotnet-core/api/v3/index.json".
+    * Click "Update" button and close Options dialog.
+    * Open Solution Explorer, right-click the ASP.NET Core project and select "Manage NuGet Packages...".
+    * Click "Browse" tab, select "Package source: DotNet-Core-MyGet" and check "Include prerelease".
+    * Search "System.Diagnostics.DiagnosticSource" and choose "__4.4.0-beta-25022-02__" to install.
 
 ## <a id="troubleshooting"></a>Troubleshooting
 
