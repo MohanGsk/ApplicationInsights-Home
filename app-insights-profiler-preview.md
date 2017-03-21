@@ -3,6 +3,8 @@
 
 [Azure Application Insights](app-insights-overview.md) includes a profiling tool that shows you how much time is spent in each method in your live web application. It automatically highlights the 'hot path' that is using the most time. You can enroll in the preview trial of this tool. 
 
+Currently it only works if you host your web app on [Azure App Service](https://azure.microsoft.com/en-us/services/app-service/). Azure Compute support is coming soon. 
+
 For additional help or feedback, please send mail to [serviceprofilerhelp@microsoft.com](mailto:serviceprofilerhelp@microsoft.com).
 
 <a id="installation"></a>
