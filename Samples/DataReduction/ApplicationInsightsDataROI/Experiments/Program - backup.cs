@@ -88,7 +88,7 @@ namespace ApplicationInsightsDataROI
 
                 iterations++;
 
-                using (var operaiton = client.StartOperation<RequestTelemetry>("Process item"))
+                using (var operation = client.StartOperation<RequestTelemetry>("Process item"))
                 {
                     client.TrackEvent("test");
                     client.TrackTrace("Something happened");
@@ -110,7 +110,7 @@ namespace ApplicationInsightsDataROI
                     catch (Exception exc)
                     {
                         //client.TrackMetric("Successful responses", 0);
-                        //operaiton.Telemetry.Success = false;
+                        //operation.Telemetry.Success = false;
 
                         // metrics aggregation:
                         //processingFailed.Track(1);

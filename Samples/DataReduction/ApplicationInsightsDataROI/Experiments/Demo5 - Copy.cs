@@ -67,7 +67,7 @@ namespace ApplicationInsightsDataROI
             {
                 iterations++;
 
-                using (var operaiton = client.StartOperation<RequestTelemetry>("Process item"))
+                using (var operation = client.StartOperation<RequestTelemetry>("Process item"))
                 {
                     client.TrackEvent("test");
                     client.TrackTrace("Something happened", SeverityLevel.Information);
@@ -95,7 +95,7 @@ namespace ApplicationInsightsDataROI
                         processingFailed.Track(1);
 
                         client.TrackException(exc);
-                        operaiton.Telemetry.Success = false;
+                        operation.Telemetry.Success = false;
                     }
                     finally
                     {
@@ -103,8 +103,8 @@ namespace ApplicationInsightsDataROI
                         itemsProcessed.Track(1);
                     }
 
-                    //                    client.StopOperation(operaiton);
-                    //                    Console.WriteLine($"Iteration {iterations}. Elapesed time: {operaiton.Telemetry.Duration}");
+                    //                    client.StopOperation(operation);
+                    //                    Console.WriteLine($"Iteration {iterations}. Elapesed time: {operation.Telemetry.Duration}");
 
                 }
             }

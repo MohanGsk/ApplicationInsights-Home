@@ -59,7 +59,7 @@ namespace ApplicationInsightsDataROI
 
                 iterations++;
 
-                using (var operaiton = client.StartOperation<RequestTelemetry>("Process item"))
+                using (var operation = client.StartOperation<RequestTelemetry>("Process item"))
                 {
                     client.TrackEvent("test", new Dictionary<string, string>() { { "iteration", iterations.ToString() } });
                     client.TrackTrace($"Iteration {iterations} happened", SeverityLevel.Information);
@@ -82,10 +82,10 @@ namespace ApplicationInsightsDataROI
                     }
                     finally
                     {
-                        client.StopOperation<RequestTelemetry>(operaiton);
-                        operaiton.Telemetry.Success = status;
+                        client.StopOperation<RequestTelemetry>(operation);
+                        operation.Telemetry.Success = status;
 
-                        Console.WriteLine($"Iteration {iterations}. Elapesed time: {operaiton.Telemetry.Duration}. Success: {operaiton.Telemetry.Success}");
+                        Console.WriteLine($"Iteration {iterations}. Elapesed time: {operation.Telemetry.Duration}. Success: {operation.Telemetry.Success}");
                     }
                 }
 
