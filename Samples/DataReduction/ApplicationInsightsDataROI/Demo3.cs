@@ -31,7 +31,7 @@ namespace ApplicationInsightsDataROI
             // enable sampling
             configuration.TelemetryProcessorChainBuilder
                 // this telemetry processor will be executed first for all telemetry items to calculate the size and # of items
-                .Use((next) => { return new PriceCalculatorTelemetryProcessor(next, CollectedItems); })
+                .Use((next) => { return new SizeCalculatorTelemetryProcessor(next, CollectedItems); })
 
                 // exemplify dependency telemetry that is faster than 100 msec
                 .Use((next) => { return new DependencyExampleTelemetryProcessor(next); })
@@ -46,7 +46,7 @@ namespace ApplicationInsightsDataROI
                 })
 
                 // this telemetry processor will be execuyted ONLY when telemetry is sampled in
-                .Use((next) => { return new PriceCalculatorTelemetryProcessor(next, SentItems); })
+                .Use((next) => { return new SizeCalculatorTelemetryProcessor(next, SentItems); })
                 .Build();
 
 

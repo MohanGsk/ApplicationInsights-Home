@@ -77,13 +77,13 @@
     <Compile Include="DependencyExampleTelemetryProcessor.cs" />
     <Compile Include="DefaultTelemetryInitializer.cs" />
     <Compile Include="AppVersionTelemetryInitializer.cs" />
-    <Compile Include="SizeCalculator.cs" />
-    <Compile Include="PriceCalculatorTelemetryProcessor.cs" />
+    <Compile Include="SizeCalculatorTelemetryProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProcessedItems.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ApplicationInsights.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,7 +15,7 @@ namespace ApplicationInsightsDataROI
         public static void Run()
         {
             TelemetryConfiguration configuration = new TelemetryConfiguration();
-            configuration.InstrumentationKey = "ad4a5cd4-9fb3-4e4e-9b9c-9f43e9939bfa";
+            configuration.InstrumentationKey = "421095c4-8c1f-4a78-a5a3-58808b5fb0c5";
 
             // automatically track dependency calls
             var dependencies = new DependencyTrackingTelemetryModule();

@@ -1,22 +1,21 @@
 ﻿using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
-using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Timers;
 
 namespace ApplicationInsightsDataROI
 {
-    class PriceCalculatorTelemetryProcessor : ITelemetryProcessor
+    class SizeCalculatorTelemetryProcessor : ITelemetryProcessor
     {
         private ITelemetryProcessor _next;
-        private ProcessedItems _state;
+        private ProcessedItems ProcessedItems;
 
-        public PriceCalculatorTelemetryProcessor(ITelemetryProcessor next, ProcessedItems state)
+
+        public SizeCalculatorTelemetryProcessor(ITelemetryProcessor next, ProcessedItems items)
         {
             this._next = next;
-            this._state = state;
+            this.ProcessedItems = items;
         }
 
         public void Process(ITelemetry item)
@@ -29,8 +28,8 @@ namespace ApplicationInsightsDataROI
                 int size = content.Length;
                 string json = Encoding.Default.GetString(content);
 
-                this._state.size += size;
-                this._state.count += 1;
+                this.ProcessedItems.size += size;
+                this.ProcessedItems.count += 1;
             }
             finally
             {

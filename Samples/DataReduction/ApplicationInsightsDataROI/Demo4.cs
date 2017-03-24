@@ -16,7 +16,7 @@ namespace ApplicationInsightsDataROI
         {
 
             TelemetryConfiguration configuration = new TelemetryConfiguration();
-            configuration.InstrumentationKey = "fb8a0b03-235a-4b52-b491-307e9fd6b209";
+            configuration.InstrumentationKey = "421095c4-8c1f-4a78-a5a3-58808b5fb0c5";
 
             var telemetryChannel = new ServerTelemetryChannel();
             telemetryChannel.Initialize(configuration);
@@ -36,7 +36,7 @@ namespace ApplicationInsightsDataROI
             // enable sampling
             configuration.TelemetryProcessorChainBuilder
                 // this telemetry processor will be executed first for all telemetry items to calculate the size and # of items
-                .Use((next) => { return new PriceCalculatorTelemetryProcessor(next, CollectedItems); })
+                .Use((next) => { return new SizeCalculatorTelemetryProcessor(next, CollectedItems); })
 
                 // filter telemetry that is faster than 100 msec
                 //.Use((next) => { return new DependencyFilteringTelemetryProcessor(next); })
@@ -46,7 +46,7 @@ namespace ApplicationInsightsDataROI
                 .Use((next) => { return new DependencyFilteringWithMetricsTelemetryProcessor(next, configuration); })
 
                 // this telemetry processor will be execuyted ONLY when telemetry is sampled in
-                .Use((next) => { return new PriceCalculatorTelemetryProcessor(next, SentItems); })
+                .Use((next) => { return new SizeCalculatorTelemetryProcessor(next, SentItems); })
                 .Build();
 
 

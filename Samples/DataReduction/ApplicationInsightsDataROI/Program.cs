@@ -1,16 +1,4 @@
-﻿using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.DataContracts;
-using Microsoft.ApplicationInsights.DependencyCollector;
-using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
+﻿using System;
 
 namespace ApplicationInsightsDataROI
 {
@@ -25,6 +13,8 @@ namespace ApplicationInsightsDataROI
             Demo4.Run(); // filtering of dependencies
             //Demo5.Run(); // metrics aggregation, channeling business telemetry into a different iKey and default context settings
             //Demo6.Run(); // LiveMetrics enablement
+
+            Console.ReadKey();
         }
 
     }
