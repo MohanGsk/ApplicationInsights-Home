@@ -1,10 +1,10 @@
-﻿using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights.Channel;
-using Microsoft.ApplicationInsights.Extensibility.Implementation;
-
-namespace ApplicationInsightsDataROI
+﻿namespace ApplicationInsightsDataROI
 {
-    class NodeNameTelemetryInitializer : ITelemetryInitializer
+    using Microsoft.ApplicationInsights.Channel;
+    using Microsoft.ApplicationInsights.Extensibility;
+    using Microsoft.ApplicationInsights.Extensibility.Implementation;
+
+    internal class NodeNameTelemetryInitializer : ITelemetryInitializer
     {
         public void Initialize(ITelemetry telemetry)
         {

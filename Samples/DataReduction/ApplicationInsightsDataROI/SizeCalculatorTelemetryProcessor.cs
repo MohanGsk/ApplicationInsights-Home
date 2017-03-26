@@ -1,21 +1,20 @@
-﻿using Microsoft.ApplicationInsights.Channel;
-using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights.Extensibility.Implementation;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ApplicationInsightsDataROI
+﻿namespace ApplicationInsightsDataROI
 {
-    class SizeCalculatorTelemetryProcessor : ITelemetryProcessor
-    {
-        private ITelemetryProcessor _next;
-        private ProcessedItems ProcessedItems;
+    using System.Collections.Generic;
+    using System.Text;
+    using Microsoft.ApplicationInsights.Channel;
+    using Microsoft.ApplicationInsights.Extensibility;
+    using Microsoft.ApplicationInsights.Extensibility.Implementation;
 
+    internal class SizeCalculatorTelemetryProcessor : ITelemetryProcessor
+    {
+        private ITelemetryProcessor next;
+        private ProcessedItems processedItems;
 
         public SizeCalculatorTelemetryProcessor(ITelemetryProcessor next, ProcessedItems items)
         {
-            this._next = next;
-            this.ProcessedItems = items;
+            this.next = next;
+            this.processedItems = items;
         }
 
         public void Process(ITelemetry item)
@@ -28,12 +27,12 @@ namespace ApplicationInsightsDataROI
                 int size = content.Length;
                 string json = Encoding.Default.GetString(content);
 
-                this.ProcessedItems.size += size;
-                this.ProcessedItems.count += 1;
+                this.processedItems.Size += size;
+                this.processedItems.Count += 1;
             }
             finally
             {
-                this._next.Process(item);
+                this.next.Process(item);
             }
         }
     }
