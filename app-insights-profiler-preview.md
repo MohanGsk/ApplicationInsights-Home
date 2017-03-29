@@ -214,6 +214,19 @@ However a much simpler heuristic almost always works. Simply look at all paths. 
 Since it is likely that these are simply waiting on the other threads, concentrate on the rest and ignore the time in the uninteresting threads.   
 This simple, ‘obvious’ technique, almost always works.   
 
+### <a id="issue-loading-trace-in-viewer"></a>Issue loading data in viewer
+
+There are 3 reasons we know of that could impact your ability to view your data.
+
+1. Our data retention policy has removed your trace. If the data you are trying to view is older than a couple of weeks, try limiting your time filter and try again.
+
+2. Network connectivity issues have impacted our ability process requests. Check to see if there are any azure outages that could impact our services, and wait for issues to be resolved before trying again. Also, check that proxies or a firewall has not blocked access to https://gateway.azureserviceprofiler.net. 
+
+3. There was a configuration issue when deploying the profiler. Confirm that the Application Insights instrumentation key you are using in your app (usually this is specified in the ApplicationInsights.config but can also be found in your web.config, app.config, etc.) is the same as the Application Insights resource you've enabled profiling with.
+
+If the problem persists file a support ticket from the portal, or feel free to send an email to our help alias, [serviceprofilerhelp@microsoft.com](mailto:serviceprofilerhelp@microsoft.com). If you received this error in the viewer there should have been a correlation id used with your error. Please include this in communicating with us so that we can help troubleshoot your problem.
+
+
 If you have any further questions, please send mail to [serviceprofilerhelp@microsoft.com](mailto:serviceprofilerhelp@microsoft.com).
 
 ## Next steps
