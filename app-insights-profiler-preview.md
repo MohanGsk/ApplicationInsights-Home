@@ -220,7 +220,7 @@ There are 3 reasons we know of that could impact your ability to view your data.
 
 1. Our data retention policy has removed your trace. If the data you are trying to view is older than a couple of weeks, try limiting your time filter and try again.
 
-2. Network connectivity issues have impacted our ability process requests. Check to see if there are any azure outages that could impact our services, and wait for issues to be resolved before trying again. 
+2. Network connectivity issues have impacted our ability process requests. Check to see if there are any azure outages that could impact our services, and wait for issues to be resolved before trying again. Also, check that proxies or a firewall has not blocked access to https://gateway.azureserviceprofiler.net. 
 
 3. There was a configuration issue when deploying the profiler. Confirm that the Application Insights instrumentation key you are using in your app (this is usually found in the web.config, app.config, etc.) is the same as the Application Insights resource you are trying to view data for.
 
