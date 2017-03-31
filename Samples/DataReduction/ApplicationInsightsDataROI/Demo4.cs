@@ -40,10 +40,10 @@
                 // this telemetry processor will be executed first for all telemetry items to calculate the size and # of items
                 .Use((next) => { return new SizeCalculatorTelemetryProcessor(next, collectedItems); })
 
-                // filter telemetry that is faster than 100 msec
+                // filter telemetry that is faster than 100 ms
                 // .Use((next) => { return new DependencyFilteringTelemetryProcessor(next); })
 
-                // filter telemetry that is faster than 100 msec
+                // filter telemetry that is faster than 100 ms
                 // extract metrics
                 .Use((next) => { return new DependencyFilteringWithMetricsTelemetryProcessor(next, configuration); })
 

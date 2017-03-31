@@ -22,7 +22,7 @@
                 var d = item as DependencyTelemetry;
                 if (d.Duration < TimeSpan.FromMilliseconds(100))
                 {
-                    // if dependency duration > 100 msec then stop telemetry
+                    // if dependency duration > 100 ms then stop telemetry
                     // processing and return from the pipeline
                     return;
                 }

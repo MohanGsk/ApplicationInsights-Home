@@ -36,7 +36,7 @@
                 // this telemetry processor will be executed first for all telemetry items to calculate the size and # of items
                 .Use((next) => { return new SizeCalculatorTelemetryProcessor(next, collectedItems); })
 
-                // exemplify dependency telemetry that is faster than 100 msec
+                // exemplify dependency telemetry that is faster than 100 ms
                 .Use((next) => { return new DependencyExampleTelemetryProcessor(next); })
 
                 // sample all telemetry to 10%
