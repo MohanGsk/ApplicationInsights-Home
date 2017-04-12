@@ -28,4 +28,8 @@ SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-
 * [Ruby](https://github.com/Microsoft/ApplicationInsights-Ruby)
 * [StatsD](https://github.com/Microsoft/ApplicationInsights-statsd)
 * WordPress on [GitHub](https://github.com/Microsoft/ApplicationInsights-WordPress) and Release Version on [Wordpress.org](https://wordpress.org/plugins/application-insights/)
-* [Xamarin](https://github.com/Microsoft/ApplicationInsights-Xamarin)
+* [Xamarin](https://github.com/Microsoft/ApplicationInsights-Xamarin)    
+
+## Queries
+
+* [Recent issues and pull requests from all AppInsights repositories](https://github.com/issues?utf8=%E2%9C%93&q=repo%3AMicrosoft%2FApplicationInsights-dotnet-logging+repo%3AMicrosoft%2FApplicationInsights-JS+repo%3AMicrosoft%2FApplicationInsights-aspnetcore+repo%3AMicrosoft%2FApplicationInsights-DotNet-Server+repo%3AMicrosoft%2FApplicationInsights-DotNet+repo%3AMicrosoft%2FApplicationInsights-Home+repo%3AMicrosoft%2FApplicationInsights-node.js+repo%3AMicrosoft%2FApplicationInsights-Java+repo%3AMicrosoft%2FApplicationInsights-Java+repo%3AMicrosoft%2FApplicationInsights-Android+repo%3AMicrosoft%2FApplicationInsights-cpp+repo%3AMicrosoft%2FApplicationInsights-dotnet-logging+repo%3AMicrosoft%2FApplicationInsights-dotnet-server+repo%3AMicrosoft%2FApplicationInsights-go+repo%3AMicrosoft%2FApplicationInsights-ios+repo%3AMicrosoft%2FApplicationInsights-js+repo%3AMicrosoft%2FApplicationInsights-java+repo%3AMicrosoft%2FApplicationInsights-node.js+repo%3AMicrosoft%2FApplicationInsights-osx+repo%3AMicrosoft%2FApplicationInsights-php+repo%3AMicrosoft%2FApplicationInsights-python+repo%3AMicrosoft%2FApplicationInsights-ruby+repo%3AMicrosoft%2FApplicationInsights-statsd+repo%3AMicrosoft%2FApplicationInsights-wordpress+repo%3AMicrosoft%2FApplicationInsights-xamarin+is%3Aopen+)
