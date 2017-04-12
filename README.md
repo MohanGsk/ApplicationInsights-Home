@@ -14,7 +14,7 @@ SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-
 * [Android](https://github.com/Microsoft/ApplicationInsights-Android)
 * [Asp.Net Core (formerly Asp.Net 5)](https://github.com/Microsoft/ApplicationInsights-aspnetcore)
 * [C++ Universal apps](https://github.com/Microsoft/ApplicationInsights-CPP)
-* [DotNet Core](https://github.com/Microsoft/ApplicationInsights-dotnet)
+* [DotNet Base](https://github.com/Microsoft/ApplicationInsights-dotnet)
 * [DotNet Logging Adaptors](https://github.com/Microsoft/ApplicationInsights-dotnet-logging)
 * [DotNet Server](https://github.com/Microsoft/ApplicationInsights-server-dotnet)
 * [Go](https://github.com/Microsoft/ApplicationInsights-Go)
