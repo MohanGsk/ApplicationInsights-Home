@@ -44,7 +44,7 @@ An instance of PageView represents a generic action on a page like a button clic
     
 1. **duration** : string
 
-    Request duration in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff. For a page view (PageViewData), this is the duration. For a page view with performance information (PageViewPerfData), this is the page load time.
+    Request duration in format: DD.HH:MM:SS.MMMMMM. For a page view (PageViewData), this is the duration. For a page view with performance information (PageViewPerfData), this is the page load time. Must be less than 1000 days.
     
     This field is optional.
     

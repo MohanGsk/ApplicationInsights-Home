@@ -16,7 +16,7 @@ An instance of Request represents completion of an external request to the appli
     
 1. **duration** : string
 
-    Request duration in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff.
+    Request duration in format: DD.HH:MM:SS.MMMMMM. Must be less than 1000 days.
     
 1. **responseCode** : string
 

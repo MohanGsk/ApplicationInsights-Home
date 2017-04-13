@@ -72,9 +72,9 @@
     
 1. **"ai.location.ip"** : string
 
-    The IP address of the client device. IPv4 and IPv6 is supported. Information in the location context fields is always about the end user. When telemetry is sent from a service, the location context is about the user that initiated the operation in the service.
+    The IP address of the client device. IPv4 and IPv6 are supported. Information in the location context fields is always about the end user. When telemetry is sent from a service, the location context is about the user that initiated the operation in the service.
     
-    Max length: 45
+    Max length: 46
     
     Default value: "ai.location.ip"
     
@@ -159,16 +159,6 @@
     Max length: 1024
     
     Default value: "ai.user.accountId"
-    
-    This field is optional.
-    
-1. **"ai.user.userAgent"** : string
-
-    The browser's user agent string as reported by the browser. This property will be used to extract informaiton regarding the customer's browser but will not be stored. Use custom properties to store the original user agent.
-    
-    Max length: 2048
-    
-    Default value: "ai.user.userAgent"
     
     This field is optional.
     

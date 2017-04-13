@@ -16,19 +16,17 @@ Instances of AvailabilityData represent the result of executing an availability 
     
 1. **name** : string
 
-    Name of the test that these availability results represents.
+    Name of the test that these availability results represent.
     
     Max length: 1024
     
 1. **duration** : string
 
-    Duration in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff
+    Duration in format: DD.HH:MM:SS.MMMMMM. Must be less than 1000 days.
     
 1. **success** : bool
 
     Success flag.
-    
-    This field is optional.
     
 1. **runLocation** : string
 

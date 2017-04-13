@@ -10,7 +10,7 @@ An instance of the Metric item is a list of measurements (single data points) an
     
 1. **metrics** : IList[DataPoint]
 
-    List of metrics.
+    List of metrics. Only one metric in the list is currently supported by Application Insights storage. If multiple data points were sent only the first one will be used.
     
     [DataPoint] "Metric data single measurement."
     
@@ -22,7 +22,7 @@ An instance of the Metric item is a list of measurements (single data points) an
         
     1. **kind** : test.DataPointType
     
-        Metric type.
+        Metric type. Single measurement or the aggregated value.
         
         Default value: Measurement
         
@@ -35,7 +35,7 @@ An instance of the Metric item is a list of measurements (single data points) an
             
     1. **value** : double
     
-        Metric calculated value.
+        Single value for measurement. Sum of individual measurements for the aggregation.
         
     1. **count** : int
     

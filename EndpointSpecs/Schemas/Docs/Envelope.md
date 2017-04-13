@@ -1,5 +1,5 @@
 
-#Microsoft.Telemetry.Envelope
+#AI.Envelope
 System variables for a telemetry item.
 
 1. **ver** : int
@@ -19,6 +19,8 @@ System variables for a telemetry item.
 1. **time** : string
 
     Event date time when telemetry item was created. This is the wall clock time on the client when the event was generated. There is no guarantee that the client's time is accurate. This field must be formatted in UTC ISO 8601 format, with a trailing 'Z' character, as described publicly on https://en.wikipedia.org/wiki/ISO_8601#UTC. Note: the number of decimal seconds digits provided are variable (and unspecified). Consumers should handle this, i.e. managed code consumers should not use format 'O' for parsing as it specifies a fixed length. Example: 2009-06-15T13:45:30.0000000Z.
+    
+    Max length: 64
     
     Time offset in the past from the current time: -48 hours
     
@@ -42,7 +44,7 @@ System variables for a telemetry item.
     
 1. **iKey** : string
 
-    The application's instrumentation key.
+    The application's instrumentation key. The key is typically represented as a GUID, but there are cases when it is not a guid. No code should rely on iKey being a GUID. Instrumentation key is case insensitive.
     
     Max length: 40
     
@@ -54,7 +56,7 @@ System variables for a telemetry item.
     
     This field is optional.
     
-1. **data** : Base
+1. **data** : test.Base
 
     Telemetry data item.
     
