@@ -1,12 +1,13 @@
 """DB init tests"""
 # -*- coding: utf-8 -*-
 import unittest
+from pymongo import MongoClient
 
 
 class DBInitTestCase(unittest.TestCase):
-    """Crawler test cases."""
+    """DB Init test cases."""
 
     @classmethod
     def test_dbinit(cls):
-        """Tests url command formatting"""
-        assert 1 == 1
+        """Tests that DB is initialized correctly"""
+        client = MongoClient('localhost', 27017)
