@@ -9,7 +9,9 @@
 4. Create user   
 ``docker exec -it mistral-mongo mongo admin``    
 ...   
-``db.createUser({user:'...', pwd: '...',roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]})``
+``db.createUser({user:'unit_test_user', pwd: 'run',roles: [ { role: "root", db: "admin" } ]})``
 
 4. Run DB init verification:   
 ``python -m unittest discover dbinit/ "*_test.py"``   
+
+5. Connect mongodb Docker container to unit test Docker container. More details [here](https://deis.com/blog/2016/connecting-docker-containers-1/)
