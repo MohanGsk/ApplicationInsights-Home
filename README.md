@@ -9,17 +9,20 @@ For SDK and service announcements - subscribe to [ApplicationInsights-Announceme
 SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-Home/wiki/SDK-Release-Schedule)
 
 
-## Our Repositories
+## Officially Supported SDKs
 
 * [Asp.Net Core (formerly Asp.Net 5)](https://github.com/Microsoft/ApplicationInsights-aspnetcore)
-* [C++ Universal apps](https://github.com/Microsoft/ApplicationInsights-CPP)
 * [DotNet Base](https://github.com/Microsoft/ApplicationInsights-dotnet)
 * [DotNet Logging Adaptors](https://github.com/Microsoft/ApplicationInsights-dotnet-logging)
 * [DotNet Server](https://github.com/Microsoft/ApplicationInsights-server-dotnet)
-* [Go](https://github.com/Microsoft/ApplicationInsights-Go)
 * [JavaScript](https://github.com/Microsoft/ApplicationInsights-js)
 * [Java](https://github.com/Microsoft/ApplicationInsights-Java)
 * [Node.js](https://github.com/Microsoft/ApplicationInsights-node.js)
+
+## Community Supported SDKs. These SDKs are not recommended for production applications.
+
+* [C++ Universal apps](https://github.com/Microsoft/ApplicationInsights-CPP)
+* [Go](https://github.com/Microsoft/ApplicationInsights-Go)
 * [PHP](https://github.com/Microsoft/ApplicationInsights-PHP)
 * [Python](https://github.com/Microsoft/ApplicationInsights-Python)
 * [Ruby](https://github.com/Microsoft/ApplicationInsights-Ruby)
