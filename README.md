@@ -17,7 +17,7 @@ SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-
 * [DotNet Server](https://github.com/Microsoft/ApplicationInsights-server-dotnet)
 * [JavaScript](https://github.com/Microsoft/ApplicationInsights-js)
 * [Java](https://github.com/Microsoft/ApplicationInsights-Java)
-* [Node.js] (*Beta*) (https://github.com/Microsoft/ApplicationInsights-node.js)
+* [Node.js - *Beta*](https://github.com/Microsoft/ApplicationInsights-node.js)
 
 ## Community Supported SDKs. These SDKs are not recommended for production applications.
 
