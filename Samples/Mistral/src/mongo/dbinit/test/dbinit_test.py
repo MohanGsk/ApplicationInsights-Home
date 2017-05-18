@@ -1,6 +1,7 @@
 """DB init tests"""
 # -*- coding: utf-8 -*-
 import unittest
+import os
 from pymongo import MongoClient
 from datetime import datetime
 
@@ -11,7 +12,11 @@ class DBInitTestCase(unittest.TestCase):
     @classmethod
     def test_dbinit(cls):
         """Tests that DB is initialized correctly"""
-        client = MongoClient("mongodb://unit_test_user:run@127.0.0.1")
+        conn_string = "mongodb://unit_test_user:run@127.0.0.1"
+        if os.environ.get("MISTRAL_MONGO_PORT") != None:
+            conn_string = "mongodb://unit_test_user:run@" + \
+                os.environ["MISTRAL_MONGO_PORT"][6:]
+        client = MongoClient(conn_string)
         mongo_db = client.test_db
         result = mongo_db.restaurants.insert_one(
             {
@@ -39,4 +44,5 @@ class DBInitTestCase(unittest.TestCase):
                 "restaurant_id": "41704620"
             }
         )
-        assert result.inserted_id > 0
+        assert result.inserted_id != None
+        client.drop_database(mongo_db)
