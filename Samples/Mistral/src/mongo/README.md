@@ -14,6 +14,6 @@
 ``python -m unittest discover dbinit/ "*_test.py"``   
 
 5. To run tests from docker container use the following command. Note the `--link` option, linking python unit test container to mistral-mongo container created in the previous step:    
-  ``
+``
 docker pull python && docker build -f ./test.dockerfile -t mistral-dbinit-test . &&  docker run -i -t --link mistral-mongo --name=mistral-dbinit-test mistral-dbinit-test python -m unittest discover -p *test.py &&  docker rm -f mistral-dbinit-test
 ``
