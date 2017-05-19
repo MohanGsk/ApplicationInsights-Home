@@ -1,10 +1,19 @@
-var express = require('express')
-var app = express()
+'use strict';
+
+const express = require('express');
+
+// Constants
+const PORT = 8080;
+const app = express();
 
 app.get('/events', function (req, res) {
   res.send([])
 })
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+app.get('/checkdb', function(req, res) {
+  /* TODO: connect to database and return status check */
+})
+
+app.listen(PORT, function () {
+  console.log('Example app listening on port ' + PORT.toString() + '!')
 })
