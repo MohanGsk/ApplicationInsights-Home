@@ -19,6 +19,30 @@ Mistral is a canonical app that showcases how Application Insights can be used o
 The diagram below demonstrates the proposed architecture. 
 ![architecture](architecture.JPG)
 
+## Repo structure
+* [/src/da](./src/da) - Data Access Service. Docker image: `mistral-da`
+* [/src/mongo](./src/mongo) - Mongo storage. Docker image: `mongo`
+* [/src/mongo/dbinit/test](./src/mongo/dbinit/test) - DB test. Docker image: `mistral-dbinit-test`
+* _(Doesn't exist)_ [/src/maestro](./src/maestro) - Ingestion service. Docker image `mistral-maestro`
+* _(Doesn't exist)_ [/src/pr](./src/pr) - Processing service. Docker image `mistral-pr`
+* _(Doesn't exist)_ [/src/fe-java](./src/fe-java) - FE Java service. Docker image `mistral-fe-java`
+* _(Doesn't exist)_ [/src/fe-python](./src/fe-python) - FE Python service. Docker image `mistral-fe-python`
+* _(Doesn't exist)_ [/src/fe-php](./src/fe-php) - FE PHP service. Docker image `mistral-fe-php`
+
+## Next steps
+* Connect `da` to `mongo`. Expose a `/test` endpoint on `da` that returns database connection status
+* Publish `mistral-da` and `mistral-dbinit-test` images to Microsoft image repository
+* Create container cluster using Kubernetes and publish to Azure using Azure Container Service
+    * Now we have official instance of `mistral` running in Azure
+* `da` next steps
+    * Enable raw data endpoint
+    * Enable metric data endpoint
+* Create Data generator and purger
+* Create PHP FE
+* Create Python FE
+* Create View generator. Look into: [Selenium on Docker](https://github.com/SeleniumHQ/docker-selenium)
+* Enable Application Insights for Docker on all Docker containers used for `mistral`
+
 
 
 
