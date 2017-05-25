@@ -1,5 +1,6 @@
+## DB Installation Instructions
 1. Install Docker
- - For Linux: Follow the steps [here](https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository) to install Docker
+    - For Linux: Follow the steps [here](https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository) to install Docker
 2. Pull mongo image from dockerhub:   
 ``docker pull mongo``
 
@@ -17,3 +18,5 @@
 ``
 docker pull python && docker build -f ./test.dockerfile -t mistral-dbinit-test . &&  docker run -i -t --link mistral-mongo --name=mistral-dbinit-test mistral-dbinit-test python -m unittest discover -p *test.py &&  docker rm -f mistral-dbinit-test
 ``
+
+The command above enables ``MISTRAL_MONGO_PORT`` environment variable.
