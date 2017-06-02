@@ -16,21 +16,22 @@ app.get('/checkdb', function (req, res) {
   var mongoPort = process.env.MISTRAL_MONGO_PORT;
   if (mongoPort) {
     mongoPort = mongoPort.substr(6);
-    var url = "mongodb://unit_test_user:run@" + mongoPort;
-    mongoClient.connect(url, function (err, db) {
-      if (err) {
-        res.send(err.toString());
-      }
-      else {
-        res.send("ok");
-        return;
-      }
-      db.close();
-    });
-  }else{
-    res.send("MISTRAL_MONGO_PORT variable not set")
+  } else {
+    mongoPort = PORT;
   }
-})
+  var url = "mongodb://unit_test_user:run@" + mongoPort;
+  mongoClient.connect(url, function (err, db) {
+    if (err) {
+      res.send(err.toString());
+    }
+    else {
+      res.send("ok");
+      return;
+    }
+    db.close();
+  });
+}
+)
 
 app.listen(PORT, function () {
   console.log('Example app listening on port ' + PORT.toString() + '!')

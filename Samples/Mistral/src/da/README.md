@@ -4,7 +4,7 @@
 2. Pull node image from dockerhub:   
 ``docker pull node``
 
-3. Build docker image 
+3. Build (or update) docker image 
 ``docker build -f ./da.dockerfile -t mistral-da .``
 
 4. Start docker container
@@ -12,3 +12,7 @@
 
 5. Test that it is working. `ok` should be returned   
 ``curl -i localhost:49160/checkdb``
+
+6. Commit changes and push docker image to repo    
+``docker tag mistral-da microsoft/sample-mistral:da``    
+``docker push microsoft/sample-mistral:da``
