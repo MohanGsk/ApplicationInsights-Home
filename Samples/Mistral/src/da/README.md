@@ -8,7 +8,7 @@
 ``docker build -f ./da.dockerfile -t mistral-da .``
 
 4. Start docker container
-``docker run -name mistral-da -p 49160:8080 --link mistral-mongo -d mistral-da``
+``docker run --name mistral-da -p 49160:8080 --link mistral-mongo -d mistral-da``
 
 5. Test that it is working. `ok` should be returned   
 ``curl -i localhost:49160/checkdb``
