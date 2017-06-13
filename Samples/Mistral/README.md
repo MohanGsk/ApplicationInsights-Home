@@ -23,7 +23,7 @@ The diagram below demonstrates the proposed architecture.
 * [/src/da](./src/da) - Data Access Service. Docker image: `microsoft/sample-mistral:da`
 * [/src/mongo](./src/mongo) - Mongo storage. Docker image: `microsoft/sample-mistral:mongo`
 * [/src/mongo/dbinit/test](./src/mongo/dbinit/test) - DB test. Docker image: `microsoft/sample-mistral:dbinit-test`
-* _(Doesn't exist)_ [/src/maestro](./src/maestro) - Ingestion service. Docker image `microsoft/sample-mistral:maestro`
+* [/src/maestro](./src/maestro) - Ingestion service. Docker image `microsoft/sample-mistral:mistral-maestro`
 * _(Doesn't exist)_ [/src/pr](./src/pr) - Processing service. Docker image `microsoft/sample-mistral:pr`
 * _(Doesn't exist)_ [/src/fe-java](./src/fe-java) - FE Java service. Docker image `microsoft/sample-mistral:fe-java`
 * _(Doesn't exist)_ [/src/fe-python](./src/fe-python) - FE Python service. Docker image `microsoft/sample-mistral:fe-python`
