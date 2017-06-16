@@ -16,15 +16,16 @@ spec:
     spec:
       containers:
       - name: da
-        image: bulankou/mistral:da
+        image: microsoft/sample-mistral:da_0.3
         ports:
-          - containerPort: 8070
-            hostPort: 8070
+          - containerPort: 8080
+            hostPort: 8089
             name: http
       - name: mongo
         image: bulankou/mistral:mongo
         ports:
-          - containerPort: 8080
+          - containerPort: 27017
+            hostPort: 27017
 ---
 apiVersion: v1
 kind: Service
@@ -38,7 +39,7 @@ spec:
   ports:
     # the port that this service should serve on
     - port: 80
-      targetPort: 8070
+      targetPort: 8089
   # label keys and values that must match in order to receive traffic for this service
   selector: 
     name: mistral-app
