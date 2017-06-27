@@ -21,7 +21,7 @@ The diagram below demonstrates the proposed architecture.
 
 ## Repo structure
 * [/src/da](./src/da) - Data Access Service. Docker image: `microsoft/sample-mistral:da`
-* [/src/mongo](./src/mongo) - Mongo storage. Docker image: `mongo`
+* [/src/mongo](./src/mongo) - Mongo storage. Docker image: `microsoft/sample-mistral:mongo`
 * [/src/mongo/dbinit/test](./src/mongo/dbinit/test) - DB test. Docker image: `microsoft/sample-mistral:dbinit-test`
 * [/src/maestro](./src/maestro) - Ingestion service. Docker image `microsoft/sample-mistral:mistral-maestro`
 * _(Doesn't exist)_ [/src/pr](./src/pr) - Processing service. Docker image `microsoft/sample-mistral:pr`
@@ -30,23 +30,31 @@ The diagram below demonstrates the proposed architecture.
 * _(Doesn't exist)_ [/src/fe-php](./src/fe-php) - FE PHP service. Docker image `microsoft/sample-mistral:fe-php`
 
 ## Deploy to ACS with Kubernetes
-_<span style="background-color:orange;">
-TODO: need to merge these into a single bash script
-<span>_
 
 * [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 * Create Azure resource group:
 ```
-RESOURCE_GROUP=mistral
+RESOURCE_GROUP=mistral-2
 LOCATION=westus
 az group create --name=$RESOURCE_GROUP --location=$LOCATION
 ```
+
 * Create Kubernetes cluster
 ```
-DNS_PREFIX=mistral
-CLUSTER_NAME=mistral-cluster
+DNS_PREFIX=mistral-2
+CLUSTER_NAME=mistral-2-cluster
 az acs create --orchestrator-type=kubernetes --resource-group $RESOURCE_GROUP --name=$CLUSTER_NAME --dns-prefix=$DNS_PREFIX --generate-ssh-keys
 ```
+* This is what should be created
+![img](./resources_after_az_create.png)
+  * 2 availability sets
+  * 2 storage accounts
+  * 4 network interfaces
+  * 1 network security group
+  * 1 route table
+  * 1 container service
+  * 1 public IP address
+  * 4 virtual machines
 
 * Connect to cluster and list nodes
 ```
@@ -55,20 +63,48 @@ az acs kubernetes get-credentials --resource-group=$RESOURCE_GROUP --name=$CLUST
 kubectl get nodes
 ```
 
-* Start da image and expose to the world
-```
-kubectl run da --image microsoft/sample-mistral:da
-kubectl expose deployments da --port=80 --target-port=8080 --type=LoadBalancer
-```
+* Run deployment with .yaml file: 
+```kubectl create -f k8.yaml```
 
 * After waiting for exposure to propage you can get external IP to da from ```kubectl get svc```
 
 
+* To update deployment: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#updating-a-deployment
+```kubectl set image deployment/mistral-app da=microsoft/sample-mistral:da_0.1```
 
+
+## Deploy to minikube
+### On Mac
+* Install Virtual Box: https://www.virtualbox.org/wiki/Downloads
+* Install minikube
+```
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.19.1/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+```
+* Start minikube
+
+```minikube start```
+
+* Deploy to minikube
+
+```kubectl create -f k8.yaml```
+
+* Get url to service
+
+```minikube service --url mistral-service```
+
+* Example: run bash inside one of containers
+
+```kubectl exec -it mistral-app-3375841280-zbv7q -c mongo -- /bin/bash```
+
+
+## Clean up
+
+To delete deployment and service: 
+
+```kubectl delete deployment mistral-app && kubectl delete service mistral-service```
 
 
 ## Next steps
-* Complete ACS steps to deploy mongo to ACS and link to da
 * Publish `mistral-da` and `mistral-dbinit-test` images to Microsoft image repository
 * Create container cluster using Kubernetes and publish to Azure using Azure Container Service
     * Now we have official instance of `mistral` running in Azure
