@@ -30,11 +30,11 @@ app.get('/checkdb', function (req, res) {
     }
     else {
       res.send("ok");
-      return;
     }
     if (db) {
       db.close();
     }
+    return;
   });
 }
 )
