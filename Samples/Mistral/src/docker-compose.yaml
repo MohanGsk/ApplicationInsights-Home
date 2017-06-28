@@ -1,0 +1,19 @@
+version: '3'
+services:
+ # DA service
+ da:
+  build:
+   context: ./da
+   dockerfile: da.dockerfile
+  #image: microsoft/sample-mistral:da_0.3
+  ports:
+  - 8080:8080
+  environment:
+  - AI_KEY=d5812c97-33d7-4617-ab96-7e4fe97e5742
+  container_name: "da"
+ # mongo
+ mongo:
+  image: mongo
+  ports:
+  - 27017:27017
+  container_name: "mongo"

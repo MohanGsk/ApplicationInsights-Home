@@ -97,12 +97,26 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.19.1/minik
 ```kubectl exec -it mistral-app-3375841280-zbv7q -c mongo -- /bin/bash```
 
 
-## Clean up
+## Clean up kubernetes deployment
 
 To delete deployment and service: 
 
 ```kubectl delete deployment mistral-app && kubectl delete service mistral-service```
 
+## Install using docker-compose
+
+* Deploy with docker-compose in detached mode
+``docker-compose -f docker-compose.yaml up -d``
+
+## Set up after installation
+* Create user on mongo
+``docker exec -it mongo mongo admin``
+``db.createUser({user:'unit_test_user', pwd: 'run',roles: [{ role: "userAdminAnyDatabase", db: "admin" }, { role: "root", db: "admin" } ]})``
+
+## Stop and delete containers, remove images
+``docker stop $(docker ps -a -q)``
+``docker rm $(docker ps -a -q)``
+``docker rmi -f $(docker images -a -q)``
 
 ## Next steps
 * Publish `mistral-da` and `mistral-dbinit-test` images to Microsoft image repository
