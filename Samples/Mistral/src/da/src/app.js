@@ -12,7 +12,7 @@ const MONGO_PORT = 27017;
 appInsights.setup(process.env.AI_KEY).start();
 
 app.get('/events', function (req, res) {
-  res.send([])
+  res.status(200).send([])
 })
 
 app.get('/checkdb', function (req, res) {
@@ -26,10 +26,10 @@ app.get('/checkdb', function (req, res) {
   var url = "mongodb://unit_test_user:run@" + mongoPort;
   mongoClient.connect(url, function (err, db) {
     if (err) {
-      res.send(err.toString());
+      res.status(500).send(err.toString());
     }
     else {
-      res.send("ok");
+      res.status(200).send("ok");
     }
     if (db) {
       db.close();

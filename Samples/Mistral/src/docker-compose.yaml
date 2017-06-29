@@ -17,3 +17,10 @@ services:
   ports:
   - 27017:27017
   container_name: "mongo"
+ # AI sidecar monitoring service
+ ai-sidecar:
+  image: microsoft/applicationinsights
+  volumes:
+  - /var/run/docker.sock:/docker.sock
+  container_name: "ai"
+  command: ikey=b69ecd39-53e6-4849-b4d5-4c41fcc57f29
