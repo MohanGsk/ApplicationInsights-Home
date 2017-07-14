@@ -24,7 +24,7 @@ base16(<TraceOptions>) = 01  // sampled
 ```
 
 Specific changes in `Trace-Context` format:
-1. Expect ANY (with the reasonable limitations on characters set) string as a request identifier. Treat it as a `SpanId`.
+1. Expect ANY (with the reasonable limitations on characters set) string as a request identifier. Treat it as a `SpanId`. Some loggers may attempt to get `TraceId` as one of the name-value pairs baggage named `ID`. Otherwise - generate new one.
 2. Treat `Version` prefix as `Format` prefix. Define magic numbers for well-known formats as an extension to the spec. One can be for Zipkin&Census, one for Microsoft's hierarchical ID.
 3. In both formats define the `trace-id` as `base64` of 16 bytes number without the padding symbols. 
 4. For unknown format number - expect `trace-id` to be ANY string all the way to the next `-`.
@@ -64,7 +64,7 @@ Every request has unique identifier:
 - any text can be accepted as request id
 
 Distributed tracing providers may easily extract the trace id:
-- trace id long enough to provide uniquiness
+- trace id long enough to provide uniqueness
 - random enough to be used for sampling
 - human "parseable" from the headers
 - efficiently parseable so simple proxies can propagate further
@@ -84,7 +84,6 @@ Correlation-Context: key1=value1, key2=value2
 Changes:
 1. `Request-Id` is a unique identifier of every request. Remove provision on force making it unique
 2. trace id and format version
-3.  
 
 `Correlation-Context` is a name-value collection that needs to be propagated from incoming requests to the outgoing dependant services calls.
 
