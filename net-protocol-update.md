@@ -43,6 +43,18 @@ Please note - any other providers can fit their identifiers in this protocol.
 - Looking at docs publicly available for [Dynatrace](https://community.dynatrace.com/community/display/docdt63/Integration+with+Web+Load+Testing+and+Monitoring+Tools) and [AppDynamics](https://community.appdynamics.com/t5/tkb/articleprintpage/tkb-id/knowledge-base/article-id/81) - proposed correlation protocol can fit their existing payload.
 
 
+
+==========
+
+## Do not read further
+
+==========
+==========
+==========
+
+
+
+
 ## .NET format modifications
 
 .NET libraries recently adopted the new [Http Correlation protocol](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/HttpCorrelationProtocol.md) for distributed tracing. Protocol is designed to be feature-rich, but allows to fallback into very simple semantic.
