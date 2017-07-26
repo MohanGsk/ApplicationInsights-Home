@@ -14,5 +14,5 @@ If you want to see the data in Azure portal - change the instrumentation key in 
 
 ## Demo script and explanation
 
-Coming soon...
+This demo applicaiton is a script for the MSDN magazine article [DevOps - Optimize Telemetry with Application Insights](https://msdn.microsoft.com/magazine/mt808502).
 
