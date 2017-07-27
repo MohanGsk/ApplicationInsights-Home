@@ -86,6 +86,18 @@ The result is that the logging system tags every message with the active Span, a
 Span has an ID and its parent ID, which form a tree representing the causality of the 
 execution of the multi-tiered application.  
 
+## Simple Sampling with Request-Id
+
+It is very likely that most systems will want to implement some form of Sampling to avoid
+overloading the logging system.   On simple way of doing this is to simply not emit the 
+Request-Id header field in the request.   This is both simple and efficient (no overhead
+in when a particular request is not being logged).   This works well when logging control
+is given to the top most activities in the system, but if this is not the case then you 
+lose 'caller context' if you start tracing at some intermediate point.    Often systems 
+wish to have this caller context available for rare logging (e.g. when errors happen), 
+which means that you need to send a Request-Id with all request.   Nevertheless this 
+mechanism is useful and is easily supported.
+
 ## Improving on Flat IDs
 
 While the system described above works, it has several disadvantages 
@@ -145,11 +157,73 @@ to act as a unique ID.  However if some parts of the system hash (because they a
 do not, then in order to compare IDs it must be possible to look at both IDs, recognize that one is hashed
 and then know how to perform the hash on the other before doing the comparison.   
 
-# The Request-ID Field
+# The Request-Id Field
 
-TODO COMPLETE
+The Request-ID is defined to be a variable length string of printable ASCII characters 
+(from 0x20 through 0x7E inclusive).   This string uniquely identifies the request within 
+the system as a whole, and is expected to be unique because some part of the ID was
+chosen randomly from a large (64 bit or greater) number space.    Logging systems that
+have only flat IDs will simply emit this ID as a string.   It is recommended that 
+punctuation in the ASCII range 0x21-0x2A be reserved for use by this standard in the future.  
 
+## Base64 encoding of binary blobs  
 
+[Base64](https://en.wikipedia.org/wiki/Base64) is a standard way of encoding binary blob as 
+a sequence of printable ASCII characters.   The characters used are confide to the alpha-numeric 
+and two punctuation characters (+ and /).   Because there are 64 legal possible characters each 
+one represents 6 bits of binary data.  
+
+## Expected Output Format for Two Level IDs  
+
+Systems that support two levels if hierarchy are expected to emit the two IDs (the top level ID 
+and the Span ID separated by a '-'.    It is expected that these two IDs are will be encoded
+using Base64.   For example a system having a 16 byte top level ID and a 8 byte Span ID could
+emit an ID like the following
+```
+    3qdi2JDFioDFjDSF223f23-SdfD8DF908D
+```
+That is it would have 22 characters (* 6 = 132 bits ~= 8 bytes) for the top level ID and 11 characters
+for the secondary ID (8 bytes)
+
+## Expected Output Format for a Multi-Level ID
+
+Systems that support multiple levels of hierarchy will use a '.' to separate all but the top level
+of the ID hierarchy.  Base64 is recommended for all the component IDs.   Like the two level system
+the top level ID needs to be large so as to guarantee system-wide uniqueness.  Identifiers after the
+top level only need to be unique within the context of the parent ID and thus can typcally be very small 
+An example might be:
+```
+    3qdi2JDFioDFjDSF223f23-A.3.B.q.3S.34.3.42.2.A.B.C
+```
+
+## Input parsing for Two (or more) Tier IDs 
+
+In systems that support to or more levels, when reading in the ID it will search for a '-' Any characters
+before the first '-' are considered the top level ID,  Anything after it is something that make the ID
+unique within that top level scope.   In this later component the multi-level IDs can be parsed by looking
+for '.' characters.  
+
+## Hashing for Fixed Sized ID Systems
+
+Systems that require the IDs to be a fixed size must hash IDs to fit into the required size (e.g. 16 
+bytes or 8 bytes)  This must be one with the hash algorithm defined here which we call HASH_N (where
+N is the number of bytes of the resulting binary blob).   HASH_N is describe precisely in the appendix
+but it is basically a Base64 decoder modified to accept any input characters, and to circularly XOR
+the output bytes until the input is consumed (hash).   This hash function has the following useful characteristics
+
+1. It input can be anything string,
+2. Its output is always N bytes.
+3. When operating on Base64 encoded input that of size N it produces the same result as simply decoding (no information loss).
+4. It is as efficient as Base64 decoding.   
+
+This mechanism has the following useful ramifications:
+
+1. IDs from two like minded systems work without any loss of information.  
+2. Multi-tiered and two-tiered systems interoperate on the top-most their (since they both have a top tier ID)
+3. A two-tiered fixed-size ID system can accept ANY Id, and in particular an ID from a multi-tiered ID system.
+4. ID  have a useful comparison operator that work even in this mixed case.  Basically if the IDs don't match 
+perfectly, you also test if they match if HASH_N is applied to both (you may need to do this twice, once for 
+the N of the first operand, and once for the N of the other operand).    
 
 # The Correlation-Context Field
 
@@ -159,3 +233,8 @@ TODO: The Correlation context is straightforward if the value does not end with 
 or contain newlines or commas.   We will need a standard for escaping these characters if
 we wish to support arbitrary values.  
 
+# Appendix
+
+## Hash_N Algorithm
+
+TODO Finish.  
