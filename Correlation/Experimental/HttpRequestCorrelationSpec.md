@@ -185,16 +185,68 @@ emit an ID like the following
 That is it would have 22 characters (* 6 = 132 bits ~= 8 bytes) for the top level ID and 11 characters
 for the secondary ID (8 bytes)
 
+It is recommended that the top level ID use 16 bytes of binary data for its top level ID space and
+encode it using Base64.   This results in 22 characters for the top level ID.    
+
 ## Expected Output Format for a Multi-Level ID
 
-Systems that support multiple levels of hierarchy will use a '.' to separate all but the top level
+Systems that support multiple levels of hierarchy will use a '.' to TERMINATE all but the top level
 of the ID hierarchy.  Base64 is recommended for all the component IDs.   Like the two level system
 the top level ID needs to be large so as to guarantee system-wide uniqueness.  Identifiers after the
-top level only need to be unique within the context of the parent ID and thus can typcally be very small 
+top level only need to be unique within the context of the parent ID and thus can typically be very small 
 An example might be:
 ```
-    3qdi2JDFioDFjDSF223f23-A.3.B.q.3S.34.3.42.2.A.B.C
+    3qdi2JDFioDFjDSF223f23-A.3.B.q.3S.34.3.42.2.A.B.C.
 ```
+
+Having the '.' be a terminator (rather than a separator) avoids ambiguous matches using simple
+string comparison (for example 3qdi2JDFioDFjDSF223f23-A.3.B.q.3. should not be interpreted as 
+a parent of 3qdi2JDFioDFjDSF223f23-A.3.B.q.3S. which it would be if the '.' just separated the 
+levels).   
+
+It is strongly recommended that top level ID be a 16 byte Base64 encoded ID.   This will give 
+maximum compatibility with systems that use fixed size ID for the top level ID.   
+
+### Overflow Syntax for Multi-Level IDs
+
+Multi-level IDs can grow arbitrarily long.   As a practical matter, systems are likely to want to 
+have a limit on the size of this ID, to keep performance reasonable in unusual cases like infinite
+recursion.   To indicate this truncation end the node with a '#' character instead of a '.'  For example 
+the ID  
+```
+    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
+```
+indicates truncation because it does not end with a '.'  It might represent the sequence of requests 
+```
+  3qdi2JDFioDFjDSF223f23-A.           caused request
+  3qdi2JDFioDFjDSF223f23-A.3.         which caused request
+  3qdi2JDFioDFjDSF223f23-A.3.5.       which caused request
+  3qdi2JDFioDFjDSF223f23-A.3.5.1.     which caused request
+  ...
+  3qdi2JDFioDFjDSF223f23-A.3.5.1.1.1.1.1.1.1.1.1.1.1.1.1.
+```
+But the system decided the IDs had grown too long and truncated it to 
+```
+    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
+```
+Where the 3d43D is a value that insures uniqueness for the ID as a whole but no longer
+represents the detailed parent-child relationship.   This allows the system to 'fall back gracefully' 
+but still detect that truncation has happened.
+
+Note that if the truncation happens as the last node, the trailing '#' be dropped.  Thus 
+```
+    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds
+```
+is the same as
+```
+    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
+```
+This makes the  the two-level syntax perfectly matches this truncation syntax.  Thus a two-level ID 
+```
+    3qdi2JDFioDFjDSF223f23-SdfD8DF908D
+```
+is interpreted as a multi-level ID  that it two levels, but because it does not end in a .
+there is truncation at level 2 (which is exactly true).  
 
 ## Input parsing for Two (or more) Tier IDs 
 
@@ -223,15 +275,44 @@ This mechanism has the following useful ramifications:
 3. A two-tiered fixed-size ID system can accept ANY Id, and in particular an ID from a multi-tiered ID system.
 4. ID  have a useful comparison operator that work even in this mixed case.  Basically if the IDs don't match 
 perfectly, you also test if they match if HASH_N is applied to both (you may need to do this twice, once for 
-the N of the first operand, and once for the N of the other operand).    
+the N of the first operand, and once for the N of the other operand).  
+
+## Practical Impacts of the standard
+
+It is useful at this point to give some examples of what practical impacts would be on various logging systems.
+
+### A two tiered ID system with a fixed 16 byte top ID and an fixed 8 byte secondary ID.  
+
+For this type of logging system, when writing the ID to the HTTP header, all that is necessary is to conform
+to the syntax specified about.   This means encoding the two IDs using Base64 and outputting them separated
+by a '-'.  
+
+When reading the Request-Id field, instead of using a Base64 decoder that would fail on illegal inputs they
+would look for the '-' in the ID, and use HASH_16 for the part before the '-' and HASH_8 for the id after
+the dash.   These routines will be just as fast as a normal Base64 decoder. 
+
+### A multi-Tiered (variable sized) ID.   
+
+A multi-level logging system should not have ID length limitations so it should accept the IDs without
+modification.   The only thing such systems need to do is follow the syntax for the multi-level ID
+(e.g. used '-' for the first level and '.' (termination) for all other levels).  
+
 
 # The Correlation-Context Field
 
-TODO COMPLETE
-
-TODO: The Correlation context is straightforward if the value does not end with whitespace 
+The Correlation context is straightforward if the value does not end with whitespace 
 or contain newlines or commas.   We will need a standard for escaping these characters if
-we wish to support arbitrary values.  
+we wish to support arbitrary values. 
+
+The suggestion is to use \ as an escape character like what is used in java/c# including the \uXXXX
+escape for arbitrary unicode characters.   The comma (and trailing space) must be escaped if it would
+otherwise have a special meaning:
+
+TODO: We could force JSON like conventions for strings (thus quoted values), but that seems strictly more complex.
+
+## Well Known Correlation-Context keys:
+
+TODO COMPLETE: 
 
 # Appendix
 
