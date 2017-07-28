@@ -61,7 +61,7 @@ Where:
 There are three types of operations that can be made with the `Request-Id`:
 - **Extend**: used to create a new unique request id.
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.Ao.1`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.Ao.1.+W` (`+W` represents two random base64 characters)
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.Ao.1.+W.0` (`+W` represents two random base64 characters. Zero indicates the beginning of the request)
 - **Increment**: used to mark the "next" attempt to call the dependant service
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.3`
     Increment(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.4`
@@ -97,23 +97,23 @@ Extend and Increment are very useful for very lossy telemetry systems. With only
 
 ```
 Client sends request to A: 3qdi2JDFioDFjDSF223f23
-    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23.Wf
+    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23.Wf.0
                     with the parent 3qdi2JDFioDFjDSF223f23
 
-    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.Wf) => 3qdi2JDFioDFjDSF223f23.Wf.0
+    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.Wf.0) => 3qdi2JDFioDFjDSF223f23.Wf.1
         
-        B logs request: Extend(3qdi2JDFioDFjDSF223f23.Wf.0) => 3qdi2JDFioDFjDSF223f23.Wf.0.mX
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23.Wf.1) => 3qdi2JDFioDFjDSF223f23.Wf.1.mX
                         with the parent 3qdi2JDFioDFjDSF223f23.Wf.0
 
-    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.Wf.0) => 3qdi2JDFioDFjDSF223f23.Wf.1
+    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.Wf.1) => 3qdi2JDFioDFjDSF223f23.Wf.2
         
-        C logs request: Extend(3qdi2JDFioDFjDSF223f23.Wf.1) => 3qdi2JDFioDFjDSF223f23.Wf.1.dk 
-                        with the parent 3qdi2JDFioDFjDSF223f23.Wf.1
+        C logs request: Extend(3qdi2JDFioDFjDSF223f23.Wf.2) => 3qdi2JDFioDFjDSF223f23.Wf.2.dk 
+                        with the parent 3qdi2JDFioDFjDSF223f23.Wf.2
 ```
 
 ### Scenario 3. Increment on load balancer. Reset on tracer
 
-Load balancers and proxies may be a complete black box for the tracing system. So it may be useful to preserve the correlation for the trace went thru it. Especially for the multiple re-tries scenarios. In the example below you can correlate the request sent from A `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm` with the request logged by B `3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA` as it's parent is `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0`.
+Load balancers and proxies may be a complete black box for the tracing system. So it may be useful to preserve the correlation for the trace went thru it. Especially for the multiple re-tries scenarios. In the example below you can correlate the request sent from A `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm` with the request logged by B `3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA` as it's parent is `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1`.
 
 ```
 Client sends request to A: 3qdi2JDFioDFjDSF223f23
@@ -122,13 +122,13 @@ Client sends request to A: 3qdi2JDFioDFjDSF223f23
 
     A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
         
-        B logs request: Extend(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0
                         with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
 
-        B sends request to C: Increment(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0
+        B sends request to C: Increment(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
         
-                C logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0) => 3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA
-                        with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0
+                C logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1) => 3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA
+                        with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
 ```
 
 ### Fallback options
