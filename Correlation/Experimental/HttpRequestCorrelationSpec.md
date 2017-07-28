@@ -56,7 +56,7 @@ Where:
 - `<trace-id>` - identifies overall distributed trace. 22 base64 characters (* 6 = 132 bits ~= 16 bytes).
 - `<span-base-id>` - Optional: defines the span that is base for the hierarchy of other spans. Not more than 11 base64 characters.
 - `<level>` - Optional: sequence (or unique random) number of a call made by specific layer. Not more than 11 base64 characters.
-- maximum length of the header value should be 1024 bytes.
+- maximum length of the header value should be 128 bytes.
 
 There are three types of operations that can be made with the `Request-Id`:
 - **Extend**: used to create a new unique request id.
