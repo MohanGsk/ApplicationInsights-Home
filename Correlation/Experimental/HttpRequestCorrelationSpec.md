@@ -65,7 +65,7 @@ There are three types of operations that can be made with the `Request-Id`:
 - **Increment**: used to mark the "next" attempt to call the dependant service
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.3`
     Increment(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.4`
-- **Reset**: used to reset the long hierarchical string or as a replacement for either **Extend** or **Increment**.
+- **Reset**: preserves `<trace-id>` and generate a new `<span-base-id>` without any hierarchy. Used to reset the long hierarchical string or as a replacement for either **Extend** or **Increment**. 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
     Reset(Request-Id) = `3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ`
 
