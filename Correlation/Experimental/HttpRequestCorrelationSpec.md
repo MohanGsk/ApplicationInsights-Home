@@ -135,8 +135,22 @@ Client sends request to A: 3qdi2JDFioDFjDSF223f23
 
 When the format of `Request-Id` does not match the expected format the following fallback options should be applied:
 
-TBD
+#### `<trace-id>` format mismatch
 
+Any string with the allowed characters up to first `-` or to the very end of the string should be treated as a `<trace-id>`. Depending on vendors limitation protocol defines four behaviors in this priority order:
+
+1. Use `<trace-id>` to log trace and propagate further even if do not match the expected format.
+2. Use derived `<trace-id>` (hashed value) to log trace and propagate the **original** value further. 
+3. Use derived `<trace-id>` (hashed value) to log trace and propagate the hashed value further.
+4. Restart the trace with the fresh `Request-Id` that matches the format.
+
+For hashing - use algorithm described in [Hashing for Fixed Sized ID Systems](#Hashing for Fixed Sized ID Systems) to hash.
+When recording hashed value - consider storing an original string as an extra property.
+
+
+#### `<span-base-id>.<level>.<level>` mismatch
+
+Some vendors may experiment with the `span-id` format. Use longer `<span-base-id>` or use characters other than base64 and `'.'` to record it. Protocol requires to apply **Reset** function to the strings like this. 
 
 ## The Correlation-Context Field
 
