@@ -42,7 +42,7 @@ The exact syntax for the values of both of these fields is given in its own sect
 
 ## The Request-Id Field
 
-Section [The Expected Environment for Using Request-Id](#The Expected Environment for Using Request-Id) explains motivation of this format.
+Section [The Expected Environment for Using Request-Id](#The-Expected-Environment-for-Using-Request-Id) explains motivation of this format.
 
 This protocol defines a strict `Request-Id` field format and a set of fall back rules that allows to experiment and move the protocol forward while keeping systems following the protocol with the required information.
 
@@ -144,7 +144,7 @@ Any string with the allowed characters up to first `-` or to the very end of the
 3. Use derived `<trace-id>` (hashed value) to log trace and propagate the hashed value further.
 4. Restart the trace with the fresh `Request-Id` that matches the format.
 
-For hashing - use algorithm described in [Hashing for Fixed Sized ID Systems](#Hashing for Fixed Sized ID Systems) to hash.
+For hashing - use algorithm described in [Hashing for Fixed Sized ID Systems](#Hashing for-Fixed-Sized-ID-Systems) to hash.
 When recording hashed value - consider storing an original string as an extra property.
 
 
