@@ -46,6 +46,8 @@ Where:
 - `<level>` - Optional: sequence (or unique random) number of a call made by specific layer. Not more than 11 base64 characters.
 - maximum length of the header value should be 128 bytes.
 
+See section [Base64 encoding of binary blobs](#Base64-encoding-of-binary-blobs) for the details of base64 encoding.
+
 There are three types of operations that can be made with the `Request-Id`:
 - **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` and MAY also append the five base64 entropy characters like: `.XXXXX.0`.
 
@@ -163,7 +165,7 @@ Some vendors may experiment with the `span-id` format. Use longer `<span-base-id
 
 #### Extra long header value
 
-`Request-Id` header format defines the maximum size as 128 characters. If longer string received - `<trace-id>` format mismatch and `<span-base-id>.<level>.<level>` mismatch fallback rules must be applied in said order.  
+`Request-Id` header format defines the maximum size as 128 characters. If longer string received - `<trace-id>` format mismatch and `<span-base-id>.<level>.<level>` mismatch fallback rules must be applied in said order.
 
 
 ## The Correlation-Context Field
@@ -240,7 +242,9 @@ the top-level request that was responsible for it.
 These and other limitation can be avoided if IDs are given structure.   It is common to employ
 a two-level structure where IDs have the form
 
-    TOP_LEVEL_ID - SPAN_ID
+```
+TOP_LEVEL_ID - SPAN_ID
+```
 
 Basically all children of a given top-level Span have the same prefix.    With this ID structure
 given any two Spans ID, they can be determined as belonging to the same top-level processing 
@@ -255,7 +259,9 @@ simply by comparing their IDs.   This has the following advantages
 The two level structure generalizes very naturally into a multi-level (hierarchical) ID.   THus an
 ID would have the form
 
-    TOP_LEVEL_ID - LEVEL_1_ID - LEVEL_2_ID - ... - LEVEL_N_ID
+```
+TOP_LEVEL_ID - LEVEL_1_ID - LEVEL_2_ID - ... - LEVEL_N_ID
+```
 
 which creates ID for every Span by taking the parent's ID and adding a unique suffix.   With such 
 a structure, it is possible to group things not only by the top-level Span but also every intermediate 
@@ -295,13 +301,6 @@ chosen randomly from a large (64 bit or greater) number space.    Logging system
 have only flat IDs will simply emit this ID as a string.   It is recommended that 
 punctuation in the ASCII range 0x21-0x2A be reserved for use by this standard in the future.  
 
-## Base64 encoding of binary blobs  
-
-[Base64](https://en.wikipedia.org/wiki/Base64) is a standard way of encoding binary blob as 
-a sequence of printable ASCII characters.   The characters used are confided to the alpha-numeric 
-and two punctuation characters (+ and /).   Because there are 64 legal possible characters each 
-one represents 6 bits of binary data.  
-
 ## Expected Output Format for Two Level IDs  
 
 Systems that support two levels of hierarchy are expected to emit the two IDs (the top-level ID 
@@ -309,7 +308,7 @@ and the Span ID separated by a '-'.    It is expected that these two IDs are wil
 using Base64.   For example, a system having a 16 bytes top-level ID and an 8 bytes Span ID could
 emit an ID like the following
 ```
-    3qdi2JDFioDFjDSF223f23-SdfD8DF908D
+3qdi2JDFioDFjDSF223f23-SdfD8DF908D
 ```
 That is it would have 22 characters (* 6 = 132 bits ~= 8 bytes) for the top-level ID and 11 characters
 for the secondary ID (8 bytes)
@@ -324,8 +323,9 @@ of the ID hierarchy.  Base64 is recommended for all the component IDs.   Like th
 the top-level ID needs to be large so as to guarantee system-wide uniqueness.  Identifiers after the
 top level only need to be unique within the context of the parent ID and thus can typically be very small. 
 An example might be:
+
 ```
-    3qdi2JDFioDFjDSF223f23-A.3.B.q.3S.34.3.42.2.A.B.C.
+3qdi2JDFioDFjDSF223f23-A.3.B.q.3S.34.3.42.2.A.B.C.
 ```
 
 Having the '.' be a terminator (rather than a separator) avoids ambiguous matches using simple
@@ -342,10 +342,13 @@ Multi-level IDs can grow arbitrarily long.   As a practical matter, systems are 
 have a limit on the size of this ID, to keep performance reasonable in unusual cases like infinite
 recursion.   To indicate this truncation end the node with a '#' character instead of a '.'  For example, 
 the ID  
+
 ```
     3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
 ```
+
 indicates truncation because it does not end with a '.'  It might represent the sequence of requests 
+
 ```
   3qdi2JDFioDFjDSF223f23-A.           caused request
   3qdi2JDFioDFjDSF223f23-A.3.         which caused request
@@ -354,26 +357,35 @@ indicates truncation because it does not end with a '.'  It might represent the 
   ...
   3qdi2JDFioDFjDSF223f23-A.3.5.1.1.1.1.1.1.1.1.1.1.1.1.1.
 ```
+
 But the system decided the IDs had grown too long and truncated it to 
+
 ```
     3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
 ```
+
 Where the 3d43D is a value that insures uniqueness for the ID as a whole but no longer
 represents the detailed parent-child relationship.   This allows the system to 'fall back gracefully' 
 but still detect that truncation has happened.
 
 Note that if the truncation happens as the last node, the trailing '#' be dropped.  Thus 
+
 ```
     3qdi2JDFioDFjDSF223f23-A.3.3d43Ds
 ```
+
 is the same as
+
 ```
     3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
 ```
+
 This makes the two-level syntax perfectly matches this truncation syntax.  Thus a two-level ID 
+
 ```
     3qdi2JDFioDFjDSF223f23-SdfD8DF908D
 ```
+
 is interpreted as a multi-level ID  that it two levels, but because it does not end in a .
 there is truncation at level 2 (which is exactly true).  
 
@@ -384,12 +396,11 @@ before the first '-' are considered the top-level ID,  Anything after it is some
 unique within that top-level scope.   In this later component, the multi-level IDs can be parsed by looking
 for '.' characters.  
 
-
 ## Practical Impacts of the standard
 
 It is useful at this point to give some examples of what practical impacts would be on various logging systems.
 
-### A two tiered ID system with a fixed 16 bytes top ID and a fixed 8 bytes secondary ID.  
+### A two tiered ID system with a fixed 16 bytes top ID and a fixed 8 bytes secondary ID.
 
 For this type of logging system, when writing the ID to the HTTP header, all that is necessary is to conform
 to the syntax specified about.   This means encoding the two IDs using Base64 and outputting them separated
@@ -398,6 +409,8 @@ by a '-'.
 When reading the Request-Id field, instead of using a Base64 decoder that would fail on illegal inputs they
 would look for the '-' in the ID, and use HASH_16 for the part before the '-' and HASH_8 for the id after
 the dash.   These routines will be just as fast as a normal Base64 decoder. 
+
+For the systems that also support the arbitrary properties collection the original string may be stored as `<trace-id>` or parent `<span-id>`.
 
 ### A multi-Tiered (variable sized) ID.   
 
@@ -413,18 +426,21 @@ TODO COMPLETE:
 
 # Appendix
 
+## Base64 encoding of binary blobs
+
+This standard uses [base64](https://en.wikipedia.org/wiki/Base64) as a standard way of encoding binary blob as a sequence of printable ASCII characters. The characters used are confided to the alpha-numeric and two punctuation characters (`+` and `/`). Because there are 64 legal possible characters each one represents 6 bits of binary data. Base64 is a widely-used compromise between the length and human-readability of the resulting string.
+
 ## Hashing for Fixed Sized ID Systems
 
-Systems that require the IDs to be a fixed size must hash IDs to fit into the required size (for example, 16 bytes or 8 bytes)  This must be one with the hash algorithm defined here which we call HASH_N (where N is the number of bytes of the resulting binary blob). The key idea of the algorithm to be Base64 decoder modified to accept any input characters, and to circularly XOR the output bytes until the input is consumed (hash).   This hash function has the following useful characteristics:
+Systems that require the IDs to be a fixed size must hash IDs to fit into the required size (for example, 16 bytes or 8 bytes). This must be one with the hash algorithm defined here which we call HASH_N (where N is the number of bytes of the resulting binary blob). The key idea of the algorithm to be Base64 decoder modified to accept any input characters, and to circularly XOR the output bytes until the input is consumed (hash). This hash function has the following useful characteristics:
 
-1. Its input can be anything string,
+1. Its input can be anything string.
 2. Its output is always N bytes.
 3. When operating on Base64 encoded input that of size N, it produces the same result as simply decoding (no information loss).
 4. It is as efficient as Base64 decoding.   
 
 This mechanism has the following useful ramifications:
 
-1. IDs from two like minded systems work without any loss of information.  
-2. Multi-tiered and two-tiered systems interoperate on the top-most their (since they both have a top tier ID)
-3. A two-tiered fixed-size ID system can accept ANY Id, and in particular an ID from a multi-tiered ID system.
-4. ID  has a useful comparison operator that works even in this mixed case.  Basically if the IDs don't match perfectly, you also test if they match if HASH_N is applied to both (you may need to do this twice, once for the N of the first operand, and once for the N of the other operand).  
+1. IDs from two like minded systems work without any loss of information.
+2. Fallback algorithm for `<trace-id>` and `<span-base-id>` format mismatch can be coded in a single pass of a header value parsing.
+3. ID has a useful comparison operator that works even in this mixed case. Basically if the IDs don't match perfectly, you also test if they match if HASH_N is applied to both (you may need to do this twice, once for the N of the first operand, and once for the N of the other operand).  
