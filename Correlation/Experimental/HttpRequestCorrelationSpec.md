@@ -1,27 +1,16 @@
-
 # Http Request Correlation Specification
 
-In order to track a complex operation in a multi-tiered system tied together using 
-HTTP requests, it is extremely valuable to track which requests were generated as 
-the result of a top-most 'user level' operation. To do this tracking, each request
-needs to have an ID that uniquely identifies the request so that parent-child 
-relationships among requests can be tracked.    
+In order to track a complex operation in a multi-tiered system, it is important to track the relationships between individual actions in this operation. For systems communicating over http protocol, each request needs to carry a context that can be used to build up this relationship.
 
-If requests are sent via HTTP, it is necessary to pass this ID along with the HTTP 
-packet itself.  In systems where a single vendor controls communication on both sides 
-of the HTTP pipeline, it is relatively simple to define some vendor-specific scheme, 
-which defines a request ID and passes it in the HTTP headers. Indeed today there are 
-a number of such schemes, but they do not interoperate with each other. 
+If requests are sent via HTTP, it is necessary to pass this context along with the HTTP packet itself. In systems where a single vendor controls communication on both sides 
+of the HTTP pipeline, it is relatively simple to define some vendor-specific scheme, which defines a request context and passes it in the HTTP headers. Indeed today there are 
+a number of such schemes, but they do not interoperate with each other.
 
-In an environment where users might create multi-tiered applications that use 
-components from different vendors it is useful to have uniform standard for these 
-IDs that would give each vendor-specific logging system the information it needs to 
-trace the parent-child relationships among requests for the system as a whole. 
+There are environments where multi-tiered applications uses components from different vendors. Some of those components may be out of the user control due to organizational silos. Some be part of a public cloud infrastructure and controled by cloud provider. Some may have pre-baked support for distributed traces that cannot be altered. It is useful to have uniform standard for the distributed context semantic and a format that would give each vendor-specific logging system the information it needs to 
+trace the relationships among requests for the system as a whole. 
 
-In addition to the need for Request IDs it is also useful if there is a mechanism 
-where information can be attached to a request, which flows to all of its children
-(recursively).   The [OpenTracing](http://opentracing.io/documentation/) Baggage 
-concept (see [spec](https://github.com/opentracing/specification/blob/master/specification.md))
+Most of the vendors defines two pieces of request context - unique identifier of the request and properties defining the overall complex operation (distributed trace). The [OpenTracing](http://opentracing.io/documentation/) Baggage 
+concept [spec](https://github.com/opentracing/specification/blob/master/specification.md))
 needs exactly this feature.   This mechanism can be used to propagate logging control 
 information for more advanced logging features, and would likewise benefit from 
 standardization.  
@@ -35,21 +24,174 @@ under the vendor's control (but conform to the standard)
 to conform to the standard and each vendor can innovate and provide advanced
 features within its logging system.
 
-This document attempts to describe such a standard, and the rational for the design 
+This document describes such a standard, and the rational for the design 
 choices (which should be based in the two principles above). 
 
 # Http Header Fields
 
 Http has the concept of a [Header Fields](https://tools.ietf.org/html/rfc7230#section-3.2)
-for passing addition information with the request and this standard suggest defining  
+for passing addition information with the request. This standard suggest defining  
 the following new header fields.
 
-* Request-Id : A string representing the unique identifier for this request.
-* Correlation-Context:  A list of comma separated set of strings of the form KEY=VALUE.
+* `Request-Id`: A string representing the unique identifier for this request.
+* `Correlation-Context`:  A list of comma separated set of strings of the form KEY=VALUE.
 These values are intended for control of logging systems and should be passed along
 to any child requests.  
 
-The exact syntax for the values of both of these fields is given in its own section below.  
+The exact syntax for the values of both of these fields is given in its own section below.
+
+## The Request-Id Field
+
+Section [The Expected Environment for Using Request-Id](#The-Expected-Environment-for-Using-Request-Id) explains motivation of this format.
+
+This protocol defines a strict `Request-Id` field format and a set of fall back rules that allows to experiment and move the protocol forward while keeping systems following the protocol with the required information.
+
+`Request-Id` should follow the following format:
+
+```
+<trace-id>[-<span-base-id>[.<level>.<level>]]
+```
+
+Where:
+- `<trace-id>` - identifies overall distributed trace. 22 base64 characters (* 6 = 132 bits ~= 16 bytes).
+- `<span-base-id>` - Optional: defines the span that is base for the hierarchy of other spans. Not more than 11 base64 characters.
+- `<level>` - Optional: sequence (or unique random) number of a call made by specific layer. Not more than 11 base64 characters.
+- maximum length of the header value should be 256 bytes.
+
+There are three types of operations that can be made with the `Request-Id`:
+- **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` and MAY also append the five base64 entropy characters like: `.XXXXX.0`.
+
+    With entropy:
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+
+    Without entropy:
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+
+- **Increment**: used to mark the "next" attempt to call the dependant service
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.3`
+    Increment(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.4`
+
+- **Reset**: preserves `<trace-id>` and generate a new 11 base64 characters `<span-base-id>` without any hierarchy. Used to reset the long hierarchical string or as a replacement for either **Extend** or **Increment**. 
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
+    Reset(Request-Id) = `3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ`
+
+This protocol expects every actor in a system to modify the `Request-Id` using one of the actions above. There are three scenarios how this protocol can be used.
+
+### Scenario 1. Reset all the time
+
+Resetting of request is the most straightforward operation. Reset can also benefit from existing request identifiers that server like nginx may already have.
+
+```
+Client sends: 3qdi2JDFioDFjDSF223f23
+    A logs request: Reset(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ 
+                    with the parent 3qdi2JDFioDFjDSF223f23
+
+    A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+        
+        B logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-MoeykjJSsoJ 
+                        with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+
+    A sends request to C: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
+        
+        C logs request: Reset(3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM) => 3qdi2JDFioDFjDSF223f23-OTh5NHVoZG5 
+                        with the parent 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
+```
+
+### Scenario 2. Extend + Increment all the time
+
+Extend and Increment are very useful for very lossy telemetry systems. With only few requests 
+
+```
+Client sends request to A: 3qdi2JDFioDFjDSF223f23
+    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23.WfsFkL.0
+                    with the parent 3qdi2JDFioDFjDSF223f23
+
+    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.WfsFkL.0) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.WfsFkL.1
+        
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1.mX09zG
+                        with the parent 3qdi2JDFioDFjDSF223f23.WfsFkL.0
+
+    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.WfsFkL.1
+        
+        C logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.2) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2.dk4qtt 
+                        with the parent 3qdi2JDFioDFjDSF223f23.WfsFkL.2
+```
+
+### Scenario 3. Mixed scenario
+
+Load balancers and proxies may be a complete black box for the tracing system. So it may be useful to preserve the correlation for the trace went thru it. Especially for the multiple re-tries scenarios. In the example below you can correlate the request sent from A `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm` with the request logged by B `3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA` as it's parent is `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1`.
+
+```
+Client sends request to A: 3qdi2JDFioDFjDSF223f23
+    A logs request: Reset(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ 
+                    with the parent 3qdi2JDFioDFjDSF223f23
+
+    A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+        
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0
+                        with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+
+        B sends request to C: Increment(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
+                                and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
+        
+                C logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1) => 3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA
+                        with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
+```
+
+### Fallback options
+
+When the format of `Request-Id` does not match the expected format the following fallback options should be applied:
+
+#### `<trace-id>` format mismatch
+
+Any string with the allowed characters up to first `-` or to the very end of the string should be treated as a `<trace-id>`. Depending on vendors limitation protocol defines four behaviors in this priority order:
+
+1. Use `<trace-id>` to log trace and propagate further even if do not match the expected format.
+2. Use derived `<trace-id>` (hashed value) to log trace and propagate the **original** value further. 
+3. Use derived `<trace-id>` (hashed value) to log trace and propagate the hashed value further.
+4. Restart the trace with the fresh `Request-Id` that matches the format.
+
+For hashing - use algorithm described in [Hashing for Fixed Sized ID Systems](#Hashing for-Fixed-Sized-ID-Systems) to hash.
+When recording hashed value - consider storing an original string as an extra property.
+
+
+#### `<span-base-id>.<level>.<level>` mismatch
+
+Some vendors may experiment with the `span-id` format. Use longer `<span-base-id>` or use characters other than base64 and `'.'` to record it. Protocol requires to apply **Reset** function to the strings like this. 
+
+
+#### Extra long header value
+
+If the value of `Request-Id` header is longer than system may handle with the fallback rules above - the following must happen:
+
+TBD
+
+
+## The Correlation-Context Field
+
+The Correlation context is straightforward if the value does not end with whitespace 
+or contain newlines or commas.   We will need a standard for escaping these characters if
+we wish to support arbitrary values. 
+
+The suggestion is to use \ as an escape character like what is used in java/c# including the \uXXXX
+escape for arbitrary unicode characters.   The comma (and trailing space) must be escaped if it would
+otherwise have a special meaning:
+
+TODO: We could force JSON like conventions for strings (thus quoted values), but that seems strictly more complex.
+
 
 # The Expected Environment for Using Request-Id
 
@@ -298,17 +440,6 @@ modification.   The only thing such systems need to do is follow the syntax for 
 (e.g. used '-' for the first level and '.' (termination) for all other levels).  
 
 
-# The Correlation-Context Field
-
-The Correlation context is straightforward if the value does not end with whitespace 
-or contain newlines or commas.   We will need a standard for escaping these characters if
-we wish to support arbitrary values. 
-
-The suggestion is to use \ as an escape character like what is used in java/c# including the \uXXXX
-escape for arbitrary unicode characters.   The comma (and trailing space) must be escaped if it would
-otherwise have a special meaning:
-
-TODO: We could force JSON like conventions for strings (thus quoted values), but that seems strictly more complex.
 
 ## Well Known Correlation-Context keys:
 
