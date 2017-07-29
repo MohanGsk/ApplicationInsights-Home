@@ -2,41 +2,29 @@
 
 In order to track a complex operation in a multi-tiered system, it is important to track the relationships between individual actions in this operation. For systems communicating over http protocol, each request needs to carry a context that can be used to build up this relationship.
 
-If requests are sent via HTTP, it is necessary to pass this context along with the HTTP packet itself. In systems where a single vendor controls communication on both sides 
-of the HTTP pipeline, it is relatively simple to define some vendor-specific scheme, which defines a request context and passes it in the HTTP headers. Indeed today there are 
-a number of such schemes, but they do not interoperate with each other.
+If requests are sent via HTTP, it is necessary to pass this context along with the HTTP packet itself. In systems where a single vendor controls communication on both sides of the HTTP pipeline, it is relatively simple to define some vendor-specific scheme, which defines a request context and passes it in the HTTP headers. Indeed today there are a number of such schemes, but they do not interoperate with each other.
 
-There are environments where multi-tiered applications uses components from different vendors. Some of those components may be out of the user control due to organizational silos. Some be part of a public cloud infrastructure and controled by cloud provider. Some may have pre-baked support for distributed traces that cannot be altered. It is useful to have uniform standard for the distributed context semantic and a format that would give each vendor-specific logging system the information it needs to 
-trace the relationships among requests for the system as a whole. 
+There are environments where multi-tiered applications use components from different vendors. Some of those components may be out of the user control due to organizational silos. Some be part of a public cloud infrastructure and controlled by cloud provider. Some may have pre-baked support for distributed traces that cannot be altered. It is useful to have uniform standard for the distributed context semantic and a format that would give each vendor-specific logging system the information it needs to trace the relationships among requests for the system as a whole. 
 
-Most of the vendors defines two pieces of request context - unique identifier of the request and properties defining the overall complex operation (distributed trace). The [OpenTracing](http://opentracing.io/documentation/) Baggage 
-concept [spec](https://github.com/opentracing/specification/blob/master/specification.md))
-needs exactly this feature.   This mechanism can be used to propagate logging control 
-information for more advanced logging features, and would likewise benefit from 
-standardization.  
+Most of the vendors define two pieces of request context - unique identifier of the request and properties defining the overall complex operation (distributed trace). The [OpenTracing](http://opentracing.io/documentation/) Baggage concept [spec](https://github.com/opentracing/specification/blob/master/specification.md)) needs exactly this feature.   This mechanism can be used to propagate logging control information for more advanced logging features, and would likewise benefit from standardization.  
 
 Ideally such a standard
-1. Provides enough structure so that each vendor-specific logging system 
-can get the information it needs from the parts of the system that are not
+1. Provides enough structure so that each vendor-specific logging system can get the information it needs from the parts of the system that are not
 under the vendor's control (but conform to the standard)
 
-2. Provides enough flexibility so vendors can easily modify their systems 
-to conform to the standard and each vendor can innovate and provide advanced
-features within its logging system.
+2. Provides enough flexibility so vendors can easily modify their systems to conform to the standard and each vendor can innovate and provide advanced features within its logging system.
 
-This document describes such a standard, and the rational for the design 
-choices (which should be based in the two principles above). 
+This document describes such a standard, and the rational for the design choices (which should be based in the two principles above). 
 
 # Http Header Fields
 
 Http has the concept of a [Header Fields](https://tools.ietf.org/html/rfc7230#section-3.2)
-for passing addition information with the request. This standard suggest defining  
-the following new header fields.
+for passing addition information with the request. This standard suggests defining  
+the following new header fields:
 
 * `Request-Id`: A string representing the unique identifier for this request.
 * `Correlation-Context`:  A list of comma separated set of strings of the form KEY=VALUE.
-These values are intended for control of logging systems and should be passed along
-to any child requests.  
+These values are intended for control of logging systems and should be passed along to any child requests.  
 
 The exact syntax for the values of both of these fields is given in its own section below.
 
@@ -44,7 +32,7 @@ The exact syntax for the values of both of these fields is given in its own sect
 
 Section [The Expected Environment for Using Request-Id](#The-Expected-Environment-for-Using-Request-Id) explains motivation of this format.
 
-This protocol defines a strict `Request-Id` field format and a set of fall back rules that allows to experiment and move the protocol forward while keeping systems following the protocol with the required information.
+This protocol defines a strict `Request-Id` field format and a set of fall back rules that allow to experiment and move the protocol forward while keeping systems following the protocol with the required information.
 
 `Request-Id` should follow the following format:
 
@@ -109,7 +97,7 @@ Client sends: 3qdi2JDFioDFjDSF223f23
 
 ### Scenario 2. Extend + Increment all the time
 
-Extend and Increment are very useful for very lossy telemetry systems. With only few requests 
+Extend and Increment are useful for lossy telemetry systems. With only few requests 
 
 ```
 Client sends request to A: 3qdi2JDFioDFjDSF223f23
@@ -131,7 +119,7 @@ Client sends request to A: 3qdi2JDFioDFjDSF223f23
 
 ### Scenario 3. Mixed scenario
 
-Load balancers and proxies may be a complete black box for the tracing system. So it may be useful to preserve the correlation for the trace went thru it. Especially for the multiple re-tries scenarios. In the example below you can correlate the request sent from A `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm` with the request logged by B `3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA` as it's parent is `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1`.
+Load balancers and proxies may be a complete black box for the tracing system. So it may be useful to preserve the correlation for the trace went through it. Especially for the multiple retries scenarios. In the example below, you can correlate the request sent from A `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm` with the request logged by B `3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA` as its parent is `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1`.
 
 ```
 Client sends request to A: 3qdi2JDFioDFjDSF223f23
@@ -183,7 +171,7 @@ TBD
 ## The Correlation-Context Field
 
 The Correlation context is straightforward if the value does not end with whitespace 
-or contain newlines or commas.   We will need a standard for escaping these characters if
+or contain newlines or commas.   We need a standard for escaping these characters if
 we wish to support arbitrary values. 
 
 The suggestion is to use \ as an escape character like what is used in java/c# including the \uXXXX
@@ -195,23 +183,23 @@ TODO: We could force JSON like conventions for strings (thus quoted values), but
 
 # The Expected Environment for Using Request-Id
 
-The fundamental use of a Request-Id is to link an activity that issues a HTTP
+The fundamental use of a Request-Id is to link an activity that issues an HTTP
 request with the code that runs (and produces logging messages) that services the
-request.   It is useful to have a overview of how such systems typically work to frame
+request.   It is useful to have an overview of how such systems typically work to frame
 the design of the ID itself.  
 
 The expectation is that the logging system has the concept like 
-[OpenTracing's Span](https://github.com/opentracing/specification/blob/master/specification.md)
-which represents some work being done that has a ID as well as parent-child relationships
+[OpenTracing's Span,
+which represents some work being done that has an ID as well as parent-child relationships
 with other Spans.   Thus there are 'top level' Spans that do not have a parent, and every
 other Span remembers the ID of its parent as well as its own ID.   Somewhere in the logging
-system a table will be maintained that allows a Span to be located given its ID.  Every 
+system a table is maintained that allows a Span to be located given its ID.  Every 
 logging message will also be marked with the Span that is currently active, and as a result
 the logging system can group together all logging messages from any given Span (or any 
 of its children).   
 
 The requirements for the Request-ID for such an environment is pretty minimal.  It simply
-needs to be unique to the Span.   The expectation is that such IDs will be generated by 
+needs to be unique to the Span.   The expectation is that such IDs are generated by 
 choosing a random number from a large space of possible numbers.   Number sizes from 64 bits
 (8 bytes) to 128 bits (16 bytes) have been commonly used.   
 
@@ -221,7 +209,7 @@ Spans generated as part of the processing but eventually an HTTP request is made
 of sending the HTTP request, a new Span (with a unique ID) is created (and logged), and that 
 Span's ID is inserted into the Request-Id field of the HTTP request's header.  When the request 
 is received a new Span (with at new ID) is created  with a parent ID as specified by the 
-Request-Id field (and logged) to represent the server side processing.   The whole sequence
+Request-Id field (and logged) to represent the server-side processing.   The whole sequence
 can repeat in the case of nested requests.   
 
 The result is that the logging system tags every message with the active Span, and every 
@@ -230,13 +218,13 @@ execution of the multi-tiered application.
 
 ## Simple Sampling with Request-Id
 
-It is very likely that most systems will want to implement some form of Sampling to avoid
+It is very likely that most systems want to implement some form of Sampling to avoid
 overloading the logging system.   On simple way of doing this is to simply not emit the 
 Request-Id header field in the request.   This is both simple and efficient (no overhead
 in when a particular request is not being logged).   This works well when logging control
-is given to the top most activities in the system, but if this is not the case then you 
+is given to the topmost activities in the system, but if this is not the case then you 
 lose 'caller context' if you start tracing at some intermediate point.    Often systems 
-wish to have this caller context available for rare logging (e.g. when errors happen), 
+wish to have this caller context available for rare logging (for example, when errors happen), 
 which means that you need to send a Request-Id with all request.   Nevertheless this 
 mechanism is useful and is easily supported.
 
@@ -245,7 +233,7 @@ mechanism is useful and is easily supported.
 While the system described above works, it has several disadvantages 
 
 1. It requires a table that maps from ID -> Span that is large O(#Spans).  
-2. If ANY entries in the table are missing (e.g. because some components did not log properly), 
+2. If ANY entries in the table are missing (for example, because some components did not log properly), 
 then some parent-child chain can be broken and cannot be recovered.   Effectively potentially large
 chunks of the processing of a request might become 'orphaned' and not properly attributed to 
 the top-level request that was responsible for it.  
@@ -255,7 +243,7 @@ a two-level structure where IDs have the form
 
     TOP_LEVEL_ID - SPAN_ID
 
-Basically all children of a given top level Span have the same prefix.    With this ID structure
+Basically all children of a given top-level Span have the same prefix.    With this ID structure
 given any two Spans ID, they can be determined as belonging to the same top-level processing 
 simply by comparing their IDs.   This has the following advantages
 
@@ -271,29 +259,29 @@ ID would have the form
     TOP_LEVEL_ID - LEVEL_1_ID - LEVEL_2_ID - ... - LEVEL_N_ID
 
 which creates ID for every Span by taking the parent's ID and adding a unique suffix.   With such 
-a structure, it is possible to group things not only by the top level Span but also every intermediate 
+a structure, it is possible to group things not only by the top-level Span but also every intermediate 
 level as well.   
 
 ### Encoding Additional Information into an ID
 
 The previous section shows how the parent-child relationship can be encoded into the ID itself.  
 In general ANY information that is CONSTANT over the lifetime of the Span can be encoded into the ID 
-as well without destroying its utility as an ID (which just requires uniqueness).   For example the
+as well without destroying its utility as an ID (which just requires uniqueness).   For example, the
 start time, or start location could be part of the ID.   However doing this make the ID bigger and 
 generally is not worthwhile unless the information is small and high value.   Candidates for such 
-information high value, small size include
+information high value, small size includes
 
 1. Control information (like a verbosity bit (or bits))
-2. Format and interpretation bits (e.g. what version or semantic properties of the ID)
+2. Format and interpretation bits (for example, what version or semantic properties of the ID)
 
 ## Fixed (Bounded) Size IDs
 
 Generally speaking fixed sized structures are easier to implement than variable sized structure.   
 Thus there is non-trivial value if the IDs can be kept to a fixed maximum size.   Indeed many existing
-logging systems mandate a particular size for the IDs (typically 64 or 128 bits).  
+logging systems mandate a particular size for the IDs (typically 64 bits or 128 bits).  
 
 Note that systems that mandate fixed size IDs have a problem with hierarchical IDs (which have unbounded size).  
-If a fixed-sized ID system receives a ID that is to large what can it do?   The solution is hashing.
+If a fixed-sized ID system receives an ID that is too large what can it do?   The solution is hashing.
 Clearly a variable sized ID can be hashed to any particular fixed size without destroying its ability
 to act as a unique ID.  However if some parts of the system hash (because they are fixed size), and other
 do not, then in order to compare IDs it must be possible to look at both IDs, recognize that one is hashed
@@ -311,31 +299,31 @@ punctuation in the ASCII range 0x21-0x2A be reserved for use by this standard in
 ## Base64 encoding of binary blobs  
 
 [Base64](https://en.wikipedia.org/wiki/Base64) is a standard way of encoding binary blob as 
-a sequence of printable ASCII characters.   The characters used are confide to the alpha-numeric 
+a sequence of printable ASCII characters.   The characters used are confided to the alpha-numeric 
 and two punctuation characters (+ and /).   Because there are 64 legal possible characters each 
 one represents 6 bits of binary data.  
 
 ## Expected Output Format for Two Level IDs  
 
-Systems that support two levels if hierarchy are expected to emit the two IDs (the top level ID 
+Systems that support two levels of hierarchy are expected to emit the two IDs (the top-level ID 
 and the Span ID separated by a '-'.    It is expected that these two IDs are will be encoded
-using Base64.   For example a system having a 16 byte top level ID and a 8 byte Span ID could
+using Base64.   For example, a system having a 16 bytes top-level ID and an 8 bytes Span ID could
 emit an ID like the following
 ```
     3qdi2JDFioDFjDSF223f23-SdfD8DF908D
 ```
-That is it would have 22 characters (* 6 = 132 bits ~= 8 bytes) for the top level ID and 11 characters
+That is it would have 22 characters (* 6 = 132 bits ~= 8 bytes) for the top-level ID and 11 characters
 for the secondary ID (8 bytes)
 
-It is recommended that the top level ID use 16 bytes of binary data for its top level ID space and
-encode it using Base64.   This results in 22 characters for the top level ID.    
+It is recommended that the top-level ID use 16 bytes of binary data for its top-level ID space and
+encode it using Base64.   This results in 22 characters for the top-level ID.    
 
 ## Expected Output Format for a Multi-Level ID
 
-Systems that support multiple levels of hierarchy will use a '.' to TERMINATE all but the top level
+Systems that support multiple levels of hierarchy use a '.' to TERMINATE all but the top level
 of the ID hierarchy.  Base64 is recommended for all the component IDs.   Like the two level system
-the top level ID needs to be large so as to guarantee system-wide uniqueness.  Identifiers after the
-top level only need to be unique within the context of the parent ID and thus can typically be very small 
+the top-level ID needs to be large so as to guarantee system-wide uniqueness.  Identifiers after the
+top level only need to be unique within the context of the parent ID and thus can typically be very small. 
 An example might be:
 ```
     3qdi2JDFioDFjDSF223f23-A.3.B.q.3S.34.3.42.2.A.B.C.
@@ -346,14 +334,14 @@ string comparison (for example 3qdi2JDFioDFjDSF223f23-A.3.B.q.3. should not be i
 a parent of 3qdi2JDFioDFjDSF223f23-A.3.B.q.3S. which it would be if the '.' just separated the 
 levels).   
 
-It is strongly recommended that top level ID be a 16 byte Base64 encoded ID.   This will give 
-maximum compatibility with systems that use fixed size ID for the top level ID.   
+It is strongly recommended that top-level ID be a 16 byte Base64 encoded ID.   This will give 
+maximum compatibility with systems that use fixed size ID for the top-level ID.   
 
 ### Overflow Syntax for Multi-Level IDs
 
 Multi-level IDs can grow arbitrarily long.   As a practical matter, systems are likely to want to 
 have a limit on the size of this ID, to keep performance reasonable in unusual cases like infinite
-recursion.   To indicate this truncation end the node with a '#' character instead of a '.'  For example 
+recursion.   To indicate this truncation end the node with a '#' character instead of a '.'  For example, 
 the ID  
 ```
     3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
@@ -383,7 +371,7 @@ is the same as
 ```
     3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
 ```
-This makes the  the two-level syntax perfectly matches this truncation syntax.  Thus a two-level ID 
+This makes the two-level syntax perfectly matches this truncation syntax.  Thus a two-level ID 
 ```
     3qdi2JDFioDFjDSF223f23-SdfD8DF908D
 ```
@@ -393,21 +381,21 @@ there is truncation at level 2 (which is exactly true).
 ## Input parsing for Two (or more) Tier IDs 
 
 In systems that support to or more levels, when reading in the ID it will search for a '-' Any characters
-before the first '-' are considered the top level ID,  Anything after it is something that make the ID
-unique within that top level scope.   In this later component the multi-level IDs can be parsed by looking
+before the first '-' are considered the top-level ID,  Anything after it is something that makes the ID
+unique within that top-level scope.   In this later component, the multi-level IDs can be parsed by looking
 for '.' characters.  
 
 ## Hashing for Fixed Sized ID Systems
 
-Systems that require the IDs to be a fixed size must hash IDs to fit into the required size (e.g. 16 
+Systems that require the IDs to be a fixed size must hash IDs to fit into the required size (for example, 16 
 bytes or 8 bytes)  This must be one with the hash algorithm defined here which we call HASH_N (where
-N is the number of bytes of the resulting binary blob).   HASH_N is describe precisely in the appendix
+N is the number of bytes of the resulting binary blob).   HASH_N is described precisely in the appendix
 but it is basically a Base64 decoder modified to accept any input characters, and to circularly XOR
 the output bytes until the input is consumed (hash).   This hash function has the following useful characteristics
 
 1. It input can be anything string,
 2. Its output is always N bytes.
-3. When operating on Base64 encoded input that of size N it produces the same result as simply decoding (no information loss).
+3. When operating on Base64 encoded input that of size N, it produces the same result as simply decoding (no information loss).
 4. It is as efficient as Base64 decoding.   
 
 This mechanism has the following useful ramifications:
@@ -415,7 +403,7 @@ This mechanism has the following useful ramifications:
 1. IDs from two like minded systems work without any loss of information.  
 2. Multi-tiered and two-tiered systems interoperate on the top-most their (since they both have a top tier ID)
 3. A two-tiered fixed-size ID system can accept ANY Id, and in particular an ID from a multi-tiered ID system.
-4. ID  have a useful comparison operator that work even in this mixed case.  Basically if the IDs don't match 
+4. ID  has a useful comparison operator that works even in this mixed case.  Basically if the IDs don't match 
 perfectly, you also test if they match if HASH_N is applied to both (you may need to do this twice, once for 
 the N of the first operand, and once for the N of the other operand).  
 
@@ -423,7 +411,7 @@ the N of the first operand, and once for the N of the other operand).
 
 It is useful at this point to give some examples of what practical impacts would be on various logging systems.
 
-### A two tiered ID system with a fixed 16 byte top ID and an fixed 8 byte secondary ID.  
+### A two tiered ID system with a fixed 16 bytes top ID and a fixed 8 bytes secondary ID.  
 
 For this type of logging system, when writing the ID to the HTTP header, all that is necessary is to conform
 to the syntax specified about.   This means encoding the two IDs using Base64 and outputting them separated
@@ -436,8 +424,8 @@ the dash.   These routines will be just as fast as a normal Base64 decoder.
 ### A multi-Tiered (variable sized) ID.   
 
 A multi-level logging system should not have ID length limitations so it should accept the IDs without
-modification.   The only thing such systems need to do is follow the syntax for the multi-level ID
-(e.g. used '-' for the first level and '.' (termination) for all other levels).  
+modification.   The only thing such systems need to do is to follow the syntax for the multi-level ID
+(for example, used '-' for the first level and '.' (termination) for all other levels).  
 
 
 
