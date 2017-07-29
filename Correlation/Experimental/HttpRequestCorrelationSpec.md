@@ -56,19 +56,29 @@ Where:
 - `<trace-id>` - identifies overall distributed trace. 22 base64 characters (* 6 = 132 bits ~= 16 bytes).
 - `<span-base-id>` - Optional: defines the span that is base for the hierarchy of other spans. Not more than 11 base64 characters.
 - `<level>` - Optional: sequence (or unique random) number of a call made by specific layer. Not more than 11 base64 characters.
-- maximum length of the header value should be 128 bytes.
+- maximum length of the header value should be 256 bytes.
 
 There are three types of operations that can be made with the `Request-Id`:
-- **Extend**: used to create a new unique request id.
-    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.Ao.1`
+- **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` and MAY also append the five base64 entropy characters like: `.XXXXX.0`.
+
+    With entropy:
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1`
     Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
     Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
 
+    Without entropy:
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+
 - **Increment**: used to mark the "next" attempt to call the dependant service
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.3`
     Increment(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.4`
+
 - **Reset**: preserves `<trace-id>` and generate a new 11 base64 characters `<span-base-id>` without any hierarchy. Used to reset the long hierarchical string or as a replacement for either **Extend** or **Increment**. 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
     Reset(Request-Id) = `3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ`
