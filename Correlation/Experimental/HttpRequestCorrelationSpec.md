@@ -61,11 +61,15 @@ Where:
 There are three types of operations that can be made with the `Request-Id`:
 - **Extend**: used to create a new unique request id.
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.Ao.1`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.Ao.1.+W.0` (`+W` represents two random base64 characters. Zero indicates the beginning of the request)
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+
 - **Increment**: used to mark the "next" attempt to call the dependant service
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.3`
     Increment(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.4`
-- **Reset**: preserves `<trace-id>` and generate a new `<span-base-id>` without any hierarchy. Used to reset the long hierarchical string or as a replacement for either **Extend** or **Increment**. 
+- **Reset**: preserves `<trace-id>` and generate a new 11 base64 characters `<span-base-id>` without any hierarchy. Used to reset the long hierarchical string or as a replacement for either **Extend** or **Increment**. 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
     Reset(Request-Id) = `3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ`
 
@@ -81,11 +85,13 @@ Client sends: 3qdi2JDFioDFjDSF223f23
                     with the parent 3qdi2JDFioDFjDSF223f23
 
     A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
         
         B logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-MoeykjJSsoJ 
                         with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
 
     A sends request to C: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
         
         C logs request: Reset(3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM) => 3qdi2JDFioDFjDSF223f23-OTh5NHVoZG5 
                         with the parent 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
@@ -97,21 +103,23 @@ Extend and Increment are very useful for very lossy telemetry systems. With only
 
 ```
 Client sends request to A: 3qdi2JDFioDFjDSF223f23
-    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23.Wf.0
+    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23.WfsFkL.0
                     with the parent 3qdi2JDFioDFjDSF223f23
 
-    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.Wf.0) => 3qdi2JDFioDFjDSF223f23.Wf.1
+    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.WfsFkL.0) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.WfsFkL.1
         
-        B logs request: Extend(3qdi2JDFioDFjDSF223f23.Wf.1) => 3qdi2JDFioDFjDSF223f23.Wf.1.mX
-                        with the parent 3qdi2JDFioDFjDSF223f23.Wf.0
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1.mX09zG
+                        with the parent 3qdi2JDFioDFjDSF223f23.WfsFkL.0
 
-    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.Wf.1) => 3qdi2JDFioDFjDSF223f23.Wf.2
+    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.WfsFkL.1
         
-        C logs request: Extend(3qdi2JDFioDFjDSF223f23.Wf.2) => 3qdi2JDFioDFjDSF223f23.Wf.2.dk 
-                        with the parent 3qdi2JDFioDFjDSF223f23.Wf.2
+        C logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.2) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2.dk4qtt 
+                        with the parent 3qdi2JDFioDFjDSF223f23.WfsFkL.2
 ```
 
-### Scenario 3. Increment on load balancer. Reset on tracer
+### Scenario 3. Mixed scenario
 
 Load balancers and proxies may be a complete black box for the tracing system. So it may be useful to preserve the correlation for the trace went thru it. Especially for the multiple re-tries scenarios. In the example below you can correlate the request sent from A `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm` with the request logged by B `3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA` as it's parent is `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1`.
 
@@ -121,11 +129,13 @@ Client sends request to A: 3qdi2JDFioDFjDSF223f23
                     with the parent 3qdi2JDFioDFjDSF223f23
 
     A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
         
         B logs request: Extend(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0
                         with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
 
         B sends request to C: Increment(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
+                                and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
         
                 C logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1) => 3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA
                         with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
@@ -151,6 +161,14 @@ When recording hashed value - consider storing an original string as an extra pr
 #### `<span-base-id>.<level>.<level>` mismatch
 
 Some vendors may experiment with the `span-id` format. Use longer `<span-base-id>` or use characters other than base64 and `'.'` to record it. Protocol requires to apply **Reset** function to the strings like this. 
+
+
+#### Extra long header value
+
+If the value of `Request-Id` header is longer than system may handle with the fallback rules above - the following must happen:
+
+TBD
+
 
 ## The Correlation-Context Field
 
