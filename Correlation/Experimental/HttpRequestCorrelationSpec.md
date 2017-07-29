@@ -44,26 +44,28 @@ Where:
 - `<trace-id>` - identifies overall distributed trace. 22 base64 characters (* 6 = 132 bits ~= 16 bytes).
 - `<span-base-id>` - Optional: defines the span that is base for the hierarchy of other spans. Not more than 11 base64 characters.
 - `<level>` - Optional: sequence (or unique random) number of a call made by specific layer. Not more than 11 base64 characters.
-- maximum length of the header value should be 256 bytes.
+- maximum length of the header value should be 128 bytes.
 
 There are three types of operations that can be made with the `Request-Id`:
 - **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` and MAY also append the five base64 entropy characters like: `.XXXXX.0`.
 
-    With entropy:
+    *With entropy:*
+
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1`
     Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
     Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
 
-    Without entropy:
+    *Without entropy:*
+
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.0`.
 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.0`.
 
-- **Increment**: used to mark the "next" attempt to call the dependant service
+- **Increment**: used to mark the "next" call to the dependant service.
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.3`
     Increment(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.4`
 
@@ -107,13 +109,13 @@ Client sends request to A: 3qdi2JDFioDFjDSF223f23
     A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.WfsFkL.0) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1
                             and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.WfsFkL.1
         
-        B logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1.mX09zG
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1.mX09zG.0
                         with the parent 3qdi2JDFioDFjDSF223f23.WfsFkL.0
 
     A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2
                             and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.WfsFkL.1
         
-        C logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.2) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2.dk4qtt 
+        C logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.2) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2.dk4qtt.0
                         with the parent 3qdi2JDFioDFjDSF223f23.WfsFkL.2
 ```
 
@@ -148,38 +150,35 @@ When the format of `Request-Id` does not match the expected format the following
 Any string with the allowed characters up to first `-` or to the very end of the string should be treated as a `<trace-id>`. Depending on vendors limitation protocol defines four behaviors in this priority order:
 
 1. Use `<trace-id>` to log trace and propagate further even if do not match the expected format.
-2. Use derived `<trace-id>` (hashed value) to log trace and propagate the **original** value further. 
-3. Use derived `<trace-id>` (hashed value) to log trace and propagate the hashed value further.
-4. Restart the trace with the fresh `Request-Id` that matches the format.
+2. Use derived `<trace-id>` (hashed value) to log trace and propagate the **original** value further. This may be applied if vendor's telemetry storage expects `<trace-id>` as a long number or when the `<trace-id>` string is too long to store.
+3. Use derived `<trace-id>` (hashed value) to log trace and propagate the hashed value further. This may be applied when propagation of `<trace-id>` between incoming and outgoing request processing is not possible in a form it was recieved.
+4. Restart the trace with the fresh `Request-Id` that matches the format. This can be applied when neither storing nor propagation possible with the `<trace-id>` in a form it was recieved. It also can be used for untrusted caller system.
 
 For hashing - use algorithm described in [Hashing for Fixed Sized ID Systems](#Hashing for-Fixed-Sized-ID-Systems) to hash.
 When recording hashed value - consider storing an original string as an extra property.
 
-
 #### `<span-base-id>.<level>.<level>` mismatch
 
-Some vendors may experiment with the `span-id` format. Use longer `<span-base-id>` or use characters other than base64 and `'.'` to record it. Protocol requires to apply **Reset** function to the strings like this. 
-
+Some vendors may experiment with the `span-id` format. Use longer `<span-base-id>` or use characters other than base64 and `'.'` to record it. Protocol requires to apply **Reset** function to the strings like this. It is recommended that the original string will be logged in some form - as a hashed value or as a string property with well-defined name.
 
 #### Extra long header value
 
-If the value of `Request-Id` header is longer than system may handle with the fallback rules above - the following must happen:
-
-TBD
+`Request-Id` header format defines the maximum size as 128 characters. If longer string received - `<trace-id>` format mismatch and `<span-base-id>.<level>.<level>` mismatch fallback rules must be applied in said order.  
 
 
 ## The Correlation-Context Field
 
-The Correlation context is straightforward if the value does not end with whitespace 
-or contain newlines or commas.   We need a standard for escaping these characters if
-we wish to support arbitrary values. 
+`Correlation-Context` is represented as comma separated list of key value pairs, where each pair is represented in `key=value` format:
 
-The suggestion is to use \ as an escape character like what is used in java/c# including the \uXXXX
-escape for arbitrary unicode characters.   The comma (and trailing space) must be escaped if it would
-otherwise have a special meaning:
+```
+Correlation-Context: key1=value1, key2=value2
+```
 
-TODO: We could force JSON like conventions for strings (thus quoted values), but that seems strictly more complex.
+Keys and values MUST NOT contain `"="` (equals) or `","` (comma) characters.
 
+Overall Correlation-Context length MUST NOT exceed 1024 bytes, key and value length should stay well under the combined limit of 1024 bytes.
+
+Note that uniqueness of the key within the Correlation-Context is not guaranteed. Context received from upstream service is read-only and implementation MUST NOT remove or aggregate duplicated keys.
 
 # The Expected Environment for Using Request-Id
 
@@ -385,27 +384,6 @@ before the first '-' are considered the top-level ID,  Anything after it is some
 unique within that top-level scope.   In this later component, the multi-level IDs can be parsed by looking
 for '.' characters.  
 
-## Hashing for Fixed Sized ID Systems
-
-Systems that require the IDs to be a fixed size must hash IDs to fit into the required size (for example, 16 
-bytes or 8 bytes)  This must be one with the hash algorithm defined here which we call HASH_N (where
-N is the number of bytes of the resulting binary blob).   HASH_N is described precisely in the appendix
-but it is basically a Base64 decoder modified to accept any input characters, and to circularly XOR
-the output bytes until the input is consumed (hash).   This hash function has the following useful characteristics
-
-1. It input can be anything string,
-2. Its output is always N bytes.
-3. When operating on Base64 encoded input that of size N, it produces the same result as simply decoding (no information loss).
-4. It is as efficient as Base64 decoding.   
-
-This mechanism has the following useful ramifications:
-
-1. IDs from two like minded systems work without any loss of information.  
-2. Multi-tiered and two-tiered systems interoperate on the top-most their (since they both have a top tier ID)
-3. A two-tiered fixed-size ID system can accept ANY Id, and in particular an ID from a multi-tiered ID system.
-4. ID  has a useful comparison operator that works even in this mixed case.  Basically if the IDs don't match 
-perfectly, you also test if they match if HASH_N is applied to both (you may need to do this twice, once for 
-the N of the first operand, and once for the N of the other operand).  
 
 ## Practical Impacts of the standard
 
@@ -435,6 +413,18 @@ TODO COMPLETE:
 
 # Appendix
 
-## Hash_N Algorithm
+## Hashing for Fixed Sized ID Systems
 
-TODO Finish.  
+Systems that require the IDs to be a fixed size must hash IDs to fit into the required size (for example, 16 bytes or 8 bytes)  This must be one with the hash algorithm defined here which we call HASH_N (where N is the number of bytes of the resulting binary blob). The key idea of the algorithm to be Base64 decoder modified to accept any input characters, and to circularly XOR the output bytes until the input is consumed (hash).   This hash function has the following useful characteristics:
+
+1. Its input can be anything string,
+2. Its output is always N bytes.
+3. When operating on Base64 encoded input that of size N, it produces the same result as simply decoding (no information loss).
+4. It is as efficient as Base64 decoding.   
+
+This mechanism has the following useful ramifications:
+
+1. IDs from two like minded systems work without any loss of information.  
+2. Multi-tiered and two-tiered systems interoperate on the top-most their (since they both have a top tier ID)
+3. A two-tiered fixed-size ID system can accept ANY Id, and in particular an ID from a multi-tiered ID system.
+4. ID  has a useful comparison operator that works even in this mixed case.  Basically if the IDs don't match perfectly, you also test if they match if HASH_N is applied to both (you may need to do this twice, once for the N of the first operand, and once for the N of the other operand).  
