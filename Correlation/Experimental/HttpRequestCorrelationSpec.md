@@ -190,7 +190,7 @@ request.   It is useful to have an overview of how such systems typically work t
 the design of the ID itself.  
 
 The expectation is that the logging system has the concept like 
-[OpenTracing's Span,
+OpenTracing's Span,
 which represents some work being done that has an ID as well as parent-child relationships
 with other Spans.   Thus there are 'top level' Spans that do not have a parent, and every
 other Span remembers the ID of its parent as well as its own ID.   Somewhere in the logging
@@ -256,7 +256,7 @@ simply by comparing their IDs.   This has the following advantages
 
 ### Hierarchical IDs
 
-The two level structure generalizes very naturally into a multi-level (hierarchical) ID.   THus an
+The two level structure generalizes very naturally into a multi-level (hierarchical) ID.   Thus an
 ID would have the form
 
 ```
@@ -301,106 +301,11 @@ chosen randomly from a large (64 bit or greater) number space.    Logging system
 have only flat IDs will simply emit this ID as a string.   It is recommended that 
 punctuation in the ASCII range 0x21-0x2A be reserved for use by this standard in the future.  
 
-## Expected Output Format for Two Level IDs  
-
-Systems that support two levels of hierarchy are expected to emit the two IDs (the top-level ID 
-and the Span ID separated by a '-'.    It is expected that these two IDs are will be encoded
-using Base64.   For example, a system having a 16 bytes top-level ID and an 8 bytes Span ID could
-emit an ID like the following
-```
-3qdi2JDFioDFjDSF223f23-SdfD8DF908D
-```
-That is it would have 22 characters (* 6 = 132 bits ~= 8 bytes) for the top-level ID and 11 characters
-for the secondary ID (8 bytes)
-
-It is recommended that the top-level ID use 16 bytes of binary data for its top-level ID space and
-encode it using Base64.   This results in 22 characters for the top-level ID.    
-
-## Expected Output Format for a Multi-Level ID
-
-Systems that support multiple levels of hierarchy use a '.' to TERMINATE all but the top level
-of the ID hierarchy.  Base64 is recommended for all the component IDs.   Like the two level system
-the top-level ID needs to be large so as to guarantee system-wide uniqueness.  Identifiers after the
-top level only need to be unique within the context of the parent ID and thus can typically be very small. 
-An example might be:
-
-```
-3qdi2JDFioDFjDSF223f23-A.3.B.q.3S.34.3.42.2.A.B.C.
-```
-
-Having the '.' be a terminator (rather than a separator) avoids ambiguous matches using simple
-string comparison (for example 3qdi2JDFioDFjDSF223f23-A.3.B.q.3. should not be interpreted as 
-a parent of 3qdi2JDFioDFjDSF223f23-A.3.B.q.3S. which it would be if the '.' just separated the 
-levels).   
-
-It is strongly recommended that top-level ID be a 16 byte Base64 encoded ID.   This will give 
-maximum compatibility with systems that use fixed size ID for the top-level ID.   
-
-### Overflow Syntax for Multi-Level IDs
-
-Multi-level IDs can grow arbitrarily long.   As a practical matter, systems are likely to want to 
-have a limit on the size of this ID, to keep performance reasonable in unusual cases like infinite
-recursion.   To indicate this truncation end the node with a '#' character instead of a '.'  For example, 
-the ID  
-
-```
-    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
-```
-
-indicates truncation because it does not end with a '.'  It might represent the sequence of requests 
-
-```
-  3qdi2JDFioDFjDSF223f23-A.           caused request
-  3qdi2JDFioDFjDSF223f23-A.3.         which caused request
-  3qdi2JDFioDFjDSF223f23-A.3.5.       which caused request
-  3qdi2JDFioDFjDSF223f23-A.3.5.1.     which caused request
-  ...
-  3qdi2JDFioDFjDSF223f23-A.3.5.1.1.1.1.1.1.1.1.1.1.1.1.1.
-```
-
-But the system decided the IDs had grown too long and truncated it to 
-
-```
-    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
-```
-
-Where the 3d43D is a value that insures uniqueness for the ID as a whole but no longer
-represents the detailed parent-child relationship.   This allows the system to 'fall back gracefully' 
-but still detect that truncation has happened.
-
-Note that if the truncation happens as the last node, the trailing '#' be dropped.  Thus 
-
-```
-    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds
-```
-
-is the same as
-
-```
-    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
-```
-
-This makes the two-level syntax perfectly matches this truncation syntax.  Thus a two-level ID 
-
-```
-    3qdi2JDFioDFjDSF223f23-SdfD8DF908D
-```
-
-is interpreted as a multi-level ID  that it two levels, but because it does not end in a .
-there is truncation at level 2 (which is exactly true).  
-
-## Input parsing for Two (or more) Tier IDs 
-
-In systems that support to or more levels, when reading in the ID it will search for a '-' Any characters
-before the first '-' are considered the top-level ID,  Anything after it is something that makes the ID
-unique within that top-level scope.   In this later component, the multi-level IDs can be parsed by looking
-for '.' characters.  
-
 ## Practical Impacts of the standard
 
 It is useful at this point to give some examples of what practical impacts would be on various logging systems.
 
-### A two tiered ID system with a fixed 16 bytes top ID and a fixed 8 bytes secondary ID.
+### A two tiered ID system with a fixed 16 bytes top ID and a fixed 8 bytes secondary ID
 
 For this type of logging system, when writing the ID to the HTTP header, all that is necessary is to conform
 to the syntax specified about.   This means encoding the two IDs using Base64 and outputting them separated
@@ -412,12 +317,11 @@ the dash.   These routines will be just as fast as a normal Base64 decoder.
 
 For the systems that also support the arbitrary properties collection the original string may be stored as `<trace-id>` or parent `<span-id>`.
 
-### A multi-Tiered (variable sized) ID.   
+### A multi-Tiered (variable sized) ID
 
 A multi-level logging system should not have ID length limitations so it should accept the IDs without
 modification.   The only thing such systems need to do is to follow the syntax for the multi-level ID
 (for example, used '-' for the first level and '.' (termination) for all other levels).  
-
 
 
 ## Well Known Correlation-Context keys:
