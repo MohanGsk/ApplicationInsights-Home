@@ -49,22 +49,22 @@ Where:
 See section [Base64 encoding of binary blobs](#Base64-encoding-of-binary-blobs) for the details of base64 encoding.
 
 There are three types of operations that can be made with the `Request-Id`:
-- **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` to the request. Since the request ID should be unique - it is recommended to use **Reset** operation instead of **Extend** for the untrusted caller which can send the same ID multiple times.
+- **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` or `-0` to the request depending on whether `<span-base-id>.<level>` part is empty or not . Since the request ID should be unique - it is recommended to use **Reset** operation instead of **Extend** for the untrusted caller which can send the same ID multiple times.
 
-    *Third layer:*
+    *First layer for the plan <trace-id>*
 
-    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.4`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.4.0`.
+    Request-Id = `3qdi2JDFioDFjDSF223f23`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-0`.
 
     *First layer after Reset*
 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
     Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.0`.
 
-    *First layer for the plan <trace-id>*
+    *Third layer after increments*
 
-    Request-Id = `3qdi2JDFioDFjDSF223f23`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23.0`.
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.4`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.4.0`.
 
 - **Increment**: used to mark the "next" call to the dependant service. Increments that number after the last `.` in base10.
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.3`
@@ -104,20 +104,20 @@ Extend and Increment are useful for lossy telemetry systems. With only few reque
 
 ```
 Client sends request to A: 3qdi2JDFioDFjDSF223f23
-    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23.0
+    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-0
                     with the parent 3qdi2JDFioDFjDSF223f23
 
-    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.0) => 3qdi2JDFioDFjDSF223f23.1
-                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.1
+    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23-0) => 3qdi2JDFioDFjDSF223f23-1
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-1
         
-        B logs request: Extend(3qdi2JDFioDFjDSF223f23.1) => 3qdi2JDFioDFjDSF223f23.1.0
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23-1) => 3qdi2JDFioDFjDSF223f23-1.0
                         with the parent 3qdi2JDFioDFjDSF223f23.0
 
-    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.1) => 3qdi2JDFioDFjDSF223f23.2
-                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.1
+    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23-1) => 3qdi2JDFioDFjDSF223f23-2
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-1
         
-        C logs request: Extend(3qdi2JDFioDFjDSF223f23.2) => 3qdi2JDFioDFjDSF223f23.2.0
-                        with the parent 3qdi2JDFioDFjDSF223f23.2
+        C logs request: Extend(3qdi2JDFioDFjDSF223f23-2) => 3qdi2JDFioDFjDSF223f23-2.0
+                        with the parent 3qdi2JDFioDFjDSF223f23-2
 ```
 
 ### Scenario 3. Mixed scenario
