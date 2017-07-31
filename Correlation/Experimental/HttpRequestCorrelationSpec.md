@@ -43,7 +43,7 @@ This protocol defines a strict `Request-Id` field format and a set of fall back 
 Where:
 - `<trace-id>` - identifies overall distributed trace. 22 base64 characters (* 6 = 132 bits ~= 16 bytes).
 - `<span-base-id>` - Optional: defines the span that is base for the hierarchy of other spans. Not more than 11 base64 characters.
-- `<level>` - Optional: sequence (or unique random) number of a call made by specific layer. Not more than 11 base64 characters.
+- `<level>` - Optional: sequence number of a call made by specific layer. Not more than 10 base10 characters (32 bit unsigned).
 - maximum length of the header value should be 128 bytes.
 
 See section [Base64 encoding of binary blobs](#Base64-encoding-of-binary-blobs) for the details of base64 encoding.
