@@ -49,7 +49,7 @@ Where:
 See section [Base64 encoding of binary blobs](#Base64-encoding-of-binary-blobs) for the details of base64 encoding.
 
 There are three types of operations that can be made with the `Request-Id`:
-- **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` to the request. Since the request ID should be unique - it is recommended to use **Reset** operation instead of **Extend** for the untrusted caller which can send the same ID multiple times.
+- **Extend**: used to create a new unique request ID. Implementation of this operation MUST append `.0` to the request. Since the request ID should be unique - it is recommended to use **Reset** operation instead of **Extend** for the untrusted caller, which can send the same ID multiple times.
 
     *Third layer:*
 
@@ -144,32 +144,32 @@ Client sends request to A: 3qdi2JDFioDFjDSF223f23
 
 ### Fallback options
 
-When the format of `Request-Id` does not match the expected format the following fallback options should be applied:
+When the format of `Request-Id` does not match the expected format, the following fallback options should be applied:
 
 #### `<trace-id>` format mismatch
 
-Any string with the allowed characters up to first `-` or to the very end of the string should be treated as a `<trace-id>`. Depending on vendors limitation protocol defines four behaviors in this priority order:
+Any string with the allowed characters up to the first `-`, `.` or to the very end of the string should be treated as a `<trace-id>`. Depending on vendors limitation protocol defines four behaviors in this priority order:
 
 1. Use `<trace-id>` to log trace and propagate further even if do not match the expected format.
-2. Use derived `<trace-id>` (hashed value) to log trace and propagate the **original** value further. This may be applied if vendor's telemetry storage expects `<trace-id>` as a long number or when the `<trace-id>` string is too long to store.
-3. Use derived `<trace-id>` (hashed value) to log trace and propagate the hashed value further. This may be applied when propagation of `<trace-id>` between incoming and outgoing request processing is not possible in a form it was recieved.
-4. Restart the trace with the fresh `Request-Id` that matches the format. This can be applied when neither storing nor propagation possible with the `<trace-id>` in a form it was recieved. It also can be used for untrusted caller system.
+2. Use derived `<trace-id>` (hashed value) to log trace and propagate the **original** value further. This option may be applied if vendor's telemetry storage expects `<trace-id>` as a long number or when the `<trace-id>` string is too long to store.
+3. Use derived `<trace-id>` (hashed value) to log trace and propagate the hashed value further. This option may be applied when propagation of `<trace-id>` between incoming and outgoing request processing is not possible in a form it was received.
+4. Restart the trace with the fresh `Request-Id` that matches the format. This option can be applied when neither storing nor propagation possible with the `<trace-id>` in a form it was received. It also can be used for untrusted caller system.
 
 For hashing - use algorithm described in [Hashing for Fixed Sized ID Systems](#Hashing for-Fixed-Sized-ID-Systems) to hash.
 When recording hashed value - consider storing an original string as an extra property.
 
 #### `<span-base-id>.<level>.<level>` mismatch
 
-Some vendors may experiment with the `span-id` format. Use longer `<span-base-id>` or use characters other than base64 and `'.'` to record it. Protocol requires to apply **Reset** function to the strings like this. It is recommended that the original string will be logged in some form - as a hashed value or as a string property with well-defined name.
+Some vendors may experiment with the `span-id` format. Use longer `<span-base-id>` or use characters other than base64 and `'.'` to record it. Protocol requires to apply **Reset** function to the strings like this. It is recommended that the original string is logged in some form - as a hashed value or as a string property with well-defined name.
 
 #### Extra long header value
 
-`Request-Id` header format defines the maximum size as 128 characters. If longer string received - `<trace-id>` format mismatch and `<span-base-id>.<level>.<level>` mismatch fallback rules must be applied in said order.
+`Request-Id` header format defines the maximum size as 128 characters. If longer string received, `<trace-id>` format mismatch and `<span-base-id>.<level>.<level>` mismatch fallback rules must be applied in said order.
 
 
 ## The Correlation-Context Field
 
-`Correlation-Context` is represented as comma separated list of key value pairs, where each pair is represented in `key=value` format:
+`Correlation-Context` is represented as comma-separated list of key value pairs, where each pair is represented in `key=value` format:
 
 ```
 Correlation-Context: key1=value1, key2=value2
@@ -177,7 +177,7 @@ Correlation-Context: key1=value1, key2=value2
 
 Keys and values MUST NOT contain `"="` (equals) or `","` (comma) characters.
 
-Overall Correlation-Context length MUST NOT exceed 1024 bytes, key and value length should stay well under the combined limit of 1024 bytes.
+Overall Correlation-Context length MUST NOT exceed 1024 bytes. Key and value length should stay well under the combined limit of 1024 bytes.
 
 Note that uniqueness of the key within the Correlation-Context is not guaranteed. Context received from upstream service is read-only and implementation MUST NOT remove or aggregate duplicated keys.
 
