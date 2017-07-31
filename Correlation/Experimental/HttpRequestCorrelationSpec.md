@@ -49,23 +49,22 @@ Where:
 See section [Base64 encoding of binary blobs](#Base64-encoding-of-binary-blobs) for the details of base64 encoding.
 
 There are three types of operations that can be made with the `Request-Id`:
-- **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` and MAY also append the five base64 entropy characters like: `.XXXXX.0`.
+- **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` to the request. Since the request ID should be unique - it is recommended to use **Reset** operation instead of **Extend** for the untrusted caller which can send the same ID multiple times.
 
-    *With entropy:*
+    *Third layer:*
 
-    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.4`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.4.0`.
 
-    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
-
-    *Without entropy:*
-
-    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.0`.
+    *First layer after Reset*
 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
     Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.0`.
+
+    *First layer for the plan <trace-id>*
+
+    Request-Id = `3qdi2JDFioDFjDSF223f23`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23.0`.
 
 - **Increment**: used to mark the "next" call to the dependant service.
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.3`
@@ -73,7 +72,7 @@ There are three types of operations that can be made with the `Request-Id`:
 
 - **Reset**: preserves `<trace-id>` and generate a new 11 base64 characters `<span-base-id>` without any hierarchy. Used to reset the long hierarchical string or as a replacement for either **Extend** or **Increment**. 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
-    Reset(Request-Id) = `3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ`
+    Reset(Request-Id) = `3qdi2JDFioDFjDSF223f23-MGY3gOT5kgZ`
 
 This protocol expects every actor in a system to modify the `Request-Id` using one of the actions above. There are three scenarios how this protocol can be used.
 
@@ -83,16 +82,16 @@ Resetting of request is the most straightforward operation. Reset can also benef
 
 ```
 Client sends: 3qdi2JDFioDFjDSF223f23
-    A logs request: Reset(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ 
+    A logs request: Reset(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-MGY3gOT5kgZ 
                     with the parent 3qdi2JDFioDFjDSF223f23
 
-    A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+    A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY3gOT5kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
                             and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
         
         B logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-MoeykjJSsoJ 
                         with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
 
-    A sends request to C: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
+    A sends request to C: Reset(3qdi2JDFioDFjDSF223f23-MGY3gOT5kgZ) => 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
                             and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
         
         C logs request: Reset(3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM) => 3qdi2JDFioDFjDSF223f23-OTh5NHVoZG5 
@@ -105,42 +104,42 @@ Extend and Increment are useful for lossy telemetry systems. With only few reque
 
 ```
 Client sends request to A: 3qdi2JDFioDFjDSF223f23
-    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23.WfsFkL.0
+    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23.0
                     with the parent 3qdi2JDFioDFjDSF223f23
 
-    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.WfsFkL.0) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1
-                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.WfsFkL.1
+    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.0) => 3qdi2JDFioDFjDSF223f23.1
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.1
         
-        B logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1.mX09zG.0
-                        with the parent 3qdi2JDFioDFjDSF223f23.WfsFkL.0
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23.1) => 3qdi2JDFioDFjDSF223f23.1.0
+                        with the parent 3qdi2JDFioDFjDSF223f23.0
 
-    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2
-                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.WfsFkL.1
+    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.1) => 3qdi2JDFioDFjDSF223f23.2
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.1
         
-        C logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.2) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2.dk4qtt.0
-                        with the parent 3qdi2JDFioDFjDSF223f23.WfsFkL.2
+        C logs request: Extend(3qdi2JDFioDFjDSF223f23.2) => 3qdi2JDFioDFjDSF223f23.2.0
+                        with the parent 3qdi2JDFioDFjDSF223f23.2
 ```
 
 ### Scenario 3. Mixed scenario
 
-Load balancers and proxies may be a complete black box for the tracing system. So it may be useful to preserve the correlation for the trace went through it. Especially for the multiple retries scenarios. In the example below, you can correlate the request sent from A `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm` with the request logged by B `3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA` as its parent is `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1`.
+Load balancers and proxies may be a complete black box for the tracing system. So it may be useful to preserve the correlation for the trace went through it. Especially for the multiple retries scenarios. In the example below, you can correlate the request sent from A `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm` with the request logged by B `3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA` as its parent is `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.1`.
 
 ```
 Client sends request to A: 3qdi2JDFioDFjDSF223f23
-    A logs request: Reset(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ 
+    A logs request: Reset(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-MGY+gOT5kgZ 
                     with the parent 3qdi2JDFioDFjDSF223f23
 
-    A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+    A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT5kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
                             and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
         
-        B logs request: Extend(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.0
                         with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
 
-        B sends request to C: Increment(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
-                                and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
+        B sends request to C: Increment(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.0) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.1
+                                and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.1
         
-                C logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1) => 3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA
-                        with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
+                C logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.1) => 3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA
+                        with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.1
 ```
 
 ### Fallback options
