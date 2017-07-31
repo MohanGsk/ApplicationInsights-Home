@@ -66,7 +66,7 @@ There are three types of operations that can be made with the `Request-Id`:
     Request-Id = `3qdi2JDFioDFjDSF223f23`
     Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23.0`.
 
-- **Increment**: used to mark the "next" call to the dependant service.
+- **Increment**: used to mark the "next" call to the dependant service. Increments that number after the last `.` in base10.
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.3`
     Increment(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.4`
 
