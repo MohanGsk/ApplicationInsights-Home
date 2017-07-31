@@ -44,32 +44,35 @@ Where:
 - `<trace-id>` - identifies overall distributed trace. 22 base64 characters (* 6 = 132 bits ~= 16 bytes).
 - `<span-base-id>` - Optional: defines the span that is base for the hierarchy of other spans. Not more than 11 base64 characters.
 - `<level>` - Optional: sequence (or unique random) number of a call made by specific layer. Not more than 11 base64 characters.
-- maximum length of the header value should be 256 bytes.
+- maximum length of the header value should be 128 bytes.
+
+See section [Base64 encoding of binary blobs](#Base64-encoding-of-binary-blobs) for the details of base64 encoding.
 
 There are three types of operations that can be made with the `Request-Id`:
-- **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` and MAY also append the five base64 entropy characters like: `.XXXXX.0`.
+- **Extend**: used to create a new unique request id. Implementation of this operation MUST append `.0` to the request. Since the request ID should be unique - it is recommended to use **Reset** operation instead of **Extend** for the untrusted caller which can send the same ID multiple times.
 
-    With entropy:
-    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.AoFgw.1.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+    *Third layer:*
 
-    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.kWFxt.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.4`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.4.0`.
 
-    Without entropy:
-    Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.1.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+    *First layer after Reset*
 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
-    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.0` (`kWFxt` represents five random base64 characters. Zero indicates the beginning of the request).
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.0`.
 
-- **Increment**: used to mark the "next" attempt to call the dependant service
+    *First layer for the plan <trace-id>*
+
+    Request-Id = `3qdi2JDFioDFjDSF223f23`
+    Extend(Request-Id) = `3qdi2JDFioDFjDSF223f23.0`.
+
+- **Increment**: used to mark the "next" call to the dependant service. Increments that number after the last `.` in base10.
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.3`
     Increment(Request-Id) = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D.4`
 
 - **Reset**: preserves `<trace-id>` and generate a new 11 base64 characters `<span-base-id>` without any hierarchy. Used to reset the long hierarchical string or as a replacement for either **Extend** or **Increment**. 
     Request-Id = `3qdi2JDFioDFjDSF223f23-SdfD8DF908D`
-    Reset(Request-Id) = `3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ`
+    Reset(Request-Id) = `3qdi2JDFioDFjDSF223f23-MGY3gOT5kgZ`
 
 This protocol expects every actor in a system to modify the `Request-Id` using one of the actions above. There are three scenarios how this protocol can be used.
 
@@ -79,16 +82,16 @@ Resetting of request is the most straightforward operation. Reset can also benef
 
 ```
 Client sends: 3qdi2JDFioDFjDSF223f23
-    A logs request: Reset(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ 
+    A logs request: Reset(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-MGY3gOT5kgZ 
                     with the parent 3qdi2JDFioDFjDSF223f23
 
-    A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+    A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY3gOT5kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
                             and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
         
         B logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-MoeykjJSsoJ 
                         with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
 
-    A sends request to C: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
+    A sends request to C: Reset(3qdi2JDFioDFjDSF223f23-MGY3gOT5kgZ) => 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
                             and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM
         
         C logs request: Reset(3qdi2JDFioDFjDSF223f23-F1YWhhcm5mM) => 3qdi2JDFioDFjDSF223f23-OTh5NHVoZG5 
@@ -101,42 +104,42 @@ Extend and Increment are useful for lossy telemetry systems. With only few reque
 
 ```
 Client sends request to A: 3qdi2JDFioDFjDSF223f23
-    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23.WfsFkL.0
+    A logs request: Extend(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23.0
                     with the parent 3qdi2JDFioDFjDSF223f23
 
-    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.WfsFkL.0) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1
-                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.WfsFkL.1
+    A sends request to B: Increment(3qdi2JDFioDFjDSF223f23.0) => 3qdi2JDFioDFjDSF223f23.1
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.1
         
-        B logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.1.mX09zG
-                        with the parent 3qdi2JDFioDFjDSF223f23.WfsFkL.0
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23.1) => 3qdi2JDFioDFjDSF223f23.1.0
+                        with the parent 3qdi2JDFioDFjDSF223f23.0
 
-    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.WfsFkL.1) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2
-                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.WfsFkL.1
+    A sends request to C: Increment(3qdi2JDFioDFjDSF223f23.1) => 3qdi2JDFioDFjDSF223f23.2
+                            and logs the call with the request ID 3qdi2JDFioDFjDSF223f23.1
         
-        C logs request: Extend(3qdi2JDFioDFjDSF223f23.WfsFkL.2) => 3qdi2JDFioDFjDSF223f23.WfsFkL.2.dk4qtt 
-                        with the parent 3qdi2JDFioDFjDSF223f23.WfsFkL.2
+        C logs request: Extend(3qdi2JDFioDFjDSF223f23.2) => 3qdi2JDFioDFjDSF223f23.2.0
+                        with the parent 3qdi2JDFioDFjDSF223f23.2
 ```
 
 ### Scenario 3. Mixed scenario
 
-Load balancers and proxies may be a complete black box for the tracing system. So it may be useful to preserve the correlation for the trace went through it. Especially for the multiple retries scenarios. In the example below, you can correlate the request sent from A `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm` with the request logged by B `3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA` as its parent is `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1`.
+Load balancers and proxies may be a complete black box for the tracing system. So it may be useful to preserve the correlation for the trace went through it. Especially for the multiple retries scenarios. In the example below, you can correlate the request sent from A `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm` with the request logged by B `3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA` as its parent is `3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.1`.
 
 ```
 Client sends request to A: 3qdi2JDFioDFjDSF223f23
-    A logs request: Reset(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ 
+    A logs request: Reset(3qdi2JDFioDFjDSF223f23) => 3qdi2JDFioDFjDSF223f23-MGY+gOT5kgZ 
                     with the parent 3qdi2JDFioDFjDSF223f23
 
-    A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT/kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
+    A sends request to B: Reset(3qdi2JDFioDFjDSF223f23-MGY+gOT5kgZ) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
                             and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
         
-        B logs request: Extend(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0
+        B logs request: Extend(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.0
                         with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm
 
-        B sends request to C: Increment(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.0) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
-                                and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
+        B sends request to C: Increment(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.0) => 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.1
+                                and logs the call with the request ID 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.1
         
-                C logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1) => 3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA
-                        with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.Wf.1
+                C logs request: Reset(3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.1) => 3qdi2JDFioDFjDSF223f23-M2QgMWEgYjA
+                        with the parent 3qdi2JDFioDFjDSF223f23-5NHVoZG5NTm.1
 ```
 
 ### Fallback options
@@ -148,38 +151,35 @@ When the format of `Request-Id` does not match the expected format the following
 Any string with the allowed characters up to first `-` or to the very end of the string should be treated as a `<trace-id>`. Depending on vendors limitation protocol defines four behaviors in this priority order:
 
 1. Use `<trace-id>` to log trace and propagate further even if do not match the expected format.
-2. Use derived `<trace-id>` (hashed value) to log trace and propagate the **original** value further. 
-3. Use derived `<trace-id>` (hashed value) to log trace and propagate the hashed value further.
-4. Restart the trace with the fresh `Request-Id` that matches the format.
+2. Use derived `<trace-id>` (hashed value) to log trace and propagate the **original** value further. This may be applied if vendor's telemetry storage expects `<trace-id>` as a long number or when the `<trace-id>` string is too long to store.
+3. Use derived `<trace-id>` (hashed value) to log trace and propagate the hashed value further. This may be applied when propagation of `<trace-id>` between incoming and outgoing request processing is not possible in a form it was recieved.
+4. Restart the trace with the fresh `Request-Id` that matches the format. This can be applied when neither storing nor propagation possible with the `<trace-id>` in a form it was recieved. It also can be used for untrusted caller system.
 
 For hashing - use algorithm described in [Hashing for Fixed Sized ID Systems](#Hashing for-Fixed-Sized-ID-Systems) to hash.
 When recording hashed value - consider storing an original string as an extra property.
 
-
 #### `<span-base-id>.<level>.<level>` mismatch
 
-Some vendors may experiment with the `span-id` format. Use longer `<span-base-id>` or use characters other than base64 and `'.'` to record it. Protocol requires to apply **Reset** function to the strings like this. 
-
+Some vendors may experiment with the `span-id` format. Use longer `<span-base-id>` or use characters other than base64 and `'.'` to record it. Protocol requires to apply **Reset** function to the strings like this. It is recommended that the original string will be logged in some form - as a hashed value or as a string property with well-defined name.
 
 #### Extra long header value
 
-If the value of `Request-Id` header is longer than system may handle with the fallback rules above - the following must happen:
-
-TBD
+`Request-Id` header format defines the maximum size as 128 characters. If longer string received - `<trace-id>` format mismatch and `<span-base-id>.<level>.<level>` mismatch fallback rules must be applied in said order.
 
 
 ## The Correlation-Context Field
 
-The Correlation context is straightforward if the value does not end with whitespace 
-or contain newlines or commas.   We need a standard for escaping these characters if
-we wish to support arbitrary values. 
+`Correlation-Context` is represented as comma separated list of key value pairs, where each pair is represented in `key=value` format:
 
-The suggestion is to use \ as an escape character like what is used in java/c# including the \uXXXX
-escape for arbitrary unicode characters.   The comma (and trailing space) must be escaped if it would
-otherwise have a special meaning:
+```
+Correlation-Context: key1=value1, key2=value2
+```
 
-TODO: We could force JSON like conventions for strings (thus quoted values), but that seems strictly more complex.
+Keys and values MUST NOT contain `"="` (equals) or `","` (comma) characters.
 
+Overall Correlation-Context length MUST NOT exceed 1024 bytes, key and value length should stay well under the combined limit of 1024 bytes.
+
+Note that uniqueness of the key within the Correlation-Context is not guaranteed. Context received from upstream service is read-only and implementation MUST NOT remove or aggregate duplicated keys.
 
 # The Expected Environment for Using Request-Id
 
@@ -189,7 +189,7 @@ request.   It is useful to have an overview of how such systems typically work t
 the design of the ID itself.  
 
 The expectation is that the logging system has the concept like 
-[OpenTracing's Span,
+OpenTracing's Span,
 which represents some work being done that has an ID as well as parent-child relationships
 with other Spans.   Thus there are 'top level' Spans that do not have a parent, and every
 other Span remembers the ID of its parent as well as its own ID.   Somewhere in the logging
@@ -241,7 +241,9 @@ the top-level request that was responsible for it.
 These and other limitation can be avoided if IDs are given structure.   It is common to employ
 a two-level structure where IDs have the form
 
-    TOP_LEVEL_ID - SPAN_ID
+```
+TOP_LEVEL_ID - SPAN_ID
+```
 
 Basically all children of a given top-level Span have the same prefix.    With this ID structure
 given any two Spans ID, they can be determined as belonging to the same top-level processing 
@@ -253,10 +255,12 @@ simply by comparing their IDs.   This has the following advantages
 
 ### Hierarchical IDs
 
-The two level structure generalizes very naturally into a multi-level (hierarchical) ID.   THus an
+The two level structure generalizes very naturally into a multi-level (hierarchical) ID.   Thus an
 ID would have the form
 
-    TOP_LEVEL_ID - LEVEL_1_ID - LEVEL_2_ID - ... - LEVEL_N_ID
+```
+TOP_LEVEL_ID - LEVEL_1_ID - LEVEL_2_ID - ... - LEVEL_N_ID
+```
 
 which creates ID for every Span by taking the parent's ID and adding a unique suffix.   With such 
 a structure, it is possible to group things not only by the top-level Span but also every intermediate 
@@ -296,122 +300,11 @@ chosen randomly from a large (64 bit or greater) number space.    Logging system
 have only flat IDs will simply emit this ID as a string.   It is recommended that 
 punctuation in the ASCII range 0x21-0x2A be reserved for use by this standard in the future.  
 
-## Base64 encoding of binary blobs  
-
-[Base64](https://en.wikipedia.org/wiki/Base64) is a standard way of encoding binary blob as 
-a sequence of printable ASCII characters.   The characters used are confided to the alpha-numeric 
-and two punctuation characters (+ and /).   Because there are 64 legal possible characters each 
-one represents 6 bits of binary data.  
-
-## Expected Output Format for Two Level IDs  
-
-Systems that support two levels of hierarchy are expected to emit the two IDs (the top-level ID 
-and the Span ID separated by a '-'.    It is expected that these two IDs are will be encoded
-using Base64.   For example, a system having a 16 bytes top-level ID and an 8 bytes Span ID could
-emit an ID like the following
-```
-    3qdi2JDFioDFjDSF223f23-SdfD8DF908D
-```
-That is it would have 22 characters (* 6 = 132 bits ~= 8 bytes) for the top-level ID and 11 characters
-for the secondary ID (8 bytes)
-
-It is recommended that the top-level ID use 16 bytes of binary data for its top-level ID space and
-encode it using Base64.   This results in 22 characters for the top-level ID.    
-
-## Expected Output Format for a Multi-Level ID
-
-Systems that support multiple levels of hierarchy use a '.' to TERMINATE all but the top level
-of the ID hierarchy.  Base64 is recommended for all the component IDs.   Like the two level system
-the top-level ID needs to be large so as to guarantee system-wide uniqueness.  Identifiers after the
-top level only need to be unique within the context of the parent ID and thus can typically be very small. 
-An example might be:
-```
-    3qdi2JDFioDFjDSF223f23-A.3.B.q.3S.34.3.42.2.A.B.C.
-```
-
-Having the '.' be a terminator (rather than a separator) avoids ambiguous matches using simple
-string comparison (for example 3qdi2JDFioDFjDSF223f23-A.3.B.q.3. should not be interpreted as 
-a parent of 3qdi2JDFioDFjDSF223f23-A.3.B.q.3S. which it would be if the '.' just separated the 
-levels).   
-
-It is strongly recommended that top-level ID be a 16 byte Base64 encoded ID.   This will give 
-maximum compatibility with systems that use fixed size ID for the top-level ID.   
-
-### Overflow Syntax for Multi-Level IDs
-
-Multi-level IDs can grow arbitrarily long.   As a practical matter, systems are likely to want to 
-have a limit on the size of this ID, to keep performance reasonable in unusual cases like infinite
-recursion.   To indicate this truncation end the node with a '#' character instead of a '.'  For example, 
-the ID  
-```
-    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
-```
-indicates truncation because it does not end with a '.'  It might represent the sequence of requests 
-```
-  3qdi2JDFioDFjDSF223f23-A.           caused request
-  3qdi2JDFioDFjDSF223f23-A.3.         which caused request
-  3qdi2JDFioDFjDSF223f23-A.3.5.       which caused request
-  3qdi2JDFioDFjDSF223f23-A.3.5.1.     which caused request
-  ...
-  3qdi2JDFioDFjDSF223f23-A.3.5.1.1.1.1.1.1.1.1.1.1.1.1.1.
-```
-But the system decided the IDs had grown too long and truncated it to 
-```
-    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
-```
-Where the 3d43D is a value that insures uniqueness for the ID as a whole but no longer
-represents the detailed parent-child relationship.   This allows the system to 'fall back gracefully' 
-but still detect that truncation has happened.
-
-Note that if the truncation happens as the last node, the trailing '#' be dropped.  Thus 
-```
-    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds
-```
-is the same as
-```
-    3qdi2JDFioDFjDSF223f23-A.3.3d43Ds#
-```
-This makes the two-level syntax perfectly matches this truncation syntax.  Thus a two-level ID 
-```
-    3qdi2JDFioDFjDSF223f23-SdfD8DF908D
-```
-is interpreted as a multi-level ID  that it two levels, but because it does not end in a .
-there is truncation at level 2 (which is exactly true).  
-
-## Input parsing for Two (or more) Tier IDs 
-
-In systems that support to or more levels, when reading in the ID it will search for a '-' Any characters
-before the first '-' are considered the top-level ID,  Anything after it is something that makes the ID
-unique within that top-level scope.   In this later component, the multi-level IDs can be parsed by looking
-for '.' characters.  
-
-## Hashing for Fixed Sized ID Systems
-
-Systems that require the IDs to be a fixed size must hash IDs to fit into the required size (for example, 16 
-bytes or 8 bytes)  This must be one with the hash algorithm defined here which we call HASH_N (where
-N is the number of bytes of the resulting binary blob).   HASH_N is described precisely in the appendix
-but it is basically a Base64 decoder modified to accept any input characters, and to circularly XOR
-the output bytes until the input is consumed (hash).   This hash function has the following useful characteristics
-
-1. It input can be anything string,
-2. Its output is always N bytes.
-3. When operating on Base64 encoded input that of size N, it produces the same result as simply decoding (no information loss).
-4. It is as efficient as Base64 decoding.   
-
-This mechanism has the following useful ramifications:
-
-1. IDs from two like minded systems work without any loss of information.  
-2. Multi-tiered and two-tiered systems interoperate on the top-most their (since they both have a top tier ID)
-3. A two-tiered fixed-size ID system can accept ANY Id, and in particular an ID from a multi-tiered ID system.
-4. ID  has a useful comparison operator that works even in this mixed case.  Basically if the IDs don't match 
-perfectly, you also test if they match if HASH_N is applied to both (you may need to do this twice, once for 
-the N of the first operand, and once for the N of the other operand).  
-
 ## Practical Impacts of the standard
 
 It is useful at this point to give some examples of what practical impacts would be on various logging systems.
 
-### A two tiered ID system with a fixed 16 bytes top ID and a fixed 8 bytes secondary ID.  
+### A two tiered ID system with a fixed 16 bytes top ID and a fixed 8 bytes secondary ID
 
 For this type of logging system, when writing the ID to the HTTP header, all that is necessary is to conform
 to the syntax specified about.   This means encoding the two IDs using Base64 and outputting them separated
@@ -421,12 +314,13 @@ When reading the Request-Id field, instead of using a Base64 decoder that would 
 would look for the '-' in the ID, and use HASH_16 for the part before the '-' and HASH_8 for the id after
 the dash.   These routines will be just as fast as a normal Base64 decoder. 
 
-### A multi-Tiered (variable sized) ID.   
+For the systems that also support the arbitrary properties collection the original string may be stored as `<trace-id>` or parent `<span-id>`.
+
+### A multi-Tiered (variable sized) ID
 
 A multi-level logging system should not have ID length limitations so it should accept the IDs without
 modification.   The only thing such systems need to do is to follow the syntax for the multi-level ID
 (for example, used '-' for the first level and '.' (termination) for all other levels).  
-
 
 
 ## Well Known Correlation-Context keys:
@@ -435,6 +329,21 @@ TODO COMPLETE:
 
 # Appendix
 
-## Hash_N Algorithm
+## Base64 encoding of binary blobs
 
-TODO Finish.  
+This standard uses [base64](https://en.wikipedia.org/wiki/Base64) as a standard way of encoding binary blob as a sequence of printable ASCII characters. The characters used are confided to the alpha-numeric and two punctuation characters (`+` and `/`). Because there are 64 legal possible characters each one represents 6 bits of binary data. Base64 is a widely-used compromise between the length and human-readability of the resulting string.
+
+## Hashing for Fixed Sized ID Systems
+
+Systems that require the IDs to be a fixed size must hash IDs to fit into the required size (for example, 16 bytes or 8 bytes). This must be one with the hash algorithm defined here which we call HASH_N (where N is the number of bytes of the resulting binary blob). The key idea of the algorithm to be Base64 decoder modified to accept any input characters, and to circularly XOR the output bytes until the input is consumed (hash). This hash function has the following useful characteristics:
+
+1. Its input can be anything string.
+2. Its output is always N bytes.
+3. When operating on Base64 encoded input that of size N, it produces the same result as simply decoding (no information loss).
+4. It is as efficient as Base64 decoding.   
+
+This mechanism has the following useful ramifications:
+
+1. IDs from two like minded systems work without any loss of information.
+2. Fallback algorithm for `<trace-id>` and `<span-base-id>` format mismatch can be coded in a single pass of a header value parsing.
+3. ID has a useful comparison operator that works even in this mixed case. Basically if the IDs don't match perfectly, you also test if they match if HASH_N is applied to both (you may need to do this twice, once for the N of the first operand, and once for the N of the other operand).  
