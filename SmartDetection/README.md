@@ -12,3 +12,4 @@ For general information about the Smart Detection offering, see [here](https://d
 * [Azure Cloud Service issues](https://azure.microsoft.com/blog/proactive-notifications-on-cloud-service-issues-with-azure-diagnostics-and-application-insights)
 * [Degradation in trace severity ratio](degradation-in-trace-severity-ratio.md)
 * [Abnormal rise in exception volume](abnormal-rise-in-exception-volume.md)
+* [Low utilization of cloud resources](low-utilization-of-cloud-resources.md)
