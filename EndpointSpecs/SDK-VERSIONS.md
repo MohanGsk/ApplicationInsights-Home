@@ -20,6 +20,8 @@ SDKs are required to include their name and version in the telemetry item using 
   [PREFIX_]SDKNAME:SEMVER
 ```  
 
+
+
 | Section          | Required | Description                                                             | Example |
 |------------------|----------|-------------------------------------------------------------------------|---------|
 | Prefix           | No       | An optional single lowercase letter (a-z) followed by an underscore (_) | a_      |
@@ -67,7 +69,12 @@ Remote dependency telemetry that was collected via Profiler instrumentation
 Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet-server/releases
 
 ### rdddsd
-Remote dependency telemetry that was collected via Diagnostic Source instrumentation
+Remote dependency telemetry that was collected via Diagnostic Source instrumentation for Desktop framework
+
+Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet-server/releases
+
+### rdddsc 
+Remote dependency telemetry collected via Diagnostic Source for .NET Core.
 
 Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet-server/releases
 
