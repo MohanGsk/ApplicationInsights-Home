@@ -48,3 +48,9 @@ An instance of PageView represents a generic action on a page like a button clic
     
     This field is optional.
     
+1. **id** : string
+
+    Identifier of a page view instance. Used for correlation between page view and other telemetry items.
+    
+    Max length: 128
+    
