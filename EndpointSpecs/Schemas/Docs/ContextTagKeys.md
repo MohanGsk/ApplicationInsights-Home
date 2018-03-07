@@ -80,6 +80,36 @@
     
     This field is optional.
     
+1. **"ai.location.country"** : string
+
+    The country of the client device. If any of Country, Province, or City is specified, those values will be preferred over geolocation of the IP address field. Information in the location context fields is always about the end user. When telemetry is sent from a service, the location context is about the user that initiated the operation in the service.
+    
+    Max length: 256
+    
+    Default value: "ai.location.country"
+    
+    This field is optional.
+    
+1. **"ai.location.province"** : string
+
+    The province/state of the client device. If any of Country, Province, or City is specified, those values will be preferred over geolocation of the IP address field. Information in the location context fields is always about the end user. When telemetry is sent from a service, the location context is about the user that initiated the operation in the service.
+    
+    Max length: 256
+    
+    Default value: "ai.location.province"
+    
+    This field is optional.
+    
+1. **"ai.location.city"** : string
+
+    The city of the client device. If any of Country, Province, or City is specified, those values will be preferred over geolocation of the IP address field. Information in the location context fields is always about the end user. When telemetry is sent from a service, the location context is about the user that initiated the operation in the service.
+    
+    Max length: 256
+    
+    Default value: "ai.location.city"
+    
+    This field is optional.
+    
 1. **"ai.operation.id"** : string
 
     A unique identifier for the operation instance. The operation.id is created by either a request or a page view. All other telemetry sets this to the value for the containing request or page view. Operation.id is used for finding all the telemetry items for a specific operation instance.

@@ -48,6 +48,12 @@ An instance of PageViewPerf represents: a page view with no performance data, a 
     
     This field is optional.
     
+1. **id** : string
+
+    Identifier of a page view instance. Used for correlation between page view and other telemetry items.
+    
+    Max length: 128
+    
 1. **perfTotal** : string
 
     Performance total in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff

@@ -50,6 +50,12 @@ System variables for a telemetry item.
     
     This field is optional.
     
+1. **flags** : long
+
+    A collection of values bit-packed to represent how the event was processed. Currently represents whether IP address needs to be stripped out from event (set 0x200000) or should be preserved.
+    
+    This field is optional.
+    
 1. **tags** : IDictionary[string, string]
 
     Key/value collection of context properties. See ContextTagKeys for information on available properties.
