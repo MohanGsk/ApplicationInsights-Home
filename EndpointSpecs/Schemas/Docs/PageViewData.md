@@ -53,4 +53,12 @@ An instance of PageView represents a generic action on a page like a button clic
     Identifier of a page view instance. Used for correlation between page view and other telemetry items.
     
     Max length: 128
+
+1. **referrerUri** : string
+
+    Fully qualified page URI or URL of the referring page; if unknown, leave blank.
+    
+    Max length: 1024
+
+    This field is optional.
     
