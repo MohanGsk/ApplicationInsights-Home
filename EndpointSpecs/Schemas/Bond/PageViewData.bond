@@ -19,7 +19,7 @@ struct PageViewData
     [Description("Identifier of a page view instance. Used for correlation between page view and other telemetry items.")]
     50: string 	 id;
     
-    [MaxStringLength("1024")]
+    [MaxStringLength("2048")]
     [Description("Fully qualified page URI or URL of the referring page; if unknown, leave blank.")]
     50: string 	 referrerUri;
 }

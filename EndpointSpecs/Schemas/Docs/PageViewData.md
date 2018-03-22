@@ -58,7 +58,7 @@ An instance of PageView represents a generic action on a page like a button clic
 
     Fully qualified page URI or URL of the referring page; if unknown, leave blank.
     
-    Max length: 1024
+    Max length: 2048
 
     This field is optional.
     
