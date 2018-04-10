@@ -14,6 +14,14 @@ An instance of the Metric item is a list of measurements (single data points) an
     
     [DataPoint] "Metric data single measurement."
     
+    1. **metricNamespace** : string
+    
+        Namespace of the metric.
+        
+        This field is optional.
+        
+        Max length: 256
+    
     1. **name** : string
     
         Name of the metric.
