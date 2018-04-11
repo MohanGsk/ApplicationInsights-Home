@@ -21,5 +21,5 @@ struct PageViewData
     
     [MaxStringLength("2048")]
     [Description("Fully qualified page URI or URL of the referring page; if unknown, leave blank.")]
-    50: string 	 referrerUri;
+    60: string 	 referrerUri;
 }
