@@ -65,9 +65,11 @@ ipch/
 [Dd]ebug*/
 [Rr]elease*/
 Ankh.NoLoad
+.vs
 
 # Ignore NuGet packages.
 /NuGet.Packages/*
+packages
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/
 

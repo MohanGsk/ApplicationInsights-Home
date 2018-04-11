@@ -1,1 +1,0 @@
-c:\users\joshweb\documents\visual studio 2013\Projects\BlogPostSample\BlogPostSample.Windows\BlogPostSample.Windows.csproj;neutral
