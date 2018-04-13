@@ -14,7 +14,7 @@ An instance of the Metric item is a list of measurements (single data points) an
     
     [DataPoint] "Metric data single measurement."
     
-    1. **namespace** : string
+    1. **ns** : string
     
         Namespace of the metric.
         
