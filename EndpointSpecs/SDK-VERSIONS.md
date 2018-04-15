@@ -100,19 +100,46 @@ Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet-server/
 azure web app performance counters
 
 ### sd
-System diagnostics trace
+System diagnostics trace (Microsoft.ApplicationInsights.TraceListener)
 
-Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet-logging/releases
+Repo: https://github.com/Microsoft/ApplicationInsights-dotnet-logging
+
+Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.TraceListener
+
+### etw
+ETW listener (Microsoft.ApplicationInsights.EtwCollector)
+
+Repo: https://github.com/Microsoft/ApplicationInsights-dotnet-logging
+
+Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.EtwCollector
+
+### dsl
+DiagnosticSource listener (Microsoft.ApplicationInsights.DiagnosticSourceListener)
+
+Repo: https://github.com/Microsoft/ApplicationInsights-dotnet-logging
+
+Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.DiagnosticSourceListener
+
+### evl
+EventSource listener (Microsoft.ApplicationInsights.EventSourceListener)
+
+Repo: https://github.com/Microsoft/ApplicationInsights-dotnet-logging
+
+Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.EventSourceSourceListener
 
 ### nlog
-.NET Logging adapter nuget package for nlog
+.NET logging adapter for nlog (Microsoft.ApplicationInsights.NLogTarget)
 
-Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet-logging/releases
+Repo: https://github.com/Microsoft/ApplicationInsights-dotnet-logging
+
+Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.NLogTarget
 
 ### log4net
-.NET logging adapter nuget package for log4net
+.NET logging adapter for log4net (Microsoft.ApplicationInsights.Log4NetAppender)
 
-Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet-logging/releases
+Repo: https://github.com/Microsoft/ApplicationInsights-dotnet-logging
+
+Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.Log4NetAppender
 
 ### wad
 Windows Azure Diagnostics reporting through AI
@@ -146,4 +173,10 @@ ASP.NET core SDK
 
 Public versions: https://github.com/Microsoft/ApplicationInsights-aspnetcore/releases
 
+### sc
+Snapshot Debugger (Microsoft.ApplicationInsights.SnapshotCollector)
+
+Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.SnapshotCollector
+
 ### hockeysdk
+
