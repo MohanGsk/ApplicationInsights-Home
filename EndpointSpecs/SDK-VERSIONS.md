@@ -178,5 +178,12 @@ Snapshot Debugger (Microsoft.ApplicationInsights.SnapshotCollector)
 
 Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.SnapshotCollector
 
+### w_ap, l_ap
+Application Insights Profiler for Windows/Linux.
+
+Repro: https://github.com/Microsoft/ApplicationInsights-Profiler-AspNetCore
+
+Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.Profiler.AspNetCore
+
 ### hockeysdk
 
