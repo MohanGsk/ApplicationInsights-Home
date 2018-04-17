@@ -178,5 +178,19 @@ Snapshot Debugger (Microsoft.ApplicationInsights.SnapshotCollector)
 
 Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.SnapshotCollector
 
+### ap
+Application Insights Profiler: Getting call traces, diagnose application performance.
+
+Repo: https://github.com/Microsoft/ApplicationInsights-Profiler-AspNetCore
+
+Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.Profiler.AspNetCore
+
 ### hockeysdk
 
+## Prefixes
+Define the prefixes for the SDK.
+
+| SDK Name | Prefix | Description                         |
+|----------|:------:|-------------------------------------|
+| ap       |   w_   | Telemetry from **Windows** Platform |
+| ap       |   l_   | Telemetry from **Linux** Platform   |
