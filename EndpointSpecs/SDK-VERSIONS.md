@@ -149,6 +149,12 @@ metric aggregation pipeline reported this metric
 
 Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet/releases
 
+### m-agg2
+
+metric aggregation pipeline reported this metric. Second implementation
+
+Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet/releases
+
 ### node
 node.js SDK.
 
@@ -160,8 +166,6 @@ Public versions: https://github.com/Microsoft/ApplicationInsights-node.js/releas
 JavaScript SDK.
 
 Public versions: https://github.com/Microsoft/ApplicationInsights-js/releases
-
-### android
 
 ### java
 java SDK.
@@ -185,7 +189,96 @@ Repo: https://github.com/Microsoft/ApplicationInsights-Profiler-AspNetCore
 
 Nuget: https://www.nuget.org/packages/Microsoft.ApplicationInsights.Profiler.AspNetCore
 
-### hockeysdk
+### azwapc
+
+Performance counters collected via Azure App Services extensibility. See https://github.com/Microsoft/ApplicationInsights-dotnet-server/blob/eb884b81c568b1054f9b7168ea4b0ec61f9e3506/Src/PerformanceCollector/Perf.Shared/Implementation/PerformanceCounterUtility.cs#L27
+
+### azurefunctions
+
+Telemetry produced by Azure Functions Host instrumentation.
+https://github.com/Azure/azure-functions-host/blob/1f243e9febc4d431af3f0341bc8af74975d51659/src/WebJobs.Script/Host/ScriptTelemetryClientFactory.cs#L28
+
+### webjobs
+
+Telemetry collected by Azure Web Jobs hosting. See https://github.com/Azure/azure-webjobs-sdk/blob/5d3952d010c0981477e8b09f60b62312f85d4e1f/src/Microsoft.Azure.WebJobs.Logging.ApplicationInsights/DefaultTelemetryClientFactory.cs#L54
+
+### wad2ai
+
+Telemetry collected by Application Insight's Azure Diagnostics sink. See [Send Cloud Service, Virtual Machine, or Service Fabric diagnostic data to Application Insights](https://docs.microsoft.com/azure/monitoring-and-diagnostics/azure-diagnostics-configure-application-insights).
+
+### wcf
+
+WCF Application Application Insights lab project. 
+
+Repo: https://github.com/Microsoft/ApplicationInsights-SDK-Labs/tree/master/WCF
+
+MyGet: > Install-Package "Microsoft.ApplicationInsights.Wcf" -Source "https://www.myget.org/F/applicationinsights-sdk-labs/" -Pre
+
+Blog: https://azure.microsoft.com/en-us/blog/wcf-monitoring-with-application-insights/
+
+### py3
+
+Telemetry collected by python Application Insights SDK for py3 application. See https://github.com/Microsoft/ApplicationInsights-Python/blob/7ac535f451383d78d63bfc2b8aad518cdde598c7/applicationinsights/channel/TelemetryChannel.py#L9-L15
+
+### py2
+
+Telemetry collected by python Application Insights SDK for py2 application. See https://github.com/Microsoft/ApplicationInsights-Python/blob/7ac535f451383d78d63bfc2b8aad518cdde598c7/applicationinsights/channel/TelemetryChannel.py#L9-L15
+
+### rb
+
+Application Insights Ruby SDK https://github.com/Microsoft/ApplicationInsights-Ruby/blob/c78bb54c8b5c0f70218482219fb8447416cfe550/lib/application_insights/channel/telemetry_channel.rb#L89
+
+### exstat
+
+Experimental exceptions statistics feature. https://github.com/Microsoft/ApplicationInsights-dotnet-server/blob/eb884b81c568b1054f9b7168ea4b0ec61f9e3506/Src/WindowsServer/WindowsServer.Net45/FirstChanceExceptionStatisticsTelemetryModule.cs#L102
+
+### rddsr
+
+Azure Service Fabric service remoting call - Client side. See 
+https://github.com/Microsoft/ApplicationInsights-ServiceFabric/blob/275166d8034f1b94881982073e304166fbaef6bd/src/ApplicationInsights.ServiceFabric.Native.Shared/DependencyTrackingModule/ServiceRemotingClientEventListener.cs#L41
+
+### serviceremoting
+
+Azure Service Fabric service remoting call - Server side. See https://github.com/Microsoft/ApplicationInsights-ServiceFabric/blob/275166d8034f1b94881982073e304166fbaef6bd/src/ApplicationInsights.ServiceFabric.Native.Shared/RequestTrackingModule/ServiceRemotingServerEventListener.cs#L29
+
+### ai-k8s
+
+Application Insights telemetry produced by Kubrnetes module. See https://github.com/Microsoft/ApplicationInsights-Kubernetes/blob/578f20e824e6248029554a1f8990b29c4a7c6d11/src/ApplicationInsights.Kubernetes/Utilities/SDKVersionUtils.cs#L34
+
+### azurefunctionscoretools
+
+Azure Functions Core Tools for local development expirience. See https://github.com/Azure/azure-functions-core-tools/blob/acb5fd3b8d8fd77420ec500861c995ade2cead69/src/Azure.Functions.Cli/Diagnostics/ConsoleTelemetryClientFactory.cs#L22
+
+### rddfd
+
+Telemetry was processed via framework and diagnosticsource paths. Deprecated in latest versions of SDK.
+
+### logary
+
+Telemetry produced by F# logging library Logary. See https://github.com/logary/logary/blob/f86bdf05c66ab0387598f0bb3040c0dafe1f92b8/src/targets/Logary.Targets.ApplicationInsights/Targets_AppInsights.fs#L72-L74
+
+### one-line-ps
+
+http://apmtips.com/blog/2017/03/27/oneliner-to-send-event-to-application-insights/
+
+
+### angular
+
+Unofficial Angular telemetry collection module for Application Insights.
+
+https://www.npmjs.com/package/angular-applicationinsights
+
+https://github.com/VladimirRybalko/angular-applicationinsights/blob/244a003a6df2df487d903c99f75fd497d698dede/src/ApplicationInsights.ts#L47
+
+
+### owin
+
+May point to unofficial OWIN telemetyr module:
+
+https://github.com/MatthewRudolph/Airy-ApplicationInsights-Owin/blob/a555ddc810edb5b9e8d4866c41ba18ddf793bc1d/src/Dematt.Airy.ApplicationInsights.Owin/ExceptionTracking/MvcExceptionHandler.cs#L38
+
+
+
 
 ## Prefixes
 Define the prefixes for the SDK.
