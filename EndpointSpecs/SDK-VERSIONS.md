@@ -155,8 +155,8 @@ metric aggregation pipeline reported this metric. Second implementation
 
 Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet/releases
 
-### hb
-Heartbeat telemetry sent in intervals reported this metric item
+### hbnet
+Heartbeat telemetry sent in intervals reported this metric item for the dotnet SDK
 
 Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet/releases
 
