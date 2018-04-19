@@ -155,6 +155,11 @@ metric aggregation pipeline reported this metric. Second implementation
 
 Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet/releases
 
+### hbeat
+Heartbeat telemetry sent in intervals reported this metric item
+
+Public versions: https://github.com/Microsoft/ApplicationInsights-dotnet/releases
+
 ### node
 node.js SDK.
 
