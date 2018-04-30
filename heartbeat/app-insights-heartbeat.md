@@ -1,0 +1,2 @@
+# Heartbeat in Application Insights
+
