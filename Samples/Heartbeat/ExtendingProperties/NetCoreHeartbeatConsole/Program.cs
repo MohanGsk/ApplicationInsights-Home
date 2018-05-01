@@ -30,7 +30,7 @@ namespace NetCoreHeartbeatConsole
                     Thread.Sleep(100);
                     if (ReportHeartbeatsFound(testingChannel))
                     {
-                        Console.WriteLine("Found {0} heartbeats.", foundHeartbeats);
+                        Console.WriteLine("Found {0} heartbeats.", foundHeartbeats + 1);
                         if (foundHeartbeats == 0)
                         {
                             Console.WriteLine("Adding a custom property.");
