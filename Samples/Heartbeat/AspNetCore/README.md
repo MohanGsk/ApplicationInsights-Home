@@ -18,24 +18,7 @@ SHELL> dotnet add .\ASPNetCoreSample.csproj package Microsoft.ApplicationInsight
 > Note: The Heartbeat feature is enabled by default as of base SDK 2.5.0 and the
 ability to configure the Heartbeat was added in 2.3.0-beta1.
 
-2. Edit the `Program.cs` file located in your ASPNetCoreSample/ASPNetCoreSample
-folder. Replace the following code:
-````
-  public static IWebHost BuildWebHost(string[] args) =>
-    WebHost.CreateDefaultBuilder(args)
-      .UseStartup<Startup>()
-      .Build();
-````
-with this code:
-````
-  public static IWebHost BuildWebHost(string[] args) =>
-    WebHost.CreateDefaultBuilder(args)
-      .UseStartup<Startup>()
-      .UseApplicationInsights()
-      .Build();
-````
-
-3. Edit the `Startup.cs` file located there also,  and replace the following
+2. Edit the `Startup.cs` file located there also,  and replace the following
 code:
 ````
   public void ConfigureServices(IServiceCollection services)
@@ -60,7 +43,7 @@ top of your file)
 
 > Note: You can set the `EnableHeartbeat` to false here to disable the heartbeat.
 
-4. Configure the Heartbeat feature in code by modifying the 
+3. Configure the Heartbeat feature in code by modifying the 
 `IHeartbeatPropertyManager` directly. You can do this when you first obtain the
 property manager via the `TelemetryModules.Instance` singleton.
 ````
@@ -72,5 +55,3 @@ property manager via the `TelemetryModules.Instance` singleton.
       heartbeatPropertyMan.ExcludedHeartbeatProperties.Add("osType");
       ...
 ````
-
-

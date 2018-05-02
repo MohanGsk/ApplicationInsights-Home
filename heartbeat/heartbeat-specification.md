@@ -48,7 +48,7 @@ The data that will be included in the Heartbeat by default will be the following
 | Name                   | Type   | Example Value        | Description      |
 |------------------------|--------|----------------------|------------------|
 | osType                 | string | Windows"             | Operating system of service/application instrumented|
-| baseSdkTargetFramework | string | .NET Framework 4.6.2 | The target framework the application was compiled against (to the best of our ability) |
+| baseSdkTargetFramework | string | NET46                | The target framework the application was compiled against (to the best of our ability) |
 | runtimeFramework       | string | 4.0.30319.36366      | Runtime framework version down to patch (as reported by the underlying .NET SDK) |
 | processSessionId       | GUID   | e6f1eaea-486c-4f3b-b20e-8e107d531e43 | Unique GUID for each time the SDK is initialized. User can query this to discover when the app has been restarted. |
 ---
@@ -58,9 +58,10 @@ We have added some further extensions to the Heartbeat already, and the fields
 that they add to the Heartbeat are described below.
 
 ### AppServicesHeartbeatTelemetryModule
-This module will add some key environment variable values to the Heartbeat that
-describe an Azure App Service that has been instrumented with the Application 
-Insights SDK.
+For applications that are deployed on Azure App Services (Web Apps, Azure
+Functions) this module will add some key environment variable values to the
+Heartbeat that describe an Azure App Service that has been instrumented with
+the Application Insights SDK.
 
 | Name            | Type   | Example Value        | Description      |
 |-----------------|--------|----------------------|------------------|
