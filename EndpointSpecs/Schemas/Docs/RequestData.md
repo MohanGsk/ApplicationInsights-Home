@@ -28,6 +28,8 @@ An instance of Request represents completion of an external request to the appli
 
     Indication of successfull or unsuccessfull call.
     
+    Default value: true
+    
 1. **source** : string
 
     Source of the request. Examples are the instrumentation key of the caller or the ip address of the caller.
@@ -56,9 +58,9 @@ An instance of Request represents completion of an external request to the appli
 
     Collection of custom properties.
     
-    Max key length: "150"
+    Max key length: 150
     
-    Max value length: "8192"
+    Max value length: 8192
     
     This field is optional.
     
@@ -66,7 +68,7 @@ An instance of Request represents completion of an external request to the appli
 
     Collection of custom measurements.
     
-    Max key length: "150"
+    Max key length: 150
     
     This field is optional.
     

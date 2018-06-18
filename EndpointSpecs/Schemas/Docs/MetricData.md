@@ -66,9 +66,9 @@ An instance of the Metric item is a list of measurements (single data points) an
 
     Collection of custom properties.
     
-    Max key length: "150"
+    Max key length: 150
     
-    Max value length: "8192"
+    Max value length: 8192
     
     This field is optional.
     

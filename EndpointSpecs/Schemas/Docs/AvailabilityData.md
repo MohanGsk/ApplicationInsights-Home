@@ -48,9 +48,9 @@ Instances of AvailabilityData represent the result of executing an availability 
 
     Collection of custom properties.
     
-    Max key length: "150"
+    Max key length: 150
     
-    Max value length: "8192"
+    Max value length: 8192
     
     This field is optional.
     
@@ -58,7 +58,7 @@ Instances of AvailabilityData represent the result of executing an availability 
 
     Collection of custom measurements.
     
-    Max key length: "150"
+    Max key length: 150
     
     This field is optional.
     
