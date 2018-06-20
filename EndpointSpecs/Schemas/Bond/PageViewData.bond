@@ -15,17 +15,8 @@ struct PageViewData
     [Description("Request duration in format: DD.HH:MM:SS.MMMMMM. For a page view (PageViewData), this is the duration. For a page view with performance information (PageViewPerfData), this is the page load time. Must be less than 1000 days.")]
     20: string 	 duration;
     
-    [Description("Fully qualified page URI or URL of the referring page; if unknown, leave blank")]
-    [ActAsRequired("Field for referrerUri for pageView")]
-    [MaxStringLength("2048")]
-    30: required string 	 referrerUri;
-    
     [MaxStringLength("128")]
     [ActAsRequired("Required field for correct correlation.")]
     [Description("Identifier of a page view instance. Used for correlation between page view and other telemetry items.")]
     50: required string 	 id;
-    
-    [MaxStringLength("2048")]
-    [Description("Fully qualified page URI or URL of the referring page; if unknown, leave blank.")]
-    60: string 	 referrerUri;
 }
