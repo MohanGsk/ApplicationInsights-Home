@@ -20,9 +20,9 @@ An instance of PageView represents a generic action on a page like a button clic
 
     Collection of custom properties.
     
-    Max key length: "150"
+    Max key length: 150
     
-    Max value length: "8192"
+    Max value length: 8192
     
     This field is optional.
     
@@ -30,7 +30,7 @@ An instance of PageView represents a generic action on a page like a button clic
 
     Collection of custom measurements.
     
-    Max key length: "150"
+    Max key length: 150
     
     This field is optional.
     
@@ -47,6 +47,12 @@ An instance of PageView represents a generic action on a page like a button clic
     Request duration in format: DD.HH:MM:SS.MMMMMM. For a page view (PageViewData), this is the duration. For a page view with performance information (PageViewPerfData), this is the page load time. Must be less than 1000 days.
     
     This field is optional.
+    
+1. **referrerUri** : string
+
+    Fully qualified page URI or URL of the referring page; if unknown, leave blank
+    
+    Max length: 2048
     
 1. **id** : string
 

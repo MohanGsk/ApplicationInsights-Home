@@ -32,9 +32,17 @@ Instances of Message represent printf-like trace statements that are text-search
 
     Collection of custom properties.
     
-    Max key length: "150"
+    Max key length: 150
     
-    Max value length: "8192"
+    Max value length: 8192
+    
+    This field is optional.
+    
+1. **measurements** : IDictionary[string, double]
+
+    Collection of custom measurements.
+    
+    Max key length: 150
     
     This field is optional.
     
