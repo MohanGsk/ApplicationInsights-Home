@@ -2,6 +2,8 @@
 
 SDK version is a field you can specify on every telemetry item. This field represent the specific SDK collected this particular item. This field is used for troubleshooting.
 
+To review version numbers click [here](https://github.com/Microsoft/ApplicationInsights-Home/wiki/SDK-Release-Schedule).
+
 ## SDK Version Specification
 
 SDKs are required to include their name and version in the telemetry item using the `ai.internal.sdkVersion` tag conforming to the format below.
