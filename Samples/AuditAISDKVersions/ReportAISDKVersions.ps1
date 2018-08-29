@@ -31,27 +31,29 @@ foreach($sub in $subscriptions.Split(",")){
                 $json = ConvertFrom-Json $response.Content
                 
                 foreach($roleData in $json.tables.rows){
-                    $sdkParts = $roleData.Split("|")
+                    if($roleData.Contains(":") -and $roleData.Contains("-")){ # exclude really old data  
+                        $sdkParts = $roleData.Split("|")
                     
-                    $language = "DotNet"
-                    $versionParts = $sdkParts[1].Split(":")
-                    $langPart = $versionParts[0]
-                    $version = $versionParts[1].Split("-")[0]
-                    if($langPart.StartsWith("aspnet")){
-                        $language = "DotNetCore"
-                    }elseif ($langPart.StartsWith("py")) {
-                        $language = "Python"
-                    }elseif ($langPart -eq "java") {
-                        $language = "Java"
-                    }elseif ($langPart -eq "node") {
-                        $language = "Node"
-                    }elseif ($langPart.StartsWith("azurefunctions")) {
-                        $language = "Azure Functions"
-                    }elseif ($langPart -eq "rb") {
-                        $language = "Ruby"
-                    }
-                    Write-Host $ai.name " - " $sdkParts[0] " is using " $language " SDK version =" $version 
-                    $appOutString = $language + "," + $version + "," + $ai.name + "," + $sdkParts[0] + "," + $sub + "," + $ai.Id 
+                        $language = "DotNet"
+                        $versionParts = $sdkParts[1].Split(":")
+                        $langPart = $versionParts[0]
+                        $version = $versionParts[1].Split("-")[0]
+                        if($langPart.StartsWith("aspnet")){
+                            $language = "DotNetCore"
+                        }elseif ($langPart.StartsWith("py")) {
+                            $language = "Python"
+                        }elseif ($langPart -eq "java") {
+                            $language = "Java"
+                        }elseif ($langPart -eq "node") {
+                            $language = "Node"
+                        }elseif ($langPart.StartsWith("azurefunctions")) {
+                            $language = "Azure Functions"
+                        }elseif ($langPart -eq "rb") {
+                            $language = "Ruby"
+                        }
+                        Write-Host $ai.name " - " $sdkParts[0] " is using " $language " SDK version =" $version 
+                        $appOutString = $language + "," + $version + "," + $ai.name + "," + $sdkParts[0] + "," + $sub + "," + $ai.Id 
+                    }                   
                 }
                 try{
                     Remove-AzureRmApplicationInsightsApiKey -ResourceId $ai.Id -ApiKeyId $apiKeyResult.Id                      
