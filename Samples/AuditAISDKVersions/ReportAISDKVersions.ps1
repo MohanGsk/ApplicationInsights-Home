@@ -4,7 +4,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 if(!$subscriptions){
-    Write-Host "Need to provide subscriptions"
+    Write-Host "Provide comma separated string of subscription Ids or names. For instance: .\ReportAISDKVersions.ps1 -subscriptions ""subscription-name-1,subscription-id-2"""
     exit
 }
 
