@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ServiceDefinition name="AzureEmailService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2014-06.2.4">
+<ServiceDefinition name="AzureEmailService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2015-04.2.6">
   <WebRole name="MvcWebRole" vmsize="Small">
     <Sites>
       <Site name="Web">
@@ -13,7 +13,8 @@
     </Endpoints>
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" />
-      <Setting name="Telemetry.AI.InstrumentationKey" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" />
     </ConfigurationSettings>
     <Startup>
       <Task commandLine="AppInsightsAgent\InstallAgent.bat" executionContext="elevated" taskType="simple">
@@ -29,7 +30,8 @@
   <WorkerRole name="WorkerRoleA" vmsize="Small">
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" />
-      <Setting name="Telemetry.AI.InstrumentationKey" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" />
     </ConfigurationSettings>
     <Startup>
       <Task commandLine="AppInsightsAgent\InstallAgent.bat" executionContext="elevated" taskType="simple">
@@ -55,7 +57,8 @@
       <Setting name="SendGridUserName" />
       <Setting name="SendGridPassword" />
       <Setting name="AzureMailServiceURL" />
-      <Setting name="Telemetry.AI.InstrumentationKey" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" />
     </ConfigurationSettings>
     <Startup>
       <Task commandLine="AppInsightsAgent\InstallAgent.bat" executionContext="elevated" taskType="simple">
@@ -66,7 +69,7 @@
           </Variable>
         </Environment>
       </Task>
-    </Startup> 
+    </Startup>
     <Runtime>
       <Environment>
         <Variable name="COR_ENABLE_PROFILING" value="1" />

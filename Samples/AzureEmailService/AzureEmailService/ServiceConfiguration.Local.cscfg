@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ServiceConfiguration serviceName="AzureEmailService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2014-06.2.4">
+<ServiceConfiguration serviceName="AzureEmailService" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
   <Role name="MvcWebRole">
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="Telemetry.AI.InstrumentationKey" value="WEBROLE-DEV-IKEY" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="WEBROLE-DEV-IKEY" />
     </ConfigurationSettings>
   </Role>
   <Role name="WorkerRoleA">
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="Telemetry.AI.InstrumentationKey" value="WORKERROLEA-DEV-IKEY" />      
-    </ConfigurationSettings>    
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="WORKERROLEA-DEV-IKEY" />
+    </ConfigurationSettings>
   </Role>
   <Role name="WorkerRoleB">
     <Instances count="1" />
@@ -21,7 +23,8 @@
       <Setting name="SendGridUserName" value="yourusername" />
       <Setting name="SendGridPassword" value="yourpassword" />
       <Setting name="AzureMailServiceURL" value="http://yourURL.cloudapp.net" />
-      <Setting name="Telemetry.AI.InstrumentationKey" value="WORKERROLEB-DEV-IKEY" />
-    </ConfigurationSettings>    
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="WORKERROLEB-DEV-IKEY" />
+    </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

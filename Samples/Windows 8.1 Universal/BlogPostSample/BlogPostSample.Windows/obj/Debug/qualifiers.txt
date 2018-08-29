@@ -1,2 +1,0 @@
-Scale=100
-Language=EN-US
