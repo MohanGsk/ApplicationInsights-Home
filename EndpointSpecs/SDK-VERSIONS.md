@@ -97,6 +97,7 @@ Define your own SDK name and send PR to update the list below. Please do not re-
 | wcf | WCF Application Insights lab project |  [github](https://github.com/Microsoft/ApplicationInsights-SDK-Labs/tree/master/WCF) [myget](https://www.myget.org/feed/applicationinsights-sdk-labs/package/nuget/Microsoft.ApplicationInsights.Wcf) [blog](https://azure.microsoft.com/en-us/blog/wcf-monitoring-with-application-insights/)
 | web | telemetry that was collected by AI Web SDK, mostly is found on requests | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-server/releases)
 | webjobs | Azure Web Jobs hosting | [github](https://github.com/Azure/azure-webjobs-sdk/blob/5d3952d010c0981477e8b09f60b62312f85d4e1f/src/Microsoft.Azure.WebJobs.Logging.ApplicationInsights/DefaultTelemetryClientFactory.cs#L54)
+| apim | Telemetry sent from Azure API Management | |
 
 
 ## Prefixes
