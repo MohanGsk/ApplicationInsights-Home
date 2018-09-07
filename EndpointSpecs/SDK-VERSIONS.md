@@ -55,6 +55,7 @@ Define your own SDK name and send PR to update the list below. Please do not re-
 | ai-k8s | Kubrnetes module | [github](https://github.com/Microsoft/ApplicationInsights-Kubernetes/blob/578f20e824e6248029554a1f8990b29c4a7c6d11/src/ApplicationInsights.Kubernetes/Utilities/SDKVersionUtils.cs#L34)
 | angular | Unofficial Angular telemetry collection module for Application Insights | [github](https://github.com/VladimirRybalko/angular-applicationinsights/blob/244a003a6df2df487d903c99f75fd497d698dede/src/ApplicationInsights.ts#L47) [npmjs](https://www.npmjs.com/package/angular-applicationinsights)
 | ap | Application Insights Profiler: Getting call traces, diagnose application performance | [github](https://github.com/Microsoft/ApplicationInsights-Profiler-AspNetCore) [nuget](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Profiler.AspNetCore)
+| apim | Telemetry sent from Azure API Management | |
 | aspnetv5 | ASP.NET core SDK | [github](https://github.com/Microsoft/ApplicationInsights-aspnetcore/releases)
 | azurefunctions | Telemetry produced by Azure Functions Host instrumentation | [github](https://github.com/Azure/azure-functions-host/blob/1f243e9febc4d431af3f0341bc8af74975d51659/src/WebJobs.Script/Host/ScriptTelemetryClientFactory.cs#L28)
 | azurefunctionscoretools | Azure Functions Core Tools for local development experience | [github](https://github.com/Azure/azure-functions-core-tools/blob/acb5fd3b8d8fd77420ec500861c995ade2cead69/src/Azure.Functions.Cli/Diagnostics/ConsoleTelemetryClientFactory.cs#L22)
@@ -97,7 +98,6 @@ Define your own SDK name and send PR to update the list below. Please do not re-
 | wcf | WCF Application Insights lab project |  [github](https://github.com/Microsoft/ApplicationInsights-SDK-Labs/tree/master/WCF) [myget](https://www.myget.org/feed/applicationinsights-sdk-labs/package/nuget/Microsoft.ApplicationInsights.Wcf) [blog](https://azure.microsoft.com/en-us/blog/wcf-monitoring-with-application-insights/)
 | web | telemetry that was collected by AI Web SDK, mostly is found on requests | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-server/releases)
 | webjobs | Azure Web Jobs hosting | [github](https://github.com/Azure/azure-webjobs-sdk/blob/5d3952d010c0981477e8b09f60b62312f85d4e1f/src/Microsoft.Azure.WebJobs.Logging.ApplicationInsights/DefaultTelemetryClientFactory.cs#L54)
-| apim | Telemetry sent from Azure API Management | |
 
 
 ## Prefixes
