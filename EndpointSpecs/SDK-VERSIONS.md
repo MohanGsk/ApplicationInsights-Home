@@ -67,6 +67,7 @@ Define your own SDK name and send PR to update the list below. Please do not re-
 | etw | ETW listener (Microsoft.ApplicationInsights.EtwCollector) | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-logging) [nuget](https://www.nuget.org/packages/Microsoft.ApplicationInsights.EtwCollector)
 | evl | EventSource listener (Microsoft.ApplicationInsights.EventSourceListener) | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-logging) [nuget](https://www.nuget.org/packages/Microsoft.ApplicationInsights.EventSourceSourceListener)
 | exstat | Experimental exceptions statistics feature | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-server/blob/eb884b81c568b1054f9b7168ea4b0ec61f9e3506/Src/WindowsServer/WindowsServer.Net45/FirstChanceExceptionStatisticsTelemetryModule.cs#L102)
+| go_oc | Opencensus for Go | [github](https://github.com/census-instrumentation/opencensus-go)
 | hbnet | Heartbeat telemetry sent in intervals reported this metric item for the dotnet SDK | [github](https://github.com/Microsoft/ApplicationInsights-dotnet/releases)
 | ios / osx | |
 | java | java SDK | [github](https://github.com/Microsoft/ApplicationInsights-java/releases)
@@ -81,6 +82,7 @@ Define your own SDK name and send PR to update the list below. Please do not re-
 | pc | performance counters | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-server/releases)
 | py2 | python SDK for py2 application | [github](https://github.com/Microsoft/ApplicationInsights-Python/blob/7ac535f451383d78d63bfc2b8aad518cdde598c7/applicationinsights/channel/TelemetryChannel.py#L9-L15)
 | py3 | python SDK for py3 application | [github](https://github.com/Microsoft/ApplicationInsights-Python/blob/7ac535f451383d78d63bfc2b8aad518cdde598c7/applicationinsights/channel/TelemetryChannel.py#L9-L15)
+| python_oc | Opencensus for Python | [github](https://github.com/census-instrumentation/opencensus-python)
 | rddf | Remote dependency telemetry collected via Framework instrumentation (Event Source) | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-server/releases)
 | rddfd | Telemetry was processed via framework and diagnosticsource paths. Deprecated in latest versions of SDK |
 | rddp | Remote dependency telemetry collected via Profiler instrumentation | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-server/releases)
@@ -103,7 +105,10 @@ Define your own SDK name and send PR to update the list below. Please do not re-
 ## Prefixes
 Define the prefixes for the SDK.
 
-| SDK Name | Prefix | Description                         |
-|----------|:------:|-------------------------------------|
-| ap       |   w_   | Telemetry from **Windows** Platform |
-| ap       |   l_   | Telemetry from **Linux** Platform   |
+| SDK Name  | Prefix | Description                         |
+|-----------|:------:|-------------------------------------|
+| ap        |   w_   | Telemetry from **Windows** Platform |
+| ap        |   l_   | Telemetry from **Linux** Platform   |
+| python_oc |   lf_  | Telemetry captured by LocalForwarder |
+| go_oc     |   lf_  | Telemetry captured by LocalForwarder |
+| java      |   lf_  | Telemetry captured by LocalForwarder |
