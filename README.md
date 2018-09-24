@@ -21,22 +21,20 @@ SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-
 
 ## Community Supported SDKs. These SDKs are not recommended for production applications.
 
-* [C++ Universal apps](https://github.com/Microsoft/ApplicationInsights-CPP)
 * [Go](https://github.com/Microsoft/ApplicationInsights-Go)
 * [PHP](https://github.com/Microsoft/ApplicationInsights-PHP)
 * [Python](https://github.com/Microsoft/ApplicationInsights-Python)
 * [Ruby](https://github.com/Microsoft/ApplicationInsights-Ruby)
 * [StatsD](https://github.com/Microsoft/ApplicationInsights-statsd)
 * WordPress on [GitHub](https://github.com/Microsoft/ApplicationInsights-WordPress) and Release Version on [Wordpress.org](https://wordpress.org/plugins/application-insights/)
-   
 
-## Deprecated Repositories (please use [HockeyApp SDKs](https://support.hockeyapp.net/kb))     
+## Deprecated Repositories (please use [HockeyApp SDKs](https://support.hockeyapp.net/kb))
 
 * [Android](https://github.com/Microsoft/ApplicationInsights-Android)
 * [iOS](https://github.com/Microsoft/ApplicationInsights-iOS)
 * [OSX](https://github.com/Microsoft/ApplicationInsights-OSX)
-* [Xamarin](https://github.com/Microsoft/ApplicationInsights-Xamarin) 
-
+* [Xamarin](https://github.com/Microsoft/ApplicationInsights-Xamarin)
+* [C++ Universal apps](https://github.com/Microsoft/ApplicationInsights-CPP)
 
 ## Queries
 
