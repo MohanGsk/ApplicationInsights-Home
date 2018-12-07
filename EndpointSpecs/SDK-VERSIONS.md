@@ -109,8 +109,14 @@ Define the prefixes for the SDK.
 
 | SDK Name  | Prefix | Description                         |
 |-----------|:------:|-------------------------------------|
+| Redfield<sup>1</sup> |   ad_  | Telemetry from Redfield attach, using the **default** configuration |
+| Redfield<sup>1</sup> |   ar_  | Telemetry from Redfield attach, using the **recommended** configuration |
 | ap        |   w_   | Telemetry from **Windows** Platform |
 | ap        |   l_   | Telemetry from **Linux** Platform   |
 | python-oc |   lf_  | Telemetry captured by LocalForwarder |
 | go-oc     |   lf_  | Telemetry captured by LocalForwarder |
 | java      |   lf_  | Telemetry captured by LocalForwarder |
+
+
+## Footnotes
+1. Redfield attach applications are; Azure AppService Extension, Azure VM Extension, and StatusMonitor.
