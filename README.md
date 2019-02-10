@@ -28,7 +28,7 @@ SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-
 * [StatsD](https://github.com/Microsoft/ApplicationInsights-statsd)
 * WordPress on [GitHub](https://github.com/Microsoft/ApplicationInsights-WordPress) and Release Version on [Wordpress.org](https://wordpress.org/plugins/application-insights/)
 
-## Deprecated Repositories (please use [HockeyApp SDKs](https://support.hockeyapp.net/kb))
+## Deprecated Repositories (please use [App Center SDK](https://docs.microsoft.com/appcenter/sdk/))
 
 * [Android](https://github.com/Microsoft/ApplicationInsights-Android)
 * [iOS](https://github.com/Microsoft/ApplicationInsights-iOS)
