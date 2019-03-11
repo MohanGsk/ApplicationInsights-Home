@@ -109,8 +109,12 @@ Define the prefixes for the SDK.
 
 | SDK Name  | Prefix | Description                         |
 |-----------|:------:|-------------------------------------|
-| Redfield<sup>1</sup> |   ad_  | Telemetry from Redfield attach, using the **default** configuration |
-| Redfield<sup>1</sup> |   ar_  | Telemetry from Redfield attach, using the **recommended** configuration |
+| Redfield<sup>1</sup> |   ad_  | Telemetry from Redfield AppServices attach, using the **default** configuration |
+| Redfield<sup>1</sup> |   ar_  | Telemetry from Redfield AppServices attach, using the **recommended** configuration |
+| Redfield<sup>1</sup> |  csd_  | Telemetry from Redfield CloudServices attach, using the **default** configuration |
+| Redfield<sup>1</sup> |  csr_  | Telemetry from Redfield CloudServices attach, using the **recommended** configuration |
+| Redfield<sup>1</sup> |   ud_  | Telemetry from Redfield unknown environment attach, using the **default** configuration |
+| Redfield<sup>1</sup> |   ur_  | Telemetry from Redfield unknown environment attach, using the **recommended** configuration |
 | ap        |   w_   | Telemetry from **Windows** Platform |
 | ap        |   l_   | Telemetry from **Linux** Platform   |
 | python-oc |   lf_  | Telemetry captured by LocalForwarder |
@@ -119,4 +123,4 @@ Define the prefixes for the SDK.
 
 
 ## Footnotes
-1. Redfield attach applications are; Azure AppService Extension, Azure VM Extension, and StatusMonitor.
+1. Redfield attach applications are: Azure AppService Extension, Azure CloudService Extension, Azure VM Extension, and StatusMonitor.
