@@ -17,7 +17,7 @@ If any of these dlls are present in the bin directory, attach may fail.
 - Microsoft.AspNet.TelemetryCorrelation.dll
 - System.Diagnostics.DiagnosticSource.dll
 
-
+Some of these are included in Visual Studio's default application templates, even if your application doesn't use them.
 Sympomatic behavior can be seen using troubleshooting tools:
 
 - PerfView:
