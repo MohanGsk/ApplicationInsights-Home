@@ -147,3 +147,26 @@ If attach is working, 17 DLLS should be loaded.
 	0x000000000c460000  0xb2000   C:\Program Files\WindowsPowerShell\Modules\microsoft.applicationinsights.iisconfigurator.poc\content\Instrumentation64\Microsoft.ApplicationInsights.Extensions.Base_x64.dll
 	0x000000000ad60000  0x108000  C:\Windows\TEMP\2.4.0.0.Microsoft.ApplicationInsights.Extensions.Intercept_x64.dll
 	```
+
+### Collect ETW Logs with PerfView
+
+Setup
+
+- Download PerfView.exe and PerfView64.exe from https://github.com/Microsoft/perfview/releases
+- Launch PerfView64.exe
+- Expand "Advanced Options"
+- Uncheck:
+	- Zip
+	- Merge
+	- .NET Symbol Collection
+- Set Additional Providers: 61f6ca3b-4b5f-5602-fa60-759a2a2d1fbd,323adc25-e39b-5c87-8658-2c1af1a92dc5,925fa42b-9ef6-5fa7-10b8-56449d7a2040,f7d60e07-e910-5aca-bdd2-9de45b46c560,7c739bb9-7861-412e-ba50-bf30d95eae36,61f6ca3b-4b5f-5602-fa60-759a2a2d1fbd,323adc25-e39b-5c87-8658-2c1af1a92dc5,252e28f4-43f9-5771-197a-e8c7e750a984
+
+
+Collecting Logs
+
+- in a cmd window with admin priveleges , execute `iisreset /stop` To turn off IIS and all web apps.
+- In PerfView, click "Start Collection"
+- in a cmd window with admin priveleges , execute `iisreset /start` To start IIS.
+- try to browse to your app.
+- after your app is loaded, In PerfView, click "Stop Collection"
+
