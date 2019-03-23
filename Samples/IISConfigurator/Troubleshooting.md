@@ -9,33 +9,16 @@ We do not recommend using this on your production environments.
 
 ## Known Issues
 
-### Conflict with ApplicationInsights DLL (Microsoft.ApplicationInsights.dll)
+### Conflicting DLLs in an application's bin directory
 
-When this is present in the bin directory, attach may fail
+If any of these dlls are present in the bin directory, attach may fail.
 
-### Conflict with TelemetryCorrelation DLL (Microsoft.AspNet.TelemetryCorrelation.dll)
-
-When this is present in the bin directory, attach may fail
-
-When this snippit is in a web.config, Redfield Module will not load for that application.
-
-```xml
-<system.webServer>
- <modules>
-  <remove name="TelemetryCorrelationHttpModule" />
-  <add name="TelemetryCorrelationHttpModule" type="Microsoft.AspNet.TelemetryCorrelation.TelemetryCorrelationHttpModule, Microsoft.AspNet.TelemetryCorrelation" preCondition="integratedMode,managedHandler" />
- </modules>
-</system.webServer>
-```
-
-### Conflict with Diagnostic Source DLL (System.Diagnostics.DiagnosticSource.dll)
-
-When this is present in the bin directory, attach may fail.
+- Microsoft.ApplicationInsights.dll
+- Microsoft.AspNet.TelemetryCorrelation.dll
+- System.Diagnostics.DiagnosticSource.dll
 
 
-### IISReset Twice (symptom of Diagnostic Source DLL)
-
-Attach will not load without resetting and trying to load an application twice.
+Sympomatic behavior can be seen using troubleshooting tools:
 
 - PerfView:
 	```
@@ -48,7 +31,7 @@ Attach will not load without resetting and trying to load an application twice.
 	FormattedMessage="Found 'System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51' assembly, skipping attaching redfield binaries" 
 	```
 
-- 1st iisreset + app load (NO TELEMETRY)
+- iisreset + app load (NO TELEMETRY)
 	```
 	.\handle64.exe -p w3wp | findstr /I "InstrumentationEngine AI. ApplicationInsights"
 	E54: File  (R-D)   C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Runtime\Microsoft.ApplicationInsights.RedfieldIISModule.dll
