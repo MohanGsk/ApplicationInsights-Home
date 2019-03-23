@@ -4,12 +4,12 @@
 This is a prototype application. 
 We do not recommend using this on your production environments.
 
-Please review our [Troubleshooting](troubleshooting.md) guide for an explanation of known issues.
+Please review our [Troubleshooting](Troubleshooting.md) guide for an explanation of known issues.
 
 
 ## Quick Start
 These are the quick start commands expected to work for most environments.
-[Detailed instructions](detailedinstructions.md) provide an explanation of these commands, instructions on how to customize, and how to troubleshoot.
+[Detailed instructions](DetailedInstructions.md) provide an explanation of these commands, instructions on how to customize, and how to troubleshoot.
 
 ### Install Prerequisites
 - Run PowerShell as Administrator
