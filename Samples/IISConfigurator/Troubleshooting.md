@@ -49,16 +49,15 @@ Attach will not load without resetting and trying to load an application twice.
 	```
 
 - 1st iisreset + app load (NO TELEMETRY)
+	```
+	.\handle64.exe -p w3wp | findstr /I "InstrumentationEngine AI. ApplicationInsights"
+	E54: File  (R-D)   C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Runtime\Microsoft.ApplicationInsights.RedfieldIISModule.dll
 
-```
-.\handle64.exe -p w3wp | findstr /I "InstrumentationEngine AI. ApplicationInsights"
-E54: File  (R-D)   C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Runtime\Microsoft.ApplicationInsights.RedfieldIISModule.dll
-
-.\Listdlls64.exe w3wp | findstr /I "InstrumentationEngine AI ApplicationInsights"
-0x0000000009be0000  0x127000  C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Instrumentation64\MicrosoftInstrumentationEngine_x64.dll
-0x0000000009b90000  0x4f000   C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Instrumentation64\Microsoft.ApplicationInsights.ExtensionsHost_x64.dll
-0x0000000004d20000  0xb2000   C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Instrumentation64\Microsoft.ApplicationInsights.Extensions.Base_x64.dll
-```
+	.\Listdlls64.exe w3wp | findstr /I "InstrumentationEngine AI ApplicationInsights"
+	0x0000000009be0000  0x127000  C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Instrumentation64\MicrosoftInstrumentationEngine_x64.dll
+	0x0000000009b90000  0x4f000   C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Instrumentation64\Microsoft.ApplicationInsights.ExtensionsHost_x64.dll
+	0x0000000004d20000  0xb2000   C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Instrumentation64\Microsoft.ApplicationInsights.Extensions.Base_x64.dll
+	```
 
 ## Troubleshooting
 	
