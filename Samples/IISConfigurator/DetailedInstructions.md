@@ -4,7 +4,7 @@
 This is a prototype application. 
 We do not recommend using this on your production environments.
 
-Please review our [Troubleshooting](trobleshooting.md) guide for an explanation of known issues.
+Please review our [Troubleshooting](Troubleshooting.md) guide for an explanation of known issues.
 
 To quickly get started without detailed instructions, please review our [Quick Start Guide](QuickStart.md).
 
