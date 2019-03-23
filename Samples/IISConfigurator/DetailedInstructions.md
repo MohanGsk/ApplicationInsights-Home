@@ -19,7 +19,7 @@ Throughout this guide we will also refer to **Elevated Execution Policies**.
 By default, running PowerShell scripts will be disabled.
 We recommend allowing RemoteSigned scripts for the Current Scope only.
 
-- Cmd: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force`
+- Cmd: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force`
 
 **Example Errors:**
 
@@ -103,7 +103,7 @@ For older versions, please review this document: [Installing PowerShellGet](http
 			CategoryInfo          : InvalidArgument: (:) [Install-Module], ParameterBindingException
 			FullyQualifiedErrorId : NamedParameterNotFound,Install-Module
 	
-5. Restart PowerShellAny new Powershell sessions will have the latest PowerShellGet loaded.Unable to load new version in the current session.
+5. Restart PowerShell. Any new Powershell sessions will have the latest PowerShellGet loaded. Unable to load new version in the current session.
 
 ## Download & Install IISConfigurator via PowerShell Gallery
 
@@ -113,8 +113,8 @@ For older versions, please review this document: [Installing PowerShellGet](http
 	- Cmd: `Install-Module -Name Microsoft.ApplicationInsights.IISConfigurator.POC -AllowPrerelease -AcceptLicense`
 	- Optional Parameters:
 		- `-Proxy`
-		- `-AcceptLicense`This will skip the "Accept License" prompt
-		- `-Force`This will ignore the "Untrusted Repository" warning
+		- `-AcceptLicense` This will skip the "Accept License" prompt
+		- `-Force` This will ignore the "Untrusted Repository" warning
 
 ## Download & Install IISConfigurator manually (offline option)
 
