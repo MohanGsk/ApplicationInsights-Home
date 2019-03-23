@@ -4,6 +4,9 @@
 This is a prototype application. 
 We do not recommend using this on your production environments.
 
+- [Quick Start Instructions](QuickStart.md)
+- [Detailed Instructions](DetailedInstructions.md)
+
 ## Known Issues
 
 ### Conflict with ApplicationInsights DLL (Microsoft.ApplicationInsights.dll)
