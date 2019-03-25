@@ -31,7 +31,7 @@ Sympomatic behavior can be seen using troubleshooting tools:
 	FormattedMessage="Found 'System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51' assembly, skipping attaching redfield binaries" 
 	```
 
-- iisreset + app load (NO TELEMETRY)
+- iisreset + app load (NO TELEMETRY). Investigate with Sysinternals (Handle.exe and ListDLLs.exe)
 	```
 	.\handle64.exe -p w3wp | findstr /I "InstrumentationEngine AI. ApplicationInsights"
 	E54: File  (R-D)   C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Runtime\Microsoft.ApplicationInsights.RedfieldIISModule.dll
