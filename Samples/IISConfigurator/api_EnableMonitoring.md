@@ -1,4 +1,4 @@
-# IISConfigurator.POC - API Reference (documentation in progress)
+# IISConfigurator.POC API Reference (documentation in progress)
 
 ## Disclaimer
 This is a prototype application. 
