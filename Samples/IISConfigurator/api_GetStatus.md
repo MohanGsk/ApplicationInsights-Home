@@ -89,3 +89,11 @@ By **default**, this cmdlet will report version numbers and paths of DLLs requir
 ### -InspectProcess
 
 **Optional**. This cmdlet will use external exes to report if IIS is running and also if required DLLs have been loaded into the IIS runtime.
+
+If this fails for any reason, you can run these commands manually:
+- iisreset.exe /status
+- [handle64.exe](https://docs.microsoft.com/sysinternals/downloads/handle) -p w3wp | findstr /I "InstrumentationEngine AI. ApplicationInsights"
+- [listdlls64.exe](https://docs.microsoft.com/sysinternals/downloads/listdlls) w3wp | findstr /I "InstrumentationEngine AI ApplicationInsights"
+
+
+
