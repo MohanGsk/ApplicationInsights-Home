@@ -17,7 +17,7 @@ To quickly get started without detailed instructions, please review our [Quick S
 
 **Elevated Execution Policies** 
 - Description: By default, running PowerShell scripts will be disabled. We recommend allowing RemoteSigned scripts for the Current Scope only.
-- Reference: [Set-ExecutionPolicy](
+- Reference: [About Execution Policies](https://docs.microsoft.com/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-6) and [Set-ExecutionPolicy](
 https://docs.microsoft.com/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-6
 )
 - Cmd: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process`
