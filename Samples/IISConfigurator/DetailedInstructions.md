@@ -181,7 +181,15 @@ If installing into any other directory, you must manually import the module usin
 - Run PowerShell as Administrator with Elevated Execution Policies 
 - Load the module via cmd: `Import-Module microsoft.applicationinsights.iisconfigurator.poc.psd1`
 	
-	
+
+## Proxy
+
+When monitoring a machine on your private intranet, it will be necessary to perform actions through a proxy.
+
+The PowerShell commands to download and install the IISConfigurator from the PowerShell Gallery do support a `-Proxy` parameter.
+Please review the instructions above when writing your installation scripts.
+
+The Application Insights SDK will need send your application's telemetry to Microsoft. We recommend configuring proxy settings for your application in your web.config. See [Application Insights FAQ: Proxy Passthrough](https://docs.microsoft.com/azure/azure-monitor/app/troubleshoot-faq#proxy-passthrough) for more information.
 
 
 ## Enable Application Insights Monitoring 
