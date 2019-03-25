@@ -1,4 +1,4 @@
-# IISConfigurator.POC - API Reference
+# IISConfigurator.POC - API Reference (documentation in progress)
 
 ## Disclaimer
 This is a prototype application. 
@@ -6,7 +6,7 @@ We do not recommend using this on your production environments.
 
 # Enable-ApplicationInsightsMonitoring (v0.1.0-alpha)
 
-(documentation in progress)
+**IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions and with Elevated Execution Policies. [Description](DetailedInstructions.md#run-powershell-as-administrator-with-elevated-execution-policies).
 
 ## Description
 
@@ -25,36 +25,7 @@ IIS will load the RedfieldModule at startup which will inject the Application In
 ### -instrumentationKeyMap
 **Required.** Use this parameter to supply multiple ikeys and a mapping of which apps to use which ikey.
 
-Schema: `@(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'})`
-
-### -Verbose
-**Common Parameter.** Use this switch to output detailed logs.
-
-### -WhatIf 
-**Common Parameter.** Use this switch to test and validate your input parameters without actually enabling monitoring.
-
-## Inputs
-
-## Outputs
-
-## Notes
-
-Minimum Supported Version: 0.1.0-alpha
-
-Application Insights code-less attach will install modules into IIS to be loaded when applications start up.
-
-1. Run PowerShell as Administrator with Elevated Execution Policies
-2. Run cmd: `Enable-ApplicationInsightsMonitoring`
-	- One of the following parameters are required:
-		- `-InstrumentationKey`
-		- `-InstrumentationKeyMap`
-	- [Common Parameter] `-Verbose` is supported.
-	- [Common Parameter] `-WhatIf` is supported.
-3. Need to run iisreset when finished
-	
-			
-### Schema for InstrumentationKeyMap:
-
+#### Schema
 `@(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'})`
 
 **Required**:
@@ -71,4 +42,23 @@ Application Insights code-less attach will install modules into IIS to be loaded
 	- Leave this null if you wish to define rules to exclude monitoring
 
 
+
+
+
+
+### -Verbose
+**Common Parameter.** Use this switch to output detailed logs.
+
+### -WhatIf 
+**Common Parameter.** Use this switch to test and validate your input parameters without actually enabling monitoring.
+
+## Inputs
+
+## Outputs
+
+## Notes
+
+
+			
+### Schema for InstrumentationKeyMap:
 
