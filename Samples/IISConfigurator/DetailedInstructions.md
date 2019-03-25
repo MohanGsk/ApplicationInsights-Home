@@ -12,17 +12,14 @@ To quickly get started without detailed instructions, please review our [Quick S
 
 ## Run PowerShell as Administrator with Elevated Execution Policies
 
-Throughout this guide we will refer to running **PowerShell as Administrator**. 
-PowerShell will need Administrator level permissions to make changes to your computer.
+**PowerShell as Administrator**: 
+- Description: PowerShell will need Administrator level permissions to make changes to your computer.
 
-Throughout this guide we will also refer to **Elevated Execution Policies**.
-By default, running PowerShell scripts will be disabled.
-We recommend allowing RemoteSigned scripts for the Current Scope only.
-
-For more information review: [Set-ExecutionPolicy](
+**Elevated Execution Policies** 
+- Description: By default, running PowerShell scripts will be disabled. We recommend allowing RemoteSigned scripts for the Current Scope only.
+- Reference: [Set-ExecutionPolicy](
 https://docs.microsoft.com/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-6
 )
-
 - Cmd: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force`
 
 **Example Errors:**
@@ -93,9 +90,9 @@ For older versions, please review this document: [Installing PowerShellGet](http
 	- Can confirm this change and audit all PSRepositories by running the cmd: `Get-PSRepository`
 
 4. PowerShellGet version 
-    - Description: This is the tooling used to get other modules from PowerShell Gallery. v1.0.0.1 ships with Windows 10 and Windows Server. Min version required is v1.6.0. To audit which version is installed run cmd: `Get-Command`
-    - Reference: [Installing PowerShellGet](https://docs.microsoft.com/powershell/gallery/installing-psget)
-    - Cmd: `Install-Module -Name PowerShellGet -Force`
+	- Description: This is the tooling used to get other modules from PowerShell Gallery. v1.0.0.1 ships with Windows 10 and Windows Server. Min version required is v1.6.0. To audit which version is installed run cmd: `Get-Command`
+	- Reference: [Installing PowerShellGet](https://docs.microsoft.com/powershell/gallery/installing-psget)
+	- Cmd: `Install-Module -Name PowerShellGet -Force`
 
 	Will receive this error if not using newest version of PowerShellGet:
 	
@@ -110,12 +107,14 @@ For older versions, please review this document: [Installing PowerShellGet](http
 
 ## Download & Install IISConfigurator via PowerShell Gallery
 
-1. Follow all prerequisites.
+1. Prerequisites for PowerShell Gallery are required.
 2. Run PowerShell as Administrator with Elevated Execution Policies
-3. [Install-Module](https://docs.microsoft.com/powershell/module/powershellget/install-module?view=powershell-6)
-	- Cmd: `Install-Module -Name Microsoft.ApplicationInsights.IISConfigurator.POC -AllowPrerelease -AcceptLicense`
+3. Install IISConfigurator Module
+	- Reference: [Install-Module](https://docs.microsoft.com/powershell/module/powershellget/install-module?view=powershell-6)
+	- Cmd: `Install-Module -Name Microsoft.ApplicationInsights.IISConfigurator.POC`
 	- Optional Parameters:
 		- `-Proxy`
+		- `-AllowPrerelease` This will allow installing alpha and beta releases.
 		- `-AcceptLicense` This will skip the "Accept License" prompt
 		- `-Force` This will ignore the "Untrusted Repository" warning
 
@@ -127,31 +126,38 @@ For older versions, please review this document: [Installing PowerShellGet](http
 2. Select the latest version from the version history
 3. At the top under "Installation Options" select "Manual Download"
 
-### Option 1 - Install into PowerShell Modules Directory
+### Option 1: Install into PowerShell Modules Directory
 Install the manually downloaded PowerShell Module to a PowerShell directory so it can be discoverable by PowerShell sessions.
 For more information see: [Installing a PowerShell Module](https://docs.microsoft.com/powershell/developer/module/installing-a-powershell-module)
 
-Unzip nupkg as zip using Expand-Archive (v1.0.1.0)
-The base version of Microsoft.PowerShell.Archive (v1.0.1.0) will not unzip .nupkg files. You must first rename the file with the ".zip" extension.
 
-```
-$pathToNupkg = "C:\microsoft.applicationinsights.iisconfigurator.poc.0.1.0-alpha2.nupkg"
-$pathToZip = ([io.path]::ChangeExtension($pathToNupkg, "zip"))
-$pathToNupkg | rename-item -newname $pathToZip
-$pathInstalledModule = "$Env:ProgramFiles\WindowsPowerShell\Modules\microsoft.applicationinsights.iisconfigurator.poc"
-Expand-Archive -LiteralPath $pathToZip -DestinationPath $pathInstalledModule
-```
+#### Unzip nupkg as zip using Expand-Archive (v1.0.1.0)
 
-Unzip nupkg using Expand-Archive (v1.1.0.0).
-**REQUIRES** Microsft.PowerShell.Archive min version: 1.1.0.0 https://www.powershellgallery.com/packages/Microsoft.PowerShell.Archive/1.1.0.0
+- Description: The base version of Microsoft.PowerShell.Archive (v1.0.1.0) will not unzip .nupkg files. You must first rename the file with the ".zip" extension.
+- Reference: [Expand-Archive](https://docs.microsoft.com/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6)
+- Cmd: 
 
-```
-$pathToNupkg = "C:\microsoft.applicationinsights.iisconfigurator.poc.0.1.0-alpha2.nupkg"
-$pathInstalledModule = "$Env:ProgramFiles\WindowsPowerShell\Modules\microsoft.applicationinsights.iisconfigurator.poc"
-Expand-Archive -LiteralPath $pathToNupkg -DestinationPath $pathInstalledModule
-```
+	```
+	$pathToNupkg = "C:\microsoft.applicationinsights.iisconfigurator.poc.0.1.0-alpha2.nupkg"
+	$pathToZip = ([io.path]::ChangeExtension($pathToNupkg, "zip"))
+	$pathToNupkg | rename-item -newname $pathToZip
+	$pathInstalledModule = "$Env:ProgramFiles\WindowsPowerShell\Modules\microsoft.applicationinsights.iisconfigurator.poc"
+	Expand-Archive -LiteralPath $pathToZip -DestinationPath $pathInstalledModule
+	```
 
-### Option 2 - Unzip and import manually
+#### Unzip nupkg using Expand-Archive (v1.1.0.0).
+
+- Description: Use a current version of Expand-Archive to unzip nupkgs without renaming the extension. 
+- Reference: [Expand-Archive](https://docs.microsoft.com/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6) and [Microsoft.PowerShell.Archive](https://www.powershellgallery.com/packages/Microsoft.PowerShell.Archive/1.1.0.0)
+- Cmd:
+
+	```
+	$pathToNupkg = "C:\microsoft.applicationinsights.iisconfigurator.poc.0.1.0-alpha2.nupkg"
+	$pathInstalledModule = "$Env:ProgramFiles\WindowsPowerShell\Modules\microsoft.applicationinsights.iisconfigurator.poc"
+	Expand-Archive -LiteralPath $pathToNupkg -DestinationPath $pathInstalledModule
+	```
+
+### Option 2: Unzip and import manually
 
 **IMPORTART**: Installation will install DLLs via relative paths. Store the contents of this package into your intended runtime directory and confirm that access permissions allow read but not write.
 
