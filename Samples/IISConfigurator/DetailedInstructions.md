@@ -63,7 +63,8 @@ For older versions, please review this document: [Installing PowerShellGet](http
 
 1. Run PowerShell as Administrator
 2. Nuget Package Provider 
-    - This is required to interact with NuGet-based repositories such as PowerShellGallery
+    - Description: This is required to interact with NuGet-based repositories such as PowerShellGallery
+    - Reference: [Install-PackageProvider](https://docs.microsoft.com/powershell/module/packagemanagement/install-packageprovider?view=powershell-6)
     - Cmd: `Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force`
 	
 	Will receive this prompt if not setup:
@@ -77,10 +78,9 @@ For older versions, please review this document: [Installing PowerShellGet](http
 		[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"):
 	
 3. Trusted Repositories
-    - By default, PowerShellGallery is an untrusted repository.
-	- To register PSGallery as a trusted repository, run the [Set-PSRepository](https://docs.microsoft.com/en-us/powershell/module/powershellget/set-psrepository?view=powershell-6) cmd. 
-	- Cmd: `Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted`
-	- By default, a user will be prompted to confirm installation of modules from the PSGallery. This can be overridden with the `-Force` parameter
+    - Description: By default, PowerShellGallery is an untrusted repository.
+    - Reference: [Set-PSRepository](https://docs.microsoft.com/powershell/module/powershellget/set-psrepository?view=powershell-6)
+    - Cmd: `Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted -Force`
 
 	Will receive this prompt if not setup:
 
@@ -93,10 +93,9 @@ For older versions, please review this document: [Installing PowerShellGet](http
 	- Can confirm this change and audit all PSRepositories by running the cmd: `Get-PSRepository`
 
 4. PowerShellGet version 
-	- Ships with Windows 10 (v1.0.0.1) and Windows Server 
-	- Min version required: v1.6.0
-	- Get latest using cmd: `Install-Module -Name PowerShellGet -Force`
-	- To audit which version is installed run cmd: `Get-Command `
+    - Description: This is the tooling used to get other modules from PowerShell Gallery. v1.0.0.1 ships with Windows 10 and Windows Server. Min version required is v1.6.0. To audit which version is installed run cmd: `Get-Command`
+    - Reference: [Installing PowerShellGet](https://docs.microsoft.com/powershell/gallery/installing-psget)
+    - Cmd: `Install-Module -Name PowerShellGet -Force`
 
 	Will receive this error if not using newest version of PowerShellGet:
 	
