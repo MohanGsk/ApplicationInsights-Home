@@ -1,12 +1,10 @@
-# IISConfigurator.POC - API Reference
+# IISConfigurator.POC API Reference
 
 ## Disclaimer
 This is a prototype application. 
 We do not recommend using this on your production environments.
 
 # Get-ApplicationInsightsMonitoringStatus (v0.1.0-alpha)
-
-(documentation in progress)
 
 
 ## Description
@@ -91,9 +89,3 @@ By **default**, this cmdlet will report version numbers and paths of DLLs requir
 ### -InspectProcess
 
 **Optional**. This cmdlet will use external exes to report if IIS is running and also if required DLLs have been loaded into the IIS runtime.
-
-## Inputs
-
-## Outputs
-
-## Notes
