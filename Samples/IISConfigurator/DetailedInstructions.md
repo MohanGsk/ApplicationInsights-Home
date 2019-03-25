@@ -1,4 +1,4 @@
-﻿# IISConfigurator.POC Detailed Instructions
+# IISConfigurator.POC Detailed Instructions
 
 ## Disclaimer
 This is a prototype application. 
@@ -18,6 +18,10 @@ PowerShell will need Administrator level permissions to make changes to your com
 Throughout this guide we will also refer to **Elevated Execution Policies**.
 By default, running PowerShell scripts will be disabled.
 We recommend allowing RemoteSigned scripts for the Current Scope only.
+
+For more information review: [Set-ExecutionPolicy](
+https://docs.microsoft.com/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-6
+)
 
 - Cmd: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force`
 
@@ -53,7 +57,7 @@ SerializationVersion           1.1.0.1
 
 ## Prerequisites for PowerShell Gallery
 
-**NOTE**: Support for PowerShell Gallery is include on Windows 10, Windows Server 2016, and PowerShell 6.
+**NOTE**: Support for PowerShell Gallery is included on Windows 10, Windows Server 2016, and PowerShell 6.
 For older versions, please review this document: [Installing PowerShellGet](https://docs.microsoft.com/en-us/powershell/gallery/installing-psget)
 
 
@@ -161,35 +165,7 @@ Expand-Archive -LiteralPath $pathToNupkg -DestinationPath $pathInstalledModule
 
 
 ## Enable Application Insights Monitoring 
-Minimum Supported Version: 0.1.0-alpha
-Application Insights code-less attach will install modules into IIS to be loaded when applications start up.
 
-1. Run PowerShell as Administrator with Elevated Execution Policies
-2. Run cmd: `Enable-ApplicationInsightsMonitoring`
-	- One of the following parameters are required:
-		- `-InstrumentationKey`
-		- `-InstrumentationKeyMap`
-	- [Common Parameter] `-Verbose` is supported.
-	- [Common Parameter] `-WhatIf` is supported.
-3. Need to run iisreset when finished
-	
-			
-### Schema for InstrumentationKeyMap:
+Cmd: `Enable-ApplicationInsightsMonitoring`
 
-`@(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'})`
-
-**Required**:
-- MachineFilter is a required c# regex of the computer or vm name.
-	- ".*" will match all
-	- "ComputerName" will match only computers with that exact name.
-- AppFilter is a required c# regex of the computer or vm name.
-	- ".*" will match all
-	- "ApplicationName" will match only IIS applications with that exact name.
-
-**Optional**: 
-- InstrumentationKey
-	- InstrumentationKey is required to enable monitoring of the applications that match the above two filters.
-	- Leave this null if you wish to define rules to exclude monitoring
-
-
-
+Please review our [API Reference](api_EnableMonitoring.md) for a detailed description of how to use this cmdlet. 
