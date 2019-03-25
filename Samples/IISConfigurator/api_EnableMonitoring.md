@@ -17,6 +17,17 @@ IIS will load the RedfieldModule at startup which will inject the Application In
 
 ## Examples
 
+### Example with single instrumentation key
+```powershell
+PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+```
+
+### Example with instrumentation key map
+```powershell
+PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap @(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},@{MachineFilter='two';AppFilter='two';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'}, @{MachineFilter='.*';AppFilter='exclude'})
+
+```
+
 ## Parameters 
 
 ### -instrumentationKey
