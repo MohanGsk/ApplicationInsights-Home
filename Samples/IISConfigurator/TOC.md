@@ -6,7 +6,9 @@ We will release new features as they are available. Should expect a 2 week caden
 
 This guide will be published to docs.microsoft.com when we release our first Stable version.
 
+## PowerShell Gallery
 
+- https://www.powershellgallery.com/packages/Microsoft.ApplicationInsights.IISConfigurator.POC
 
 ## Disclaimer
 This is a prototype application. 
