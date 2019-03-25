@@ -1,12 +1,10 @@
-# IISConfigurator.POC - API Reference
+# IISConfigurator.POC API Reference
 
 ## Disclaimer
 This is a prototype application. 
 We do not recommend using this on your production environments.
 
 # Disable-ApplicationInsightsMonitoring (v0.1.0-alpha)
-
-(documentation in progress)
 
 
 ## Description
@@ -17,13 +15,11 @@ This will remove the insert into the IIS applicationHost.config and remove regis
 
 ## Examples
 
+```
+PS C:\> Disable-ApplicationInsightsMonitoring
+```
+
 ## Parameters 
 
 ### -Verbose
 **Common Parameter.** Use this switch to output detailed logs.
-
-## Inputs
-
-## Outputs
-
-## Notes
