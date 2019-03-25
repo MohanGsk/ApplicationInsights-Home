@@ -15,7 +15,7 @@ This will remove the insert into the IIS applicationHost.config and remove regis
 
 ## Examples
 
-```
+```powershell
 PS C:\> Disable-ApplicationInsightsMonitoring
 ```
 
