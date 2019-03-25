@@ -1,4 +1,4 @@
-# IISConfigurator.POC API Reference (documentation in progress)
+# IISConfigurator.POC API Reference
 
 ## Disclaimer
 This is a prototype application. 
@@ -54,20 +54,8 @@ PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap @(@{MachineF
 
 
 
-
-
-
 ### -Verbose
 **Common Parameter.** Use this switch to output detailed logs.
 
 ### -WhatIf 
 **Common Parameter.** Use this switch to test and validate your input parameters without actually enabling monitoring.
-
-## Inputs
-
-## Outputs
-
-## Notes
-
-
-
