@@ -174,7 +174,7 @@ For more information see: [Installing a PowerShell Module](https://docs.microsof
 
 If installing into any other directory, you must manually import the module using [Import-Module](https://docs.microsoft.com/powershell/module/microsoft.powershell.core/import-module?view=powershell-6)
 
-**IMPORTART**: Installation will install DLLs via relative paths. Store the contents of this package into your intended runtime directory and confirm that access permissions allow read but not write.
+**IMPORTANT**: Installation will install DLLs via relative paths. Store the contents of this package into your intended runtime directory and confirm that access permissions allow read but not write.
 
 - Change the extension to ".zip" and extract contents of package into your intended installation directory.
 - Find the file path to "microsoft.applicationinsights.iisconfigurator.poc.psd1"
