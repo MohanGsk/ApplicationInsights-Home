@@ -52,6 +52,9 @@ Can audit installed Modules using cmd: `Get-Module -ListAvailable`
 ### Troubleshooting PowerShell Module
 
 
+- If the Module has not been loaded into a PowerShell session, can manually load using the command `Import-Module <path to psd1>`
+
+
 - Run the cmd: `Get-Command -Module microsoft.applicationinsights.iisconfigurator.poc` to get the available commands
 
 	```
