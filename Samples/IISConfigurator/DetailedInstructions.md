@@ -40,7 +40,7 @@ https:/go.microsoft.com/fwlink/?LinkID=135170.
 ## Prerequisites for PowerShell
 
 To audit your current version PowerShell run cmd: `$PSVersionTable`
-These instructions were written and tested on a machine with these versions:
+These instructions were written and tested on a Windows 10 machine with these versions:
 
 ```
 Name                           Value
@@ -58,7 +58,7 @@ SerializationVersion           1.1.0.1
 ## Prerequisites for PowerShell Gallery
 
 **NOTE**: Support for PowerShell Gallery is included on Windows 10, Windows Server 2016, and PowerShell 6.
-For older versions, please review this document: [Installing PowerShellGet](https://docs.microsoft.com/en-us/powershell/gallery/installing-psget)
+For older versions, please review this document: [Installing PowerShellGet](https://docs.microsoft.com/powershell/gallery/installing-psget)
 
 
 1. Run PowerShell as Administrator
@@ -113,7 +113,7 @@ For older versions, please review this document: [Installing PowerShellGet](http
 
 1. Follow all prerequisites.
 2. Run PowerShell as Administrator with Elevated Execution Policies
-3. [Install-Module](https://docs.microsoft.com/en-us/powershell/module/powershellget/install-module?view=powershell-6)
+3. [Install-Module](https://docs.microsoft.com/powershell/module/powershellget/install-module?view=powershell-6)
 	- Cmd: `Install-Module -Name Microsoft.ApplicationInsights.IISConfigurator.POC -AllowPrerelease -AcceptLicense`
 	- Optional Parameters:
 		- `-Proxy`
@@ -130,7 +130,7 @@ For older versions, please review this document: [Installing PowerShellGet](http
 
 ### Option 1 - Install into PowerShell Modules Directory
 Install the manually downloaded PowerShell Module to a PowerShell directory so it can be discoverable by PowerShell sessions.
-For more information see: https://docs.microsoft.com/en-us/powershell/developer/module/installing-a-powershell-module
+For more information see: [Installing a PowerShell Module](https://docs.microsoft.com/powershell/developer/module/installing-a-powershell-module)
 
 Unzip nupkg as zip using Expand-Archive (v1.0.1.0)
 The base version of Microsoft.PowerShell.Archive (v1.0.1.0) will not unzip .nupkg files. You must first rename the file with the ".zip" extension.
