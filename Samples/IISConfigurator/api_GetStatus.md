@@ -86,6 +86,9 @@ listdlls64.exe -accepteula w3wp
 
 By **default**, this cmdlet will report version numbers and paths of DLLs required for monitoring.
 
+Use this if you need to identify the version of any DLL, including the Application Insights SDK.
+
+
 ### -InspectProcess
 
 **Optional**. This cmdlet will use external exes to report if IIS is running and also if required DLLs have been loaded into the IIS runtime.
