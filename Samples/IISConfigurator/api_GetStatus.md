@@ -20,7 +20,7 @@ Additional parameters provide extra reports on the current status of monitoring.
 
 
 ### Example: Basic information
-```powershell
+```
 PS C:\> Get-ApplicationInsightsMonitoringStatus
 
 
@@ -51,7 +51,7 @@ ApplicationInsightsSdkPath: C:\Program Files\WindowsPowerShell\Modules\Microsoft
 ```
 
 ### Example: Runtime Status
-```powershell
+```
 PS C:\> Get-ApplicationInsightsMonitoringStatus -InspectProcess
 
 iisreset.exe /status
