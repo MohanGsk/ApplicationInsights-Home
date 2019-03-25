@@ -6,30 +6,32 @@ We do not recommend using this on your production environments.
 
 Please review our [Troubleshooting](Troubleshooting.md) guide for an explanation of known issues.
 
-
-## Quick Start
-These are the quick start commands expected to work for most environments.
 [Detailed instructions](DetailedInstructions.md) provide an explanation of these commands, instructions on how to customize, and how to troubleshoot.
 
+## Quick Start
+These are the quick start commands expected to work for most environments. These instructions depend on the PowerShell Gallery to distribute updates. These commands support the PowerShell `-Proxy` parameter.
+
+
 ### Install Prerequisites
-- Run PowerShell as Administrator
+Run PowerShell as Administrator
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
 Install-Module -Name PowerShellGet -Force
 ```	
-- Exit PowerShell
+Exit PowerShell
 
-### Install IISConfigurator and Enable Monitoring
-- Run PowerShell as Administrator
-
+### Install IISConfigurator
+Run PowerShell as Administrator
 ```powershell	
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
 Install-Module -Name Microsoft.ApplicationInsights.IISConfigurator.POC -AllowPrerelease -AcceptLicense
 ```	
-- To attach
+
+### Enable Monitoring
 ```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
 Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 	
@@ -48,5 +50,3 @@ Expand-Archive -LiteralPath $pathToZip -DestinationPath $pathInstalledModule
 ```powershell
 Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
-
-
