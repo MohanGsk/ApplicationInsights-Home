@@ -20,7 +20,9 @@ To quickly get started without detailed instructions, please review our [Quick S
 - Reference: [Set-ExecutionPolicy](
 https://docs.microsoft.com/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-6
 )
-- Cmd: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force`
+- Cmd: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process`
+- Optional Parameters:
+	- Force
 
 **Example Errors:**
 
@@ -60,9 +62,12 @@ For older versions, please review this document: [Installing PowerShellGet](http
 
 1. Run PowerShell as Administrator
 2. Nuget Package Provider 
-    - Description: This is required to interact with NuGet-based repositories such as PowerShellGallery
-    - Reference: [Install-PackageProvider](https://docs.microsoft.com/powershell/module/packagemanagement/install-packageprovider?view=powershell-6)
-    - Cmd: `Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force`
+	- Description: This is required to interact with NuGet-based repositories such as PowerShellGallery
+	- Reference: [Install-PackageProvider](https://docs.microsoft.com/powershell/module/packagemanagement/install-packageprovider?view=powershell-6)
+	- Cmd: `Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force`
+	- Optional Parameters:
+		- Proxy
+		- Force
 	
 	Will receive this prompt if not setup:
 		
@@ -75,9 +80,12 @@ For older versions, please review this document: [Installing PowerShellGet](http
 		[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"):
 	
 3. Trusted Repositories
-    - Description: By default, PowerShellGallery is an untrusted repository.
-    - Reference: [Set-PSRepository](https://docs.microsoft.com/powershell/module/powershellget/set-psrepository?view=powershell-6)
-    - Cmd: `Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted -Force`
+	- Description: By default, PowerShellGallery is an untrusted repository.
+	- Reference: [Set-PSRepository](https://docs.microsoft.com/powershell/module/powershellget/set-psrepository?view=powershell-6)
+	- Cmd: `Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted`
+	- Optional Parameters:
+		- Proxy
+		- Force
 
 	Will receive this prompt if not setup:
 
@@ -92,7 +100,10 @@ For older versions, please review this document: [Installing PowerShellGet](http
 4. PowerShellGet version 
 	- Description: This is the tooling used to get other modules from PowerShell Gallery. v1.0.0.1 ships with Windows 10 and Windows Server. Min version required is v1.6.0. To audit which version is installed run cmd: `Get-Command`
 	- Reference: [Installing PowerShellGet](https://docs.microsoft.com/powershell/gallery/installing-psget)
-	- Cmd: `Install-Module -Name PowerShellGet -Force`
+	- Cmd: `Install-Module -Name PowerShellGet`
+	- Optional Parameters:
+		- Proxy
+		- Force
 
 	Will receive this error if not using newest version of PowerShellGet:
 	
