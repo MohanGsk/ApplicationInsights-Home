@@ -29,7 +29,7 @@ We do not recommend using this on your production environments.
 - [Known Issues](Troubleshooting.md#known-issues)
 
 
-### FAQ
+## FAQ
 
 - Does IISConfigurator support proxy installations?
 
