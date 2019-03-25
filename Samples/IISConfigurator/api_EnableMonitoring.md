@@ -38,3 +38,37 @@ Schema: `@(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx
 ## Outputs
 
 ## Notes
+
+Minimum Supported Version: 0.1.0-alpha
+
+Application Insights code-less attach will install modules into IIS to be loaded when applications start up.
+
+1. Run PowerShell as Administrator with Elevated Execution Policies
+2. Run cmd: `Enable-ApplicationInsightsMonitoring`
+	- One of the following parameters are required:
+		- `-InstrumentationKey`
+		- `-InstrumentationKeyMap`
+	- [Common Parameter] `-Verbose` is supported.
+	- [Common Parameter] `-WhatIf` is supported.
+3. Need to run iisreset when finished
+	
+			
+### Schema for InstrumentationKeyMap:
+
+`@(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'})`
+
+**Required**:
+- MachineFilter is a required c# regex of the computer or vm name.
+	- ".*" will match all
+	- "ComputerName" will match only computers with that exact name.
+- AppFilter is a required c# regex of the computer or vm name.
+	- ".*" will match all
+	- "ApplicationName" will match only IIS applications with that exact name.
+
+**Optional**: 
+- InstrumentationKey
+	- InstrumentationKey is required to enable monitoring of the applications that match the above two filters.
+	- Leave this null if you wish to define rules to exclude monitoring
+
+
+
