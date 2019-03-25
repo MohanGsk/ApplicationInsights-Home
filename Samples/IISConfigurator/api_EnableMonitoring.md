@@ -59,6 +59,4 @@ IIS will load the RedfieldModule at startup which will inject the Application In
 ## Notes
 
 
-			
-### Schema for InstrumentationKeyMap:
 
