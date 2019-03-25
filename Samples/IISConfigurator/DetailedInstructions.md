@@ -22,7 +22,7 @@ https://docs.microsoft.com/powershell/module/microsoft.powershell.security/set-e
 )
 - Cmd: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process`
 - Optional Parameters:
-	- Force
+	- `-Force`
 
 **Example Errors:**
 
@@ -66,8 +66,8 @@ For older versions, please review this document: [Installing PowerShellGet](http
 	- Reference: [Install-PackageProvider](https://docs.microsoft.com/powershell/module/packagemanagement/install-packageprovider?view=powershell-6)
 	- Cmd: `Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force`
 	- Optional Parameters:
-		- Proxy
-		- Force
+		- `-Proxy`
+		- `-Force`
 	
 	Will receive this prompt if not setup:
 		
@@ -84,8 +84,8 @@ For older versions, please review this document: [Installing PowerShellGet](http
 	- Reference: [Set-PSRepository](https://docs.microsoft.com/powershell/module/powershellget/set-psrepository?view=powershell-6)
 	- Cmd: `Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted`
 	- Optional Parameters:
-		- Proxy
-		- Force
+		- `-Proxy`
+		- `-Force`
 
 	Will receive this prompt if not setup:
 
@@ -102,8 +102,8 @@ For older versions, please review this document: [Installing PowerShellGet](http
 	- Reference: [Installing PowerShellGet](https://docs.microsoft.com/powershell/gallery/installing-psget)
 	- Cmd: `Install-Module -Name PowerShellGet`
 	- Optional Parameters:
-		- Proxy
-		- Force
+		- `-Proxy`
+		- `-Force`
 
 	Will receive this error if not using newest version of PowerShellGet:
 	
