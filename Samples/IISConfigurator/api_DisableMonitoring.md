@@ -11,9 +11,16 @@ We do not recommend using this on your production environments.
 
 ## Description
 
+Disable monitoring on the target machine.
+This will remove the insert into the IIS applicationHost.config and remove registry keys.
+
+
 ## Examples
 
 ## Parameters 
+
+### -Verbose
+**Common Parameter.** Use this switch to output detailed logs.
 
 ## Inputs
 
