@@ -34,11 +34,11 @@ In this example `MachineFilter` will match the current machine using the `'.*'` 
 `AppFilter='WebAppTwo'` will also assign this specific app a unique instrumentation key.
 
 ```powershell
-PS C:\> Enable-ApplicationInsightsMonitoring 
-	-InstrumentationKeyMap @(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxdefault'},
-				@{MachineFilter='.*';AppFilter='WebAppOne';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx1'},
-				@{MachineFilter='.*';AppFilter='WebAppTwo';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx2'},
-				@{MachineFilter='.*';AppFilter='WebAppExclude'})
+PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap 
+	@(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxdefault'},
+	  @{MachineFilter='.*';AppFilter='WebAppOne';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx1'},
+	  @{MachineFilter='.*';AppFilter='WebAppTwo';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx2'},
+	  @{MachineFilter='.*';AppFilter='WebAppExclude'})
 
 ```
 Spaces added for readability only.
