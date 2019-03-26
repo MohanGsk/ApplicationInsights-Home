@@ -62,3 +62,9 @@ PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap @(@{MachineF
 
 ### -WhatIf 
 **Common Parameter.** Use this switch to test and validate your input parameters without actually enabling monitoring.
+
+
+## Notes
+
+### Instrumentation Key
+To get started you must have an instrumentation key. Read [here](https://docs.microsoft.com/azure/azure-monitor/app/create-new-resource#copy-the-instrumentation-key) for more information.
