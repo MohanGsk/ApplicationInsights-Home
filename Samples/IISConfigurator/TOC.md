@@ -1,4 +1,4 @@
-# IISConfigurator.POC
+# Application Insights IISConfigurator.POC
 
 IISConfigurator is the replacement for [Status Monitor](https://docs.microsoft.com/azure/azure-monitor/app/monitor-performance-live-website-now). This provides code-less instrumentation of .NET web applications hosted on-prem. Once your application is instrumented, your telemetry will be sent to the Azure Portal where you can [monitor](https://docs.microsoft.com/azure/azure-monitor/app/app-insights-overview) your application.
 
