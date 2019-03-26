@@ -24,7 +24,7 @@ https://docs.microsoft.com/powershell/module/microsoft.powershell.security/set-e
 )
 - Cmd: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process`
 - Optional Parameters:
-	- `-Force`
+	- `-Force` This will skip the confirmation prompt.
 
 **Example Errors:**
 
@@ -68,8 +68,8 @@ For older versions, please review this document: [Installing PowerShellGet](http
 	- Reference: [Install-PackageProvider](https://docs.microsoft.com/powershell/module/packagemanagement/install-packageprovider?view=powershell-6)
 	- Cmd: `Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201`
 	- Optional Parameters:
-		- `-Proxy`
-		- `-Force`
+		- `-Proxy` Specifies a proxy server for the request.
+		- `-Force` This will skip the confirmation prompt. 
 	
 	Will receive this prompt if not setup:
 		
@@ -86,8 +86,7 @@ For older versions, please review this document: [Installing PowerShellGet](http
 	- Reference: [Set-PSRepository](https://docs.microsoft.com/powershell/module/powershellget/set-psrepository?view=powershell-6)
 	- Cmd: `Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted`
 	- Optional Parameters:
-		- `-Proxy`
-		- `-Force`
+		- `-Proxy` Specifies a proxy server for the request.
 
 	Will receive this prompt if not setup:
 
@@ -104,8 +103,8 @@ For older versions, please review this document: [Installing PowerShellGet](http
 	- Reference: [Installing PowerShellGet](https://docs.microsoft.com/powershell/gallery/installing-psget)
 	- Cmd: `Install-Module -Name PowerShellGet`
 	- Optional Parameters:
-		- `-Proxy`
-		- `-Force`
+		- `-Proxy` Specifies a proxy server for the request.
+		- `-Force` This will ignore the "already installed" warning and install the latest version.
 
 	Will receive this error if not using newest version of PowerShellGet:
 	
@@ -126,7 +125,7 @@ For older versions, please review this document: [Installing PowerShellGet](http
 	- Reference: [Install-Module](https://docs.microsoft.com/powershell/module/powershellget/install-module?view=powershell-6)
 	- Cmd: `Install-Module -Name Microsoft.ApplicationInsights.IISConfigurator.POC`
 	- Optional Parameters:
-		- `-Proxy`
+		- `-Proxy` Specifies a proxy server for the request.
 		- `-AllowPrerelease` This will allow installing alpha and beta releases.
 		- `-AcceptLicense` This will skip the "Accept License" prompt
 		- `-Force` This will ignore the "Untrusted Repository" warning
