@@ -6,7 +6,7 @@ We do not recommend using this on your production environments.
 
 # Enable-ApplicationInsightsMonitoring (v0.1.0-alpha)
 
-**IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions and with Elevated Execution Policies. [Description](DetailedInstructions.md#run-powershell-as-administrator-with-elevated-execution-policies).
+**IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions and with Elevated Execution Policies. See [here](DetailedInstructions.md#run-powershell-as-administrator-with-elevated-execution-policies) for more information.
 
 ## Description
 
@@ -14,6 +14,9 @@ Enable code-less attach monitoring of IIS applications on a target machine.
 This will modify the IIS applicationHost.config and set some registry keys.
 This will also create an applicationinsights.ikey.config which defines what ikey is used by which application.
 IIS will load the RedfieldModule at startup which will inject the Application Insights SDK into applications as those applications start up.
+
+As of v0.1.0-alpha, we don't have a setting to verify that enablement was successful. 
+We recommend using [Live Metrics](https://docs.microsoft.com/azure/azure-monitor/app/live-stream) to quickly observe if your application is sending us telemetry.
 
 ## Examples
 
