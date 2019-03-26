@@ -64,7 +64,7 @@ For older versions, please review this document: [Installing PowerShellGet](http
 2. Nuget Package Provider 
 	- Description: This is required to interact with NuGet-based repositories such as PowerShellGallery
 	- Reference: [Install-PackageProvider](https://docs.microsoft.com/powershell/module/packagemanagement/install-packageprovider?view=powershell-6)
-	- Cmd: `Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force`
+	- Cmd: `Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201`
 	- Optional Parameters:
 		- `-Proxy`
 		- `-Force`
