@@ -6,6 +6,7 @@ We do not recommend using this on your production environments.
 
 # Get-ApplicationInsightsMonitoringStatus (v0.1.0-alpha)
 
+**IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions
 
 ## Description
 
