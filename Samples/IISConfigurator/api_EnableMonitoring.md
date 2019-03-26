@@ -23,9 +23,32 @@ We recommend using [Live Metrics](https://docs.microsoft.com/azure/azure-monitor
 ### Example with single instrumentation key
 In this example, all applications on the current machine will be assigned a single instrumentation key.
 
-```
+```powershel
 PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+```
 
+### Example with instrumentation key map
+In this example, 
+- `MachineFilter` will match the current machine using the `'.*'` wildcard.
+- `AppFilter='WebAppExclude'` provides a `null` InstrumentationKey. This app will not be instrumented.
+- `AppFilter='WebAppOne'` will assign this specific app a unique instrumentation key.
+- `AppFilter='WebAppTwo'` will also assign this specific app a unique instrumentation key.
+- Lastly, `AppFilter` also uses the `'.*'` wildcard to match all other web apps not matched by the earlier rules and assigns a default instrumentation key.
+
+```powershell
+PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap 
+	@(@{MachineFilter='.*';AppFilter='WebAppExclude'},
+	  @{MachineFilter='.*';AppFilter='WebAppOne';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx1'},
+	  @{MachineFilter='.*';AppFilter='WebAppTwo';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx2'},
+	  @{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxdefault'})
+
+```
+Spaces added for readability only.
+
+
+#### Example output from a successful enablement
+
+```
 Initiating Disable Process
 Applying transformation to 'C:\Windows\System32\inetsrv\config\applicationHost.config'
 'C:\Windows\System32\inetsrv\config\applicationHost.config' backed up to 'C:\Windows\System32\inetsrv\config\applicationHost.config.backup-2019-03-26_08-59-52z'
@@ -55,25 +78,6 @@ Configuring registry for instrumentation engine...
 Updating app pool permissions...
 Successfully enabled Application Insights Status Monitor
 ```
-
-### Example with instrumentation key map
-In this example, 
-- `MachineFilter` will match the current machine using the `'.*'` wildcard.
-- `AppFilter='WebAppExclude'` provides a `null` InstrumentationKey. This app will not be instrumented.
-- `AppFilter='WebAppOne'` will assign this specific app a unique instrumentation key.
-- `AppFilter='WebAppTwo'` will also assign this specific app a unique instrumentation key.
-- Lastly, `AppFilter` also uses the `'.*'` wildcard to match all other web apps not matched by the earlier rules and assigns a default instrumentation key.
-
-```powershell
-PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap 
-	@(@{MachineFilter='.*';AppFilter='WebAppExclude'},
-	  @{MachineFilter='.*';AppFilter='WebAppOne';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx1'},
-	  @{MachineFilter='.*';AppFilter='WebAppTwo';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx2'},
-	  @{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxdefault'})
-
-```
-Spaces added for readability only.
-
 ## Parameters 
 
 ### -instrumentationKey
