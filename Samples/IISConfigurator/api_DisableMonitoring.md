@@ -16,9 +16,21 @@ This will remove the insert into the IIS applicationHost.config and remove regis
 
 ## Examples
 
-```
+```powershell
 PS C:\> Disable-ApplicationInsightsMonitoring
+```
 
+## Parameters 
+
+### -Verbose
+**Common Parameter.** Use this switch to output detailed logs.
+
+## Output
+
+
+#### Example output from successfully disabling monitoring
+
+```
 Initiating Disable Process
 Applying transformation to 'C:\Windows\System32\inetsrv\config\applicationHost.config'
 'C:\Windows\System32\inetsrv\config\applicationHost.config' backed up to 'C:\Windows\System32\inetsrv\config\applicationHost.config.backup-2019-03-26_08-59-00z'
@@ -38,8 +50,3 @@ Registry: skipping non-existent 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Ser
 Configuring registry for instrumentation engine...
 Successfully disabled Application Insights Status Monitor
 ```
-
-## Parameters 
-
-### -Verbose
-**Common Parameter.** Use this switch to output detailed logs.
