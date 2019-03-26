@@ -37,3 +37,7 @@ We do not recommend using this on your production environments.
 - Does IISConfigurator support proxy installations?
 
   **Yes**. You have multiple options to download the IISConfigurator. If your computer has internet access, you can onboard to the PowerShell Gallery using `-Proxy` parameters. Alternatively, you can manually download this module and either install it on your machine or use the module directly. Each of these options are described in our [Detailed Instructions](DetailedInstructions.md).
+  
+- How to verify the installation was successful?
+
+As of v0.1.0-alpha, we don't have a cmdlet to verify that enablement was successful. We recommend using Live Metrics to quickly observe if your application is sending us telemetry.
