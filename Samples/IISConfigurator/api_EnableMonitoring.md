@@ -26,10 +26,21 @@ PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-x
 ```
 
 ### Example with instrumentation key map
+
+In this example `MachineFilter` will match the current machine using the `'.*'` wildcard.
+`AppFilter` also uses the `'.*'` wildcard to match all web apps on the current machine and assign a default instrumentation key.
+`AppFilter='WebAppOne'` will assign this specific app a unique instrumentation key.
+`AppFilter='WebAppTwo'` will also assign this specific app a unique instrumentation key.
+
 ```powershell
-PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap @(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'},@{MachineFilter='two';AppFilter='two';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'}, @{MachineFilter='.*';AppFilter='exclude'})
+PS C:\> Enable-ApplicationInsightsMonitoring 
+	-InstrumentationKeyMap @(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxdefault'},
+				@{MachineFilter='.*';AppFilter='WebAppOne';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx1'},
+				@{MachineFilter='.*';AppFilter='WebAppTwo';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx2'},
+				@{MachineFilter='.*';AppFilter='WebAppExclude'})
 
 ```
+Spaces added for readability only.
 
 ## Parameters 
 
