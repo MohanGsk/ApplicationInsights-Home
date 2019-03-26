@@ -40,4 +40,4 @@ We do not recommend using this on your production environments.
   
 - How to verify the installation was successful?
 
-As of v0.1.0-alpha, we don't have a cmdlet to verify that enablement was successful. We recommend using Live Metrics to quickly observe if your application is sending us telemetry.
+   As of v0.1.0-alpha, we don't have a cmdlet to verify that enablement was successful. We recommend using Live Metrics to quickly observe if your application is sending us telemetry.
