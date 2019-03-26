@@ -21,12 +21,13 @@ We recommend using [Live Metrics](https://docs.microsoft.com/azure/azure-monitor
 ## Examples
 
 ### Example with single instrumentation key
+In this example, all applications on the current machine will be assigned a single instrumentation key.
+
 ```powershell
 PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 ### Example with instrumentation key map
-
 In this example `MachineFilter` will match the current machine using the `'.*'` wildcard.
 `AppFilter` also uses the `'.*'` wildcard to match all web apps on the current machine and assign a default instrumentation key.
 `AppFilter='WebAppOne'` will assign this specific app a unique instrumentation key.
