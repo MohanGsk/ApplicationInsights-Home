@@ -32,6 +32,7 @@ In this example `MachineFilter` will match the current machine using the `'.*'` 
 `AppFilter` also uses the `'.*'` wildcard to match all web apps on the current machine and assign a default instrumentation key.
 `AppFilter='WebAppOne'` will assign this specific app a unique instrumentation key.
 `AppFilter='WebAppTwo'` will also assign this specific app a unique instrumentation key.
+Lastly, `AppFilter='WebAppExclude'` provides a `null` InstrumentationKey. This app will not be instrumented.
 
 ```powershell
 PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap 
