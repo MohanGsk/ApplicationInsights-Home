@@ -49,7 +49,7 @@ Spaces added for readability only.
 **Required.** Use this parameter to supply a single iKey for use by all applications on the target machine.
 
 ### -instrumentationKeyMap
-**Required.** Use this parameter to supply multiple ikeys and a mapping of which apps to use which ikey.
+**Required.** Use this parameter to supply multiple ikeys and a mapping of which apps to use which ikey. Using this, you can create a single installation script for several machines by setting the MachineFilter.
 
 #### Schema
 `@(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'})`
