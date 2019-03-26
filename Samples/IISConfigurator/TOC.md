@@ -9,7 +9,7 @@ NOTE: This guide will be published to docs.microsoft.com when we release our fir
 
 ## PowerShell Gallery
 
-- https://www.powershellgallery.com/packages/Microsoft.ApplicationInsights.IISConfigurator.POC
+https://www.powershellgallery.com/packages/Microsoft.ApplicationInsights.IISConfigurator.POC
 
 ## Disclaimer
 This is a prototype application. 
