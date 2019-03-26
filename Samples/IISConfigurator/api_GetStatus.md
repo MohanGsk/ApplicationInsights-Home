@@ -6,8 +6,6 @@ We do not recommend using this on your production environments.
 
 # Get-ApplicationInsightsMonitoringStatus (v0.1.0-alpha)
 
-**IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions
-
 ## Description
 
 This cmdlet is provided for trobleshooting the PowerShell Module in use.
@@ -93,6 +91,8 @@ Use this if you need to identify the version of any DLL, including the Applicati
 ### -InspectProcess
 
 **Optional**. This cmdlet will use external exes to report if IIS is running and also if required DLLs have been loaded into the IIS runtime.
+
+**IMPORTANT**: This parameter must be run in a PowerShell Session with Administrator permissions
 
 If this fails for any reason, you can run these commands manually:
 - iisreset.exe /status
