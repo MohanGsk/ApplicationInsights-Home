@@ -62,7 +62,7 @@ SerializationVersion           1.1.0.1
 For older versions, please review this document: [Installing PowerShellGet](https://docs.microsoft.com/powershell/gallery/installing-psget)
 
 
-1. Run PowerShell as Administrator
+1. Run PowerShell as Administrator with Elevated Execution Policies
 2. Nuget Package Provider 
 	- Description: This is required to interact with NuGet-based repositories such as PowerShellGallery
 	- Reference: [Install-PackageProvider](https://docs.microsoft.com/powershell/module/packagemanagement/install-packageprovider?view=powershell-6)
