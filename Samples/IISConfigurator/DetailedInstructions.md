@@ -8,7 +8,9 @@ Please review our [Troubleshooting](Troubleshooting.md) guide for an explanation
 
 To quickly get started without detailed instructions, please review our [Quick Start Guide](QuickStart.md).
 
+## Instrumentation Key
 
+To get started you must have an instrumentation key. Read [here](https://docs.microsoft.com/azure/azure-monitor/app/create-new-resource#copy-the-instrumentation-key) for more information.
 
 ## Run PowerShell as Administrator with Elevated Execution Policies
 
