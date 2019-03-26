@@ -28,18 +28,19 @@ PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-x
 ```
 
 ### Example with instrumentation key map
-In this example `MachineFilter` will match the current machine using the `'.*'` wildcard.
-`AppFilter` also uses the `'.*'` wildcard to match all web apps on the current machine and assign a default instrumentation key.
-`AppFilter='WebAppOne'` will assign this specific app a unique instrumentation key.
-`AppFilter='WebAppTwo'` will also assign this specific app a unique instrumentation key.
-Lastly, `AppFilter='WebAppExclude'` provides a `null` InstrumentationKey. This app will not be instrumented.
+In this example, 
+- `MachineFilter` will match the current machine using the `'.*'` wildcard.
+- `AppFilter='WebAppExclude'` provides a `null` InstrumentationKey. This app will not be instrumented.
+- `AppFilter='WebAppOne'` will assign this specific app a unique instrumentation key.
+- `AppFilter='WebAppTwo'` will also assign this specific app a unique instrumentation key.
+- Lastly, `AppFilter` also uses the `'.*'` wildcard to match all other web apps not matched by the earlier rules and assigns a default instrumentation key.
 
 ```powershell
 PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap 
-	@(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxdefault'},
+	@(@{MachineFilter='.*';AppFilter='WebAppExclude'},
 	  @{MachineFilter='.*';AppFilter='WebAppOne';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx1'},
 	  @{MachineFilter='.*';AppFilter='WebAppTwo';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx2'},
-	  @{MachineFilter='.*';AppFilter='WebAppExclude'})
+	  @{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxdefault'})
 
 ```
 Spaces added for readability only.
@@ -50,7 +51,9 @@ Spaces added for readability only.
 **Required.** Use this parameter to supply a single iKey for use by all applications on the target machine.
 
 ### -instrumentationKeyMap
-**Required.** Use this parameter to supply multiple ikeys and a mapping of which apps to use which ikey. Using this, you can create a single installation script for several machines by setting the MachineFilter.
+**Required.** Use this parameter to supply multiple ikeys and a mapping of which apps to use which ikey. Using this, you can create a single installation script for several machines by setting the MachineFilter. 
+
+**IMPORTANT:** Applications will match aganist rules in the order that they are provided. As such you should specify the most specific rules first and the most generic rules last.
 
 #### Schema
 `@(@{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'})`
