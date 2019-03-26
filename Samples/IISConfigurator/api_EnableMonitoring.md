@@ -23,8 +23,37 @@ We recommend using [Live Metrics](https://docs.microsoft.com/azure/azure-monitor
 ### Example with single instrumentation key
 In this example, all applications on the current machine will be assigned a single instrumentation key.
 
-```powershell
+```
 PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+
+Initiating Disable Process
+Applying transformation to 'C:\Windows\System32\inetsrv\config\applicationHost.config'
+'C:\Windows\System32\inetsrv\config\applicationHost.config' backed up to 'C:\Windows\System32\inetsrv\config\applicationHost.config.backup-2019-03-26_08-59-52z'
+in :1,237
+No element in the source document matches '/configuration/location[@path='']/system.webServer/modules/add[@name='ManagedHttpModuleHelper']'
+Not executing RemoveAll (transform line 1, 546)
+Transformation to 'C:\Windows\System32\inetsrv\config\applicationHost.config' was successfully applied. Operation: 'disable'
+GAC Module will not be removed, since this operation might cause IIS instabilities
+Configuring IIS Environment for codeless attach...
+Registry: skipping non-existent 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\IISADMIN[Environment]
+Registry: skipping non-existent 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W3SVC[Environment]
+Registry: skipping non-existent 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WAS[Environment]
+Configuring IIS Environment for instrumentation engine...
+Registry: skipping non-existent 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\IISADMIN[Environment]
+Registry: skipping non-existent 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W3SVC[Environment]
+Registry: skipping non-existent 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WAS[Environment]
+Configuring registry for instrumentation engine...
+Successfully disabled Application Insights Status Monitor
+Installing GAC module 'C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\0.1.0\content\Runtime\Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.dll'
+Applying transformation to 'C:\Windows\System32\inetsrv\config\applicationHost.config'
+Found GAC module Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.ManagedHttpModuleHelper, Microsoft.AppInsights.IIS.ManagedHttpModuleHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+'C:\Windows\System32\inetsrv\config\applicationHost.config' backed up to 'C:\Windows\System32\inetsrv\config\applicationHost.config.backup-2019-03-26_08-59-52z_1'
+Transformation to 'C:\Windows\System32\inetsrv\config\applicationHost.config' was successfully applied. Operation: 'enable'
+Configuring IIS Environment for codeless attach...
+Configuring IIS Environment for instrumentation engine...
+Configuring registry for instrumentation engine...
+Updating app pool permissions...
+Successfully enabled Application Insights Status Monitor
 ```
 
 ### Example with instrumentation key map
