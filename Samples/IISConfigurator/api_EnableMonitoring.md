@@ -73,6 +73,10 @@ Spaces added for readability only.
 	- Leave this null if you wish to define rules to exclude monitoring
 
 
+### -EnableInstrumentationEngine
+**Optional.** Use this switch to enable the Instrumentation Engine to collect events and messages of what is happening to during the execution of a managed process. Including but not limited to Dependency Result Codes, HTTP Verbs, and SQL Command Text. This adds additional overhead and is therefore off by default.
+
+Available with v0.1.1-alpha
 
 ### -Verbose
 **Common Parameter.** Use this switch to output detailed logs.
