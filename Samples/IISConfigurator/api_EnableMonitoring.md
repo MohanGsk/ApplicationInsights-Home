@@ -4,7 +4,7 @@
 This is a prototype application. 
 We do not recommend using this on your production environments.
 
-# Enable-ApplicationInsightsMonitoring (v0.1.0-alpha)
+# Enable-ApplicationInsightsMonitoring (v0.1.1-alpha)
 
 **IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions and with Elevated Execution Policies. See [here](DetailedInstructions.md#run-powershell-as-administrator-with-elevated-execution-policies) for more information.
 
@@ -75,8 +75,6 @@ Spaces added for readability only.
 
 ### -EnableInstrumentationEngine
 **Optional.** Use this switch to enable the Instrumentation Engine to collect events and messages of what is happening to during the execution of a managed process. Including but not limited to Dependency Result Codes, HTTP Verbs, and SQL Command Text. This adds additional overhead and is therefore off by default.
-
-Available with v0.1.1-alpha
 
 ### -Verbose
 **Common Parameter.** Use this switch to output detailed logs.
