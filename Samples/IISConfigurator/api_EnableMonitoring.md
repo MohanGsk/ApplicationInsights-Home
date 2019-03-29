@@ -48,10 +48,10 @@ Spaces added for readability only.
 
 ## Parameters 
 
-### -instrumentationKey
+### -InstrumentationKey
 **Required.** Use this parameter to supply a single iKey for use by all applications on the target machine.
 
-### -instrumentationKeyMap
+### -InstrumentationKeyMap
 **Required.** Use this parameter to supply multiple ikeys and a mapping of which apps to use which ikey. Using this, you can create a single installation script for several machines by setting the MachineFilter. 
 
 **IMPORTANT:** Applications will match aganist rules in the order that they are provided. As such you should specify the most specific rules first and the most generic rules last.
