@@ -18,6 +18,9 @@ Release notes for private extension can be found [here](https://www.nuget.org/pa
 
 #Release Notes.
 
+#2.8.14
+- Update Asp.Net  Core SDK version from 2.3.0 to the latest (2.6.1) for Apps targetting .Net Core 2.1, 2.2. Apps targetting .Net Core 2.0 will continue to use 2.1.1 of the SDK.
+
 #2.8.12
 
 - Support for Asp.Net Core 2.2 Apps.
