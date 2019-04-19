@@ -1,30 +1,60 @@
-import "PageViewData.bond"
+import "Domain.bond"
 
 namespace AI
 
 [Description("An instance of PageViewPerf represents: a page view with no performance data, a page view with performance data, or just the performance data of an earlier page request.")]
 [Alias("PageViewPerformanceData;PageviewPerformanceData")]
 struct PageViewPerfData
-    : PageViewData
+    : Domain
 {
+    [Description("Schema version")]
+    10: required int32 	 ver = 2;
+    
+    [MaxStringLength("512")]
+    [Description("Event name. Keep it low cardinality to allow proper grouping and useful metrics.")]
+    [Question("Why Custom Event name is shorter than Request name or dependency name?")]
+    20: required string 	 name;
+    
+    [MaxStringLength("2048")]
+    [Description("Request URL with all query string parameters")]
+    30: string 	 url;
+    
+    [CSType("TimeSpan")]
+    [Description("Request duration in format: DD.HH:MM:SS.MMMMMM. For a page view (PageViewData), this is the duration. For a page view with performance information (PageViewPerfData), this is the page load time. Must be less than 1000 days.")]
+    40: string 	 duration;
+    
+    [MaxStringLength("512")]
+    [ActAsRequired("Required field for correct correlation.")]
+    [Description("Identifier of a page view instance. Used for correlation between page view and other telemetry items.")]
+    50: required string 	 id;
+    
     [Description("Performance total in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff")]
     [CSType("TimeSpan")]
-    10: string 	 perfTotal;
+    60: string 	 perfTotal;
     
     [Description("Network connection time in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff")]
     [CSType("TimeSpan")]
-    20: string 	 networkConnect;
+    70: string 	 networkConnect;
     
     [Description("Sent request time in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff")]
     [CSType("TimeSpan")]
-    30: string 	 sentRequest;
+    80: string 	 sentRequest;
     
     [Description("Received response time in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff")]
     [CSType("TimeSpan")]
-    40: string 	 receivedResponse;
+    90: string 	 receivedResponse;
     
     [Description("DOM processing time in TimeSpan 'G' (general long) format: d:hh:mm:ss.fffffff")]
     [CSType("TimeSpan")]
-    50: string 	 domProcessing;
+    100: string 	 domProcessing;
+    
+    [Description("Collection of custom properties.")]
+    [MaxKeyLength("150")]
+    [MaxValueLength("8192")]
+    100: map<string, string> 	 properties;
+    
+    [Description("Collection of custom measurements.")]
+    [MaxKeyLength("150")]
+    200: map<string, double> 	 measurements;
     
 }

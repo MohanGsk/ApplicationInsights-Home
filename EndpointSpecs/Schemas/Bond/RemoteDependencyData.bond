@@ -13,7 +13,7 @@ struct RemoteDependencyData
     [Description("Name of the command initiated with this dependency call. Low cardinality value. Examples are stored procedure name and URL path template.")]
     20: required string 	 name;
     
-    [MaxStringLength("128")]
+    [MaxStringLength("512")]
     [Description("Identifier of a dependency call instance. Used for correlation with the request telemetry item corresponding to this dependency call.")]
     30: string 	 id;
     
