@@ -58,7 +58,7 @@ struct ContextTagKeys
     305: string 	 OperationName = "ai.operation.name";
     
     [Description("The unique identifier of the telemetry item's immediate parent.")]
-    [MaxStringLength("128")]
+    [MaxStringLength("512")]
     310: string 	 OperationParentId = "ai.operation.parentId";
     
     [Description("Name of synthetic source. Some telemetry from the application may represent a synthetic traffic. It may be web crawler indexing the web site, site availability tests or traces from diagnostic libraries like Application Insights SDK itself.")]
@@ -94,9 +94,15 @@ struct ContextTagKeys
     [MaxStringLength("256")]
     705: string 	 CloudRole = "ai.cloud.role";
     
+    [MaxStringLength("256")]
+    710: string 	 CloudRoleVer = "ai.cloud.roleVer";
+    
     [Description("Name of the instance where the application is running. Computer name for on-premisis, instance name for Azure.")]
     [MaxStringLength("256")]
     715: string 	 CloudRoleInstance = "ai.cloud.roleInstance";
+    
+    [MaxStringLength("256")]
+    725: string 	 CloudLocation = "ai.cloud.location";
     
     [Description("SDK version. See https://github.com/Microsoft/ApplicationInsights-Home/blob/master/SDK-AUTHORING.md#sdk-version-specification for information.")]
     [MaxStringLength("64")]

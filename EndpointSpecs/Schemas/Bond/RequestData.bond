@@ -9,7 +9,7 @@ struct RequestData
     [Description("Schema version")]
     10: required int32 	 ver = 2;
     
-    [MaxStringLength("128")]
+    [MaxStringLength("512")]
     [Description("Identifier of a request call instance. Used for correlation between request and other telemetry items.")]
     20: required string 	 id;
     
