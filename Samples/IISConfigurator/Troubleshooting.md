@@ -52,7 +52,7 @@ After you run the Enable command,
 	```
 	<modules>
 	    ...
-	    <!-- Registed global managed http module handler. The 'Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.ManagedHttpModuleHelper.dll' must be installed in the GAC before this config is applied. -->
+	    <!-- Registed global managed http module handler. The 'Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.dll' must be installed in the GAC before this config is applied. -->
 	    <add name="ManagedHttpModuleHelper" type="Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.ManagedHttpModuleHelper, Microsoft.AppInsights.IIS.ManagedHttpModuleHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" preCondition="managedHandler,runtimeVersionv4.0" />
 	</modules>
 	```
