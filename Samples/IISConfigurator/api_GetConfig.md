@@ -4,7 +4,7 @@
 This is a prototype application. 
 We do not recommend using this on your production environments.
 
-# Set-ApplicationInsightsMonitoringConfig (v0.2.0-alpha)
+# Get-ApplicationInsightsMonitoringConfig (v0.2.0-alpha)
 
 **IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions.
 
