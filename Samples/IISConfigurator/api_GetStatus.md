@@ -4,11 +4,13 @@
 This is a prototype application. 
 We do not recommend using this on your production environments.
 
-# Get-ApplicationInsightsMonitoringStatus (v0.1.0-alpha)
+# Get-ApplicationInsightsMonitoringStatus (v0.2.0-alpha)
+
+**IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions.
 
 ## Description
 
-This cmdlet is provided for trobleshooting the PowerShell Module in use.
+This cmdlet is provided for troubleshooting the PowerShell Module in use.
 This will report version information and key files required for monitoring.
 Additional parameters provide extra reports on the current status of monitoring.
 
@@ -22,7 +24,7 @@ PS C:\> Get-ApplicationInsightsMonitoringStatus
 
 
 PowerShell Module version:
-0.1.0-alpha
+0.2.0-alpha
 
 Application Insights SDK version:
 2.9.0.0
@@ -90,14 +92,17 @@ Use this if you need to identify the version of any DLL, including the Applicati
 
 ### -InspectProcess
 
-**Optional**. This cmdlet will use external exes to report if IIS is running and also if required DLLs have been loaded into the IIS runtime.
+**Optional**. This cmdlet will download and use external exes to report if IIS is running and also if required DLLs have been loaded into the IIS runtime.
 
-**IMPORTANT**: This parameter must be run in a PowerShell Session with Administrator permissions
 
 If this fails for any reason, you can run these commands manually:
 - iisreset.exe /status
 - [handle64.exe](https://docs.microsoft.com/sysinternals/downloads/handle) -p w3wp | findstr /I "InstrumentationEngine AI. ApplicationInsights"
 - [listdlls64.exe](https://docs.microsoft.com/sysinternals/downloads/listdlls) w3wp | findstr /I "InstrumentationEngine AI ApplicationInsights"
 
+
+### -Force
+
+**Optional**. Used only with InspectProcess. This will skip the user prompt to download the additional tools.
 
 

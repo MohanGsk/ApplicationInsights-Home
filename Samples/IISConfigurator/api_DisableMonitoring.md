@@ -4,15 +4,14 @@
 This is a prototype application. 
 We do not recommend using this on your production environments.
 
-# Disable-ApplicationInsightsMonitoring (v0.1.0-alpha)
+# Disable-ApplicationInsightsMonitoring (v0.2.0-alpha)
 
 **IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions.
 
 ## Description
 
 Disable monitoring on the target machine.
-This will remove the insert into the IIS applicationHost.config and remove registry keys.
-
+This will remove the edits to the IIS applicationHost.config and remove registry keys.
 
 ## Examples
 

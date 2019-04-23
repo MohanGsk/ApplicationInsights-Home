@@ -150,7 +150,7 @@ For more information see: [Installing a PowerShell Module](https://docs.microsof
 - Cmd: 
 
 	```
-	$pathToNupkg = "C:\microsoft.applicationinsights.iisconfigurator.poc.0.1.0-alpha.nupkg"
+	$pathToNupkg = "C:\microsoft.applicationinsights.iisconfigurator.poc.0.2.0-alpha.nupkg"
 	$pathToZip = ([io.path]::ChangeExtension($pathToNupkg, "zip"))
 	$pathToNupkg | rename-item -newname $pathToZip
 	$pathInstalledModule = "$Env:ProgramFiles\WindowsPowerShell\Modules\microsoft.applicationinsights.iisconfigurator.poc"
@@ -164,7 +164,7 @@ For more information see: [Installing a PowerShell Module](https://docs.microsof
 - Cmd:
 
 	```
-	$pathToNupkg = "C:\microsoft.applicationinsights.iisconfigurator.poc.0.1.0-alpha.nupkg"
+	$pathToNupkg = "C:\microsoft.applicationinsights.iisconfigurator.poc.0.2.0-alpha.nupkg"
 	$pathInstalledModule = "$Env:ProgramFiles\WindowsPowerShell\Modules\microsoft.applicationinsights.iisconfigurator.poc"
 	Expand-Archive -LiteralPath $pathToNupkg -DestinationPath $pathInstalledModule
 	```

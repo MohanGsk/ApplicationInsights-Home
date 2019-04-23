@@ -4,26 +4,33 @@
 This is a prototype application. 
 We do not recommend using this on your production environments.
 
-# Enable-ApplicationInsightsMonitoring (v0.1.1-alpha)
+# Enable-ApplicationInsightsMonitoring (v0.2.0-alpha)
 
-**IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions and with Elevated Execution Policies. See [here](DetailedInstructions.md#run-powershell-as-administrator-with-elevated-execution-policies) for more information.
+**IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions and with Elevated Execution Policies. Read [here](DetailedInstructions.md#run-powershell-as-administrator-with-elevated-execution-policies) for more information.
+
+**NOTE**: This cmdlet will require you to review and accept our license and privacy statement.
 
 ## Description
 
 Enable code-less attach monitoring of IIS applications on a target machine.
 This will modify the IIS applicationHost.config and set some registry keys.
-This will also create an applicationinsights.ikey.config which defines what ikey is used by which application.
+This will also create an applicationinsights.ikey.config which defines which instrumentation key is used by which application.
 IIS will load the RedfieldModule at startup which will inject the Application Insights SDK into applications as those applications start up.
+You will need to restart IIS for your changes to take effect.
 
-As of v0.1.0-alpha, we don't have a setting to verify that enablement was successful. 
+As of v0.2.0-alpha, we don't have a setting to verify that enablement was successful. 
 We recommend using [Live Metrics](https://docs.microsoft.com/azure/azure-monitor/app/live-stream) to quickly observe if your application is sending us telemetry.
+
+
+**NOTE**: To get started you must have an instrumentation key. Read [here](https://docs.microsoft.com/azure/azure-monitor/app/create-new-resource#copy-the-instrumentation-key) for more information.
+
 
 ## Examples
 
 ### Example with single instrumentation key
 In this example, all applications on the current machine will be assigned a single instrumentation key.
 
-```powershel
+```powershell
 PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
@@ -34,6 +41,7 @@ In this example,
 - `AppFilter='WebAppOne'` will assign this specific app a unique instrumentation key.
 - `AppFilter='WebAppTwo'` will also assign this specific app a unique instrumentation key.
 - Lastly, `AppFilter` also uses the `'.*'` wildcard to match all other web apps not matched by the earlier rules and assigns a default instrumentation key.
+- Spaces added for readability only.
 
 ```powershell
 PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap 
@@ -43,7 +51,6 @@ PS C:\> Enable-ApplicationInsightsMonitoring -InstrumentationKeyMap
 	  @{MachineFilter='.*';AppFilter='.*';InstrumentationKey='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxdefault'})
 
 ```
-Spaces added for readability only.
 
 
 ## Parameters 
@@ -61,11 +68,11 @@ Spaces added for readability only.
 
 **Required**:
 - MachineFilter is a required c# regex of the computer or vm name.
-	- ".*" will match all
-	- "ComputerName" will match only computers with that exact name.
+	- '.*' will match all
+	- 'ComputerName' will match only computers with that exact name.
 - AppFilter is a required c# regex of the computer or vm name.
-	- ".*" will match all
-	- "ApplicationName" will match only IIS applications with that exact name.
+	- '.*' will match all
+	- 'ApplicationName' will match only IIS applications with that exact name.
 
 **Optional**: 
 - InstrumentationKey
@@ -75,6 +82,9 @@ Spaces added for readability only.
 
 ### -EnableInstrumentationEngine
 **Optional.** Use this switch to enable the Instrumentation Engine to collect events and messages of what is happening to during the execution of a managed process. Including but not limited to Dependency Result Codes, HTTP Verbs, and SQL Command Text. This adds additional overhead and is therefore off by default.
+
+### -AcceptLicense
+**Optional.** Use this switch to accept the license and privacy statement in headless installations.
 
 ### -Verbose
 **Common Parameter.** Use this switch to output detailed logs.
@@ -106,7 +116,7 @@ Registry: skipping non-existent 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Ser
 Registry: skipping non-existent 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WAS[Environment]
 Configuring registry for instrumentation engine...
 Successfully disabled Application Insights Status Monitor
-Installing GAC module 'C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\0.1.0\content\Runtime\Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.dll'
+Installing GAC module 'C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\0.2.0\content\Runtime\Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.dll'
 Applying transformation to 'C:\Windows\System32\inetsrv\config\applicationHost.config'
 Found GAC module Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.ManagedHttpModuleHelper, Microsoft.AppInsights.IIS.ManagedHttpModuleHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
 'C:\Windows\System32\inetsrv\config\applicationHost.config' backed up to 'C:\Windows\System32\inetsrv\config\applicationHost.config.backup-2019-03-26_08-59-52z_1'
@@ -118,8 +128,3 @@ Updating app pool permissions...
 Successfully enabled Application Insights Status Monitor
 ```
 
-
-## Notes
-
-### Instrumentation Key
-To get started you must have an instrumentation key. Read [here](https://docs.microsoft.com/azure/azure-monitor/app/create-new-resource#copy-the-instrumentation-key) for more information.

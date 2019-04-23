@@ -42,7 +42,7 @@ Manually download the latest version of the Module from: https://www.powershellg
 
 ### Unzip and Install IISConfigurator
 ```powershell
-$pathToNupkg = "C:\Users\t\Desktop\Microsoft.ApplicationInsights.IISConfigurator.POC.0.1.0-alpha.nupkg"
+$pathToNupkg = "C:\Users\t\Desktop\Microsoft.ApplicationInsights.IISConfigurator.POC.0.2.0-alpha.nupkg"
 $pathToZip = ([io.path]::ChangeExtension($pathToNupkg, "zip"))
 $pathToNupkg | rename-item -newname $pathToZip
 $pathInstalledModule = "$Env:ProgramFiles\WindowsPowerShell\Modules\microsoft.applicationinsights.iisconfigurator.poc"
