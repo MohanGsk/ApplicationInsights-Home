@@ -42,6 +42,23 @@ Sympomatic behavior can be seen using troubleshooting tools:
 	0x0000000004d20000  0xb2000   C:\Program Files\WindowsPowerShell\Modules\Microsoft.ApplicationInsights.IISConfigurator.POC\content\Instrumentation64\Microsoft.ApplicationInsights.Extensions.Base_x64.dll
 	```
 
+### Conflict with IIS Shared Configuration
+
+If you have a cluster of web servers, it's likely you setup a [Shared Configuration](https://docs.microsoft.com/en-us/iis/web-hosting/configuring-servers-in-the-windows-web-platform/shared-configuration_211). We cannot automatically inject our HttpModule into this shared config because it would break any web server that has not yet installed our DLL into it's GAC.
+
+After you run the Enable command, 
+- browse to your Shared Configuration directory and find your `applicationHost.config` file.
+- Add this line to your configuration:
+```
+<modules>
+    ...
+    <!-- Registed global managed http module handler. The 'Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.ManagedHttpModuleHelper.dll' must be installed in the GAC before this config is applied. -->
+    <add name="ManagedHttpModuleHelper" type="Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.ManagedHttpModuleHelper, Microsoft.AppInsights.IIS.ManagedHttpModuleHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" preCondition="managedHandler,runtimeVersionv4.0" />
+</modules>
+```
+	
+
+
 ## Troubleshooting
 	
 ### Troubleshooting PowerShell
