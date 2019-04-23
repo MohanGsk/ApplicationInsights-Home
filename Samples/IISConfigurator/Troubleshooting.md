@@ -49,13 +49,13 @@ If you have a cluster of web servers, it's likely you setup a [Shared Configurat
 After you run the Enable command, 
 - browse to your Shared Configuration directory and find your `applicationHost.config` file.
 - Add this line to your configuration:
-```
-<modules>
-    ...
-    <!-- Registed global managed http module handler. The 'Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.ManagedHttpModuleHelper.dll' must be installed in the GAC before this config is applied. -->
-    <add name="ManagedHttpModuleHelper" type="Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.ManagedHttpModuleHelper, Microsoft.AppInsights.IIS.ManagedHttpModuleHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" preCondition="managedHandler,runtimeVersionv4.0" />
-</modules>
-```
+	```
+	<modules>
+	    ...
+	    <!-- Registed global managed http module handler. The 'Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.ManagedHttpModuleHelper.dll' must be installed in the GAC before this config is applied. -->
+	    <add name="ManagedHttpModuleHelper" type="Microsoft.AppInsights.IIS.ManagedHttpModuleHelper.ManagedHttpModuleHelper, Microsoft.AppInsights.IIS.ManagedHttpModuleHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" preCondition="managedHandler,runtimeVersionv4.0" />
+	</modules>
+	```
 	
 
 
