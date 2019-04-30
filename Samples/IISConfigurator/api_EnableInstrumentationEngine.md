@@ -1,49 +1,18 @@
-# IISConfigurator.POC API Reference
-
-## Disclaimer
-This is a prototype application. 
-We do not recommend using this on your production environments.
-
-# Enable-InstrumentationEngine (v0.2.0-alpha)
-
-**IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions.
-
-**NOTE**: This cmdlet will require you to review and accept our license and privacy statement.
-
-## Description
-
-Enable the Instrumentation Engine. 
-This will set some registry keys.
-You will need to restart IIS for your changes to take effect.
-
-The Instrumentation Engine is used in addition to the .NET SDKs and will collect events and messages of what is happening to during the execution of a managed process. Including but not limited to Dependency Result Codes, HTTP Verbs, and SQL Command Text. 
-
-You should enable the Instrumentation Engine if..
-- You've already enabled monitoring using the IISConfigurator but didn't enable the InstrumentationEngine, this will execute that step.
-- You've manually instrumented your application with the .NET SDKs and want to collect additional telemetry.
-
-**NOTE:** The Instrumentation Engine adds additional overhead and is therefore off by default.
-
-## Examples
-
-```powershell
-PS C:\> Enable-InstrumentationEngine
-```
-
-## Parameters 
-
-### -AcceptLicense
-**Optional.** Use this switch to accept the license and privacy statement in headless installations.
-
-### -Verbose
-**Common Parameter.** Use this switch to output detailed logs.
-
-## Output
+# Application Insights codeless attach
 
 
-#### Example output from successfully enabling the instrumentation engine
+## The Replacement for Status Monitor
 
-```
-Configuring IIS Environment for instrumentation engine...
-Configuring registry for instrumentation engine...
-```
+### "IISConfigurator.POC"
+### "Application Monitor"
+### "Status Monitor v2"
+
+Please pardon our progress.
+
+As we transition to the replacement for Status Monitor, this product has gone through a few rebranding iterations.
+
+## Documentation has moved
+
+The documentation for **Status Monitor v2** has been moved to Microsoft Docs.
+
+https://docs.microsoft.com/azure/azure-monitor/app/status-monitor-v2-overview

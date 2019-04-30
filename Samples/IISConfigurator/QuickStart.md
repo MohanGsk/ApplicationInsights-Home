@@ -1,54 +1,18 @@
-# IISConfigurator.POC Quick Start Instructions
-
-## Disclaimer
-This is a prototype application. 
-We do not recommend using this on your production environments.
-
-Please review our [Troubleshooting](Troubleshooting.md) guide for an explanation of known issues.
-
-[Detailed instructions](DetailedInstructions.md) provide an explanation of these commands, instructions on how to customize, and how to troubleshoot.
-
-## Quick Start
-These are the quick start commands expected to work for most environments. These instructions depend on the PowerShell Gallery to distribute updates. These commands support the PowerShell `-Proxy` parameter.
+# Application Insights codeless attach
 
 
-### Install Prerequisites
-Run PowerShell as Administrator
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
-Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
-Install-Module -Name PowerShellGet -Force
-```	
-Exit PowerShell
+## The Replacement for Status Monitor
 
-### Install IISConfigurator
-Run PowerShell as Administrator
-```powershell	
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
-Install-Module -Name Microsoft.ApplicationInsights.IISConfigurator.POC -AllowPrerelease -AcceptLicense
-```	
+### "IISConfigurator.POC"
+### "Application Monitor"
+### "Status Monitor v2"
 
-### Enable Monitoring
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
-Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-```
-	
-		
-##  Quick Start (offline install)
-### Manual Download
-Manually download the latest version of the Module from: https://www.powershellgallery.com/packages/Microsoft.ApplicationInsights.IISConfigurator.POC 
+Please pardon our progress.
 
-### Unzip and Install IISConfigurator
-```powershell
-$pathToNupkg = "C:\Users\t\Desktop\Microsoft.ApplicationInsights.IISConfigurator.POC.0.2.0-alpha.nupkg"
-$pathToZip = ([io.path]::ChangeExtension($pathToNupkg, "zip"))
-$pathToNupkg | rename-item -newname $pathToZip
-$pathInstalledModule = "$Env:ProgramFiles\WindowsPowerShell\Modules\microsoft.applicationinsights.iisconfigurator.poc"
-Expand-Archive -LiteralPath $pathToZip -DestinationPath $pathInstalledModule
-```
-### Enable Monitoring
-```powershell
-Enable-ApplicationInsightsMonitoring -InstrumentationKey xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-```
+As we transition to the replacement for Status Monitor, this product has gone through a few rebranding iterations.
+
+## Documentation has moved
+
+The documentation for **Status Monitor v2** has been moved to Microsoft Docs.
+
+https://docs.microsoft.com/azure/azure-monitor/app/status-monitor-v2-overview

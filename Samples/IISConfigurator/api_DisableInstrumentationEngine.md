@@ -1,39 +1,18 @@
-# IISConfigurator.POC API Reference
-
-## Disclaimer
-This is a prototype application. 
-We do not recommend using this on your production environments.
-
-# Disable-InstrumentationEngine (v0.2.0-alpha)
-
-**IMPORTANT**: This cmdlet must be run in a PowerShell Session with Administrator permissions.
-
-## Description
-
-Disable the Instrumentation Engine.
-This will remove registry keys.
-You will need to restart IIS for your changes to take effect.
-
-## Examples
-
-```powershell
-PS C:\> Disable-InstrumentationEngine
-```
-
-## Parameters 
-
-### -Verbose
-**Common Parameter.** Use this switch to output detailed logs.
-
-## Output
+# Application Insights codeless attach
 
 
-#### Example output from successfully disabling the instrumentation engine
+## The Replacement for Status Monitor
 
-```
-Configuring IIS Environment for instrumentation engine...
-Registry: removing 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\IISADMIN[Environment]'
-Registry: removing 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W3SVC[Environment]'
-Registry: removing 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WAS[Environment]'
-Configuring registry for instrumentation engine...
-```
+### "IISConfigurator.POC"
+### "Application Monitor"
+### "Status Monitor v2"
+
+Please pardon our progress.
+
+As we transition to the replacement for Status Monitor, this product has gone through a few rebranding iterations.
+
+## Documentation has moved
+
+The documentation for **Status Monitor v2** has been moved to Microsoft Docs.
+
+https://docs.microsoft.com/azure/azure-monitor/app/status-monitor-v2-overview
