@@ -70,4 +70,8 @@ Timeout Reached. Stopping...
 
 ## Next steps
 
-TODO
+- Review additional troubleshooting steps here: https://docs.microsoft.com/azure/azure-monitor/app/status-monitor-v2-troubleshoot
+
+- Review our [API Reference](status-monitor-v2-overview.md#powershell-api-reference) to find a parameter you might have missed.
+
+- If you need additional help you may contact us [here](https://github.com/Microsoft/ApplicationInsights-Home/issues).
