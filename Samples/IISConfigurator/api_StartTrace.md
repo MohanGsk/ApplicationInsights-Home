@@ -12,7 +12,7 @@ This article describes a cmdlet that's a member of the [Az.ApplicationMonitor Po
 Collects [ETW Events](https://docs.microsoft.com/windows/desktop/etw/event-tracing-portal) from the codeless attach runtime. 
 This is an alternative to running [PerfView](https://github.com/microsoft/perfview).
 
-This cmdlet will run until it reaches the timeout duration (default 5 minutes) or is stopped manually (Ctrl + C).
+This cmdlet will run until it reaches the timeout duration (default 5 minutes) or is stopped manually (`Ctrl + C`).
 As long as this cmdlet is running it will collect events and print the current time every 5 seconds to indicate that it is still running.
 
 Collected events will be printed to the console in real-time and saved to an ETL file. The output ETL file can be opened by [PerfView](https://github.com/microsoft/perfview) for further investigation.
@@ -20,6 +20,21 @@ Collected events will be printed to the console in real-time and saved to an ETL
 
 > [!IMPORTANT] 
 > This cmdlet requires a PowerShell session with Admin permissions.
+
+## Examples
+
+### How to collect events
+
+Normally we would ask that you collect events to investigate why your application isn't being instrumented.
+
+The codeless attach runtime will emit ETW events when IIS starts up and when your application starts up.
+
+To collect these events:
+1. In a cmd console with admin privileges, execute `iisreset /stop` To turn off IIS and all web apps.
+2. Execute this cmdlet
+3. In a cmd console with admin privileges, execute `iisreset /start` To start IIS.
+4. Try to browse to your app.
+5. After your app finishes loading, you can wait for this cmdlet to timeout or manually stop it (`Ctrl + C`).
 
 ## Parameters
 
