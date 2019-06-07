@@ -12,11 +12,9 @@ This article describes a cmdlet that's a member of the [Az.ApplicationMonitor Po
 Collects [ETW Events](https://docs.microsoft.com/windows/desktop/etw/event-tracing-portal) from the codeless attach runtime. 
 This is an alternative to running [PerfView](https://github.com/microsoft/perfview).
 
-This cmdlet will run until it reaches the timeout duration (default 5 minutes) or is stopped manually (`Ctrl + C`).
-As long as this cmdlet is running it will collect events and print the current time every 5 seconds to indicate that it is still running.
-
 Collected events will be printed to the console in real-time and saved to an ETL file. The output ETL file can be opened by [PerfView](https://github.com/microsoft/perfview) for further investigation.
 
+This cmdlet will run until it reaches the timeout duration (default 5 minutes) or is stopped manually (`Ctrl + C`).
 
 > [!IMPORTANT] 
 > This cmdlet requires a PowerShell session with Admin permissions.
