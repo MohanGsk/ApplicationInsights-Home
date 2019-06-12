@@ -54,6 +54,16 @@ Vance Morrison's blog has several articles for getting started:
 
 For more information, see [Recording performance traces with PerfView.](https://github.com/dotnet/roslyn/wiki/Recording-performance-traces-with-PerfView)
 
+#### Example
+To collect logs run this command:
+```
+PerfView.exe collect /onlyProviders=*Microsoft-ApplicationInsights-* -MaxCollectSec:300
+```
+
+#### Recommended parameters
+- `MaxCollectSec` Set this parameter to prevent PerfView from running indefinitely and affecting the performance of your server.
+- `OnlyProviders` Set this paramater to only collect logs from the SDK. You can customize this list based on your specific investigations.
+
 ### Logman
 
 [Logman](https://docs.microsoft.com/windows-server/administration/windows-commands/logman) creates and manages Event Trace Session and Performance logs and supports many functions of Performance Monitor from the command line.
