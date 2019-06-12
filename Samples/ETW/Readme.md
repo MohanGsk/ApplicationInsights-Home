@@ -15,8 +15,9 @@ Vance Morrison's blog has several articles for getting started:
 ## Application Insights EventSources
 | Repo        	| Provider Name                                                               	| Provider Guid                                        	|
 |-------------	|-----------------------------------------------------------------------------	|------------------------------------------------------	|
-| Base SDK    	| Microsoft-ApplicationInsights-Core                                          	|                                                      	|
-|             	| Microsoft-ApplicationInsights-WindowsServer-TelemetryChannel                	|                                                      	|
+| Base SDK    	| Microsoft-ApplicationInsights-Core                                          	|74af9f20-af6a-5582-9382-f21f674fb271|
+| Base SDK    	| Microsoft-ApplicationInsights-Data                                          	|74af9f20-af6a-5582-9382-f21f674fb271|
+|             	| Microsoft-ApplicationInsights-WindowsServer-TelemetryChannel                	|a62adddb-6b4b-519d-7ba1-f983d81623e0|
 |             	|                                                                             	|                                                      	|
 | Web SDK     	| Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Dependency    	|                                                      	|
 |             	| Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Web           	|                                                      	|
