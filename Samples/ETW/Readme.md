@@ -13,31 +13,31 @@ Vance Morrison's blog has several articles for getting started:
 - https://blogs.msdn.microsoft.com/vancem/2012/07/09/introduction-tutorial-logging-etw-events-in-c-system-diagnostics-tracing-eventsource/
 
 ## Application Insights EventSources
-| Repo        	| Provider Name                                                               	| Provider Guid                                        	|
-|-------------	|-----------------------------------------------------------------------------	|------------------------------------------------------	|
-| Base SDK    	| Microsoft-ApplicationInsights-Core                                          	|74af9f20-af6a-5582-9382-f21f674fb271|
-| Base SDK    	| Microsoft-ApplicationInsights-Data                                          	|74af9f20-af6a-5582-9382-f21f674fb271|
-|             	| Microsoft-ApplicationInsights-WindowsServer-TelemetryChannel                	|a62adddb-6b4b-519d-7ba1-f983d81623e0|
-|             	|                                                                             	|                                                      	|
-| Web SDK     	| Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Dependency    	|                                                      	|
-|             	| Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Web           	|                                                      	|
-|             	| Microsoft-ApplicationInsights-Extensibility-DependencyCollector             	|                                                      	|
-|             	| Microsoft-ApplicationInsights-Extensibility-HostingStartup                  	|                                                      	|
-|             	| Microsoft-ApplicationInsights-Extensibility-PerformanceCollector            	|                                                      	|
-|             	| Microsoft-ApplicationInsights-Extensibility-PerformanceCollector-QuickPulse 	|                                                      	|
-|             	| Microsoft-ApplicationInsights-Extensibility-Web                             	|                                                      	|
-|             	| Microsoft-ApplicationInsights-Extensibility-WindowsServer                   	|                                                      	|
-|             	| Microsoft-ApplicationInsights-WindowsServer-Core                            	|                                                      	|
-|             	|                                                                             	|                                                      	|
-| Logging SDK 	| Microsoft-ApplicationInsights-Extensibility-EventSourceListener             	|                                                      	|
-|             	|                                                                             	|                                                      	|
-| Core SDK    	| Microsoft-ApplicationInsights-AspNetCore                                    	|                                                      	|
-|             	|                                                                             	|                                                      	|
-| Extensions  	| Microsoft-ApplicationInsights-FrameworkLightup                              	| 323adc25-e39b-5c87-8658-2c1af1a92dc5   <sup>*1</sup> 	|
-|             	| Microsoft-ApplicationInsights-IIS-ManagedHttpModuleHelper                   	| 61f6ca3b-4b5f-5602-fa60-759a2a2d1fbd   <sup>*1</sup> 	|
-|             	| Microsoft-ApplicationInsights-Redfield-Configurator                         	| 090fc833-b744-4805-a6dd-4cb0b840a11f   <sup>*1</sup> 	|
-|             	| Microsoft-ApplicationInsights-RedfieldIISModule                             	| 252e28f4-43f9-5771-197a-e8c7e750a984   <sup>*1</sup> 	|
-|             	| Microsoft-ApplicationInsights-Redfield-VmExtensionHandler                   	| 7014a441-75d7-444f-b1c6-4b2ec9b06f20   <sup>*1</sup> 	|
+| Repo       	| Provider Name                                                              	| Provider Guid |
+|------------	|----------------------------------------------------------------------------	|---------------|
+| Base SDK    | Microsoft-ApplicationInsights-Core                                         	|74af9f20-af6a-5582-9382-f21f674fb271|
+|             | Microsoft-ApplicationInsights-Data                                         	|74af9f20-af6a-5582-9382-f21f674fb271|
+|             | Microsoft-ApplicationInsights-WindowsServer-TelemetryChannel               	|a62adddb-6b4b-519d-7ba1-f983d81623e0|
+| | | |
+| Web SDK     | Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Dependency   	|   |
+|             | Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Web          	|   |
+|             | Microsoft-ApplicationInsights-Extensibility-DependencyCollector            	|   |
+|             | Microsoft-ApplicationInsights-Extensibility-HostingStartup                 	|   |
+|             | Microsoft-ApplicationInsights-Extensibility-PerformanceCollector           	|   |
+|             | Microsoft-ApplicationInsights-Extensibility-PerformanceCollector-QuickPulse	|   |
+|             | Microsoft-ApplicationInsights-Extensibility-Web                            	|   |
+|             | Microsoft-ApplicationInsights-Extensibility-WindowsServer                  	|   |
+|             | Microsoft-ApplicationInsights-WindowsServer-Core                           	|   |
+| | | |
+| Logging SDK | Microsoft-ApplicationInsights-Extensibility-EventSourceListener            	|   |
+| | | |
+| Core SDK    | Microsoft-ApplicationInsights-AspNetCore                                   	|   |
+| | | |
+| Extensions  | Microsoft-ApplicationInsights-FrameworkLightup                             	|323adc25-e39b-5c87-8658-2c1af1a92dc5   <sup>*1</sup>|
+|             | Microsoft-ApplicationInsights-IIS-ManagedHttpModuleHelper                  	|61f6ca3b-4b5f-5602-fa60-759a2a2d1fbd   <sup>*1</sup>|
+|             | Microsoft-ApplicationInsights-Redfield-Configurator                        	|090fc833-b744-4805-a6dd-4cb0b840a11f   <sup>*1</sup>|
+|             	| Microsoft-ApplicationInsights-RedfieldIISModule                          	|252e28f4-43f9-5771-197a-e8c7e750a984   <sup>*1</sup>|
+|             	| Microsoft-ApplicationInsights-Redfield-VmExtensionHandler                	|7014a441-75d7-444f-b1c6-4b2ec9b06f20   <sup>*1</sup>|
 
 
 
