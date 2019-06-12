@@ -55,7 +55,30 @@ For more information, see [Recording performance traces with PerfView.](https://
 
 ### Logman
 
-[Logman](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/logman)
+[Logman](https://docs.microsoft.com/windows-server/administration/windows-commands/logman) creates and manages Event Trace Session and Performance logs and supports many functions of Performance Monitor from the command line.
+
+#### Example
+To get started, create a txt of the providers you intend to collect (providers.txt):
+```
+{4c4280fb-382a-56be-9a13-fab0d03395f6}            0xFFFFFFFF         0x5
+{74af9f20-af6a-5582-9382-f21f674fb271}               0xFFFFFFFF         0x5
+{a62adddb-6b4b-519d-7ba1-f983d81623e0}         0xFFFFFFFF         0x5
+
+```
+The following commands will collect traces:
+```
+logman -start ai-channel -pf providers.txt -ets
+logman -stop ai-channel -ets
+```
+To inspect logs:
+```
+tracerpt ai-channel.etl -o ai-channel.etl.xml -of XML
+.\PerfView.exe ai-channel.etl
+```
+#### Recommended parameters
+- `-pf <filename>` File listing multiple Event Trace providers to enable.
+- `-rf <[[hh:]mm:]ss>` Run the data collector for the specified period of time.
+- `-ets` Send commands to Event Trace Sessions directly without saving or scheduling.
 
 ### FileDiagnosticsTelemetryModule
 
