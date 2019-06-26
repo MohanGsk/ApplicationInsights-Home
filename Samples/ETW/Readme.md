@@ -22,6 +22,7 @@ Vance Morrison's blog has several articles for getting started:
 | Web SDK     | Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Dependency   	|   |
 |             | Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Web          	|   |
 |             | Microsoft-ApplicationInsights-Extensibility-DependencyCollector            	|   |
+|             | Microsoft-ApplicationInsights-Extensibility-EventCounterCollector         	|   |
 |             | Microsoft-ApplicationInsights-Extensibility-HostingStartup                 	|   |
 |             | Microsoft-ApplicationInsights-Extensibility-PerformanceCollector           	|   |
 |             | Microsoft-ApplicationInsights-Extensibility-PerformanceCollector-QuickPulse	|   |
