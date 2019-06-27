@@ -1,4 +1,4 @@
-# Status Monitor v2 API: Start-ApplicationInsightsMonitoringTrace (v0.3.0-alpha)
+# Status Monitor v2 API: Start-ApplicationInsightsMonitoringTrace (v0.3.1-alpha)
 
 This article describes a cmdlet that's a member of the [Az.ApplicationMonitor PowerShell module](https://www.powershellgallery.com/packages/Az.ApplicationMonitor/).
 
@@ -34,6 +34,15 @@ To collect these events:
 4. Try to browse to your app.
 5. After your app finishes loading, you can wait for this cmdlet to timeout or manually stop it (`Ctrl + C`).
 
+### What logs to collect
+
+You have three options when collecting events:
+1. Use the switch `-CollectSdkEvents` to collect events emitted from the Application Insights SDK.
+2. Use the switch `-CollectRedfieldEvents` to collect events emitted by Status Monitor and the Redfield Runtime. This is useful for diagnosing IIS and application startup.
+3. Use both switches to collect both event types.
+4. By default, if no switch is specified both event types will be collected.
+
+
 ## Parameters
 
 ### -MaxDurationInMinutes
@@ -44,8 +53,17 @@ To collect these events:
 By default, this will be created in the PowerShell Modules directory. 
 The full path will be displayed during script execution.
 
+
+### -CollectSdkEvents
+**Optional.** Use this switch to collect Application Insights SDK events.
+
+### -CollectRedfieldEvents
+**Optional.** Use this switch to collect events from Status Monitor and the Redfield runtime.
+
 ### -Verbose
 **Common parameter.** Use this switch to output detailed logs.
+
+
 
 ## Output
 
