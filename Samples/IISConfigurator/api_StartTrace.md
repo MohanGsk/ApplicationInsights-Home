@@ -68,9 +68,7 @@ The full path will be displayed during script execution.
 ## Output
 
 
-#### Example output
-
-This is an example of capturing the logs of an application starting up:
+#### Example of application startup logs
 ```
 PS C:\Windows\system32> Start-ApplicationInsightsMonitoringTrace -ColectRedfieldEvents
 Starting...
