@@ -93,12 +93,14 @@ tracerpt ai-channel.etl -o ai-channel.etl.xml -of XML
 
 ### FileDiagnosticsTelemetryModule
 
-https://docs.microsoft.com/azure/azure-monitor/app/asp-net-troubleshoot-no-data#net-framework
+For more information, see: https://docs.microsoft.com/azure/azure-monitor/app/asp-net-troubleshoot-no-data#net-framework
 
 ### StatusMonitor v2
 
 StatusMonitor v2 is a PowerShell module that enables codeless attach of .NET web applications.
-SMv2 will ship with a cmdlet to capture ETW events. (DOCUMENTATION PENDING)
+SMv2 will ship with a cmdlet to capture ETW events.
+
+For more information, see: https://docs.microsoft.com/en-us/azure/azure-monitor/app/status-monitor-v2-api-start-trace
 
 StatusMonitor uses TraceEventSession to record ETW logs.
 - https://github.com/microsoft/perfview/blob/master/documentation/TraceEvent/TraceEventProgrammersGuide.md
