@@ -4,7 +4,8 @@ param(
     [parameter(Mandatory = $true)][string]$apiKey,
     [parameter(Mandatory = $true)][string]$releaseName,
     [parameter(Mandatory = $false)]$releaseProperties,
-    [parameter(Mandatory = $false)][DateTime]$eventDateTime
+    [parameter(Mandatory = $false)][DateTime]$eventDateTime,
+    [parameter(Mandatory = $false)][ValidateSet('AzureCloud','AzureChinaCloud','AzureUSGovernment')][string]$environment
 )
 
 # background info on how fwlink works: After you submit a web request, many sites redirect through a series of intermediate pages before you finally land on the destination page.
@@ -122,8 +123,16 @@ $headers.Add("X-AIAPIKEY", $apiKey)
 set-variable -Name createAnnotationResult1 -Force -Scope Local -Value $null
 set-variable -Name createAnnotationResultDescription -Force -Scope Local -Value ""
 
+if ([String]::IsNullOrEmpty($environment) -Or $environment.ToLower() -eq "azurecloud") {
+    $url = "http://go.microsoft.com/fwlink/?prd=11901&pver=1.0&sbp=Application%20Insights&plcid=0x409&clcid=0x409&ar=Annotations&sar=Create%20Annotation"
+} elseif ($environment.ToLower() -eq "azurechinacloud") {
+    $url = "http://go.microsoft.com/fwlink/?prd=11901&pver=1.0&sbp=Application%20Insights&plcid=0x409&clcid=0x409&ar=Annotations&sar=Create%20Annotation%20China"
+} elseif ($environment.ToLower() -eq "azureusgovernment") {
+    $url = "http://go.microsoft.com/fwlink/?prd=11901&pver=1.0&sbp=Application%20Insights&plcid=0x409&clcid=0x409&ar=Annotations&sar=Create%20Annotation%20USGov"
+} 
+
 # get redirect link from fwlink
-$requestUrl = GetRequestUrlFromFwLink("http://go.microsoft.com/fwlink/?prd=11901&pver=1.0&sbp=Application%20Insights&plcid=0x409&clcid=0x409&ar=Annotations&sar=Create%20Annotation")
+$requestUrl = GetRequestUrlFromFwLink($url)
 if ($requestUrl -eq $null) {
     $output = "Failed to find the redirect link to create a release annotation"
     throw $output
