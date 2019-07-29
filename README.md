@@ -9,7 +9,7 @@ For SDK and service announcements - subscribe to [ApplicationInsights-Announceme
 SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-Home/wiki/SDK-Release-Schedule)
 
 
-## Officially Supported SDKs
+## Supported SDKs
 
 * [Asp.Net Core (formerly Asp.Net 5)](https://github.com/Microsoft/ApplicationInsights-aspnetcore)
 * [DotNet Base](https://github.com/Microsoft/ApplicationInsights-dotnet)
@@ -19,14 +19,8 @@ SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-
 * [Java](https://github.com/Microsoft/ApplicationInsights-Java)
 * [Node.js](https://github.com/Microsoft/ApplicationInsights-node.js)
 
-## Community Supported SDKs. These SDKs are not recommended for production applications.
-
-* [Go](https://github.com/Microsoft/ApplicationInsights-Go)
-* [PHP](https://github.com/Microsoft/ApplicationInsights-PHP)
-* [Python](https://github.com/Microsoft/ApplicationInsights-Python)
-* [Ruby](https://github.com/Microsoft/ApplicationInsights-Ruby)
-* [StatsD](https://github.com/Microsoft/ApplicationInsights-statsd)
-* WordPress on [GitHub](https://github.com/Microsoft/ApplicationInsights-WordPress) and Release Version on [Wordpress.org](https://wordpress.org/plugins/application-insights/)
+## Unsupported SDKs
+We're aware that several other community-supported SDKs exist, and we've even contributed to some of them. However, Azure Monitor only provides support when using the supported SDKs listed on this page. We’re constantly assessing opportunities to expand our support for other languages, so follow our [GitHub Announcements](https://github.com/microsoft/ApplicationInsights-Announcements/issues) page to receive the latest SDK news.
 
 ## Deprecated Repositories (please use [App Center SDK](https://docs.microsoft.com/appcenter/sdk/))
 
