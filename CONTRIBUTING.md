@@ -8,12 +8,13 @@ Please start a discussion on the [Home repo issue tracker](https://github.com/Mi
 ## Bugs and SDK feature requests
 Please log a new issue in the appropriate GitHub repo.
 
-* [Python](https://github.com/Microsoft/AppInsights-Python/issues)
-* [Node.js](https://github.com/Microsoft/AppInsights-node.js/issues)
-* [Web JS](https://github.com/Microsoft/ApplicationInsights-JS/issues)
-* [PHP](https://github.com/Microsoft/AppInsights-PHP/issues)
-* [Ruby](https://github.com/Microsoft/AppInsights-Ruby/issues)
-* [WordPress](https://github.com/Microsoft/AppInsights-WordPress/issues)
+* [Asp.Net Core (formerly Asp.Net 5)](https://github.com/Microsoft/ApplicationInsights-aspnetcore)
+* [DotNet Base](https://github.com/Microsoft/ApplicationInsights-dotnet)
+* [DotNet Logging Adaptors](https://github.com/Microsoft/ApplicationInsights-dotnet-logging)
+* [DotNet Server](https://github.com/Microsoft/ApplicationInsights-server-dotnet)
+* [JavaScript](https://github.com/Microsoft/ApplicationInsights-js)
+* [Java](https://github.com/Microsoft/ApplicationInsights-Java)
+* [Node.js](https://github.com/Microsoft/ApplicationInsights-node.js)
 
 ## Specifications
 Please read our specifications on the endpoint request-response protocol and SDK authoring before contributing to a client SDK.
