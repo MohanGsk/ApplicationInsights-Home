@@ -27,13 +27,13 @@ namespace ConsoleAppWithApplicationInsights
 
             // Being a regular console app, there is no appsettings.json or configuration providers enabled by default.
             // Hence instrumentation key must be specified here.
-            services.AddApplicationInsightsTelemetryWorkerService("instrumentationkeyhere");
+            services.AddApplicationInsightsTelemetryWorkerService("0eb18de0-7268-473c-ae06-c87ca480d2d2");
 
             // Add custom TelemetryProcessor
             services.AddApplicationInsightsTelemetryProcessor<MyCustomTelemetryProcessor>();
 
             // Example on Configuring TelemetryModules.
-            services.ConfigureTelemetryModule<QuickPulseTelemetryModule>((mod, opt) => mod.AuthenticationApiKey = "putactualauthenticationkey");
+            services.ConfigureTelemetryModule<QuickPulseTelemetryModule>((module, opt) => module.AuthenticationApiKey = "putactualauthenticationkey");
 
             // Build ServiceProvider.
             IServiceProvider serviceProvider = services.BuildServiceProvider();
@@ -52,7 +52,7 @@ namespace ConsoleAppWithApplicationInsights
             // Explicitly call Flush() followed by sleep is required in Console Apps.
             // This is to ensure that even if application terminates, telemetry is sent to the back-end.
             telemetryClient.Flush();
-            Task.Delay(5000).Wait();
+            Task.Delay(500000).Wait();
         }
     }
 
