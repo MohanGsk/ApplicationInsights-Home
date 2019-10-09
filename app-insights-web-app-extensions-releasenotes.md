@@ -18,8 +18,14 @@ Release notes for private extension can be found [here](https://www.nuget.org/pa
 
 ## Release Notes
 
+### 2.8.23
+- Added aspnetcore 3.0 codeless monitoring support.
+- Updated Asp.Net Core SDK to [2.8.0](https://github.com/microsoft/ApplicationInsights-aspnetcore/releases/tag/2.8.0) for runtimes 2.1, 2.2 and 3.0. Apps targetting .Net Core 2.0 will continue to use 2.1.1 of the SDK.
+- Java and NodeJS codeless monitoring on App Services windows private preview bits.
+
+
 ### 2.8.14
-- Update Asp.Net  Core SDK version from 2.3.0 to the latest (2.6.1) for Apps targetting .Net Core 2.1, 2.2. Apps targetting .Net Core 2.0 will continue to use 2.1.1 of the SDK.
+- Update Asp.Net Core SDK version from 2.3.0 to the latest (2.6.1) for Apps targetting .Net Core 2.1, 2.2. Apps targetting .Net Core 2.0 will continue to use 2.1.1 of the SDK.
 
 ### 2.8.12
 
