@@ -18,11 +18,20 @@ Release notes for private extension can be found [here](https://www.nuget.org/pa
 
 ## Release Notes
 
+### 2.8.26
+- aspnetcore agent: Fixed issue related to updated Application Insights SDK - the agent will not try to load `AiHostingStartup` if the ApplicationInsights.dll is already present in bin folder. This resolves issues related to reflection via Assembly\<AiHostingStartup\>.GetTypes().
+- Known issues: exception `System.IO.FileLoadException: Could not load file or assembly 'System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'` could be thrown if another verison of `DiagnosticSource` dll is loaded. This could happen for example if `System.Diagnostics.DiagnosticSource.dll` is present in the publish folder. As mitigation, use previous version of extension by setting app settings in app services: ApplicationInsightsAgent_EXTENSIONVERSION=2.8.24. Application Insights team is investigating if this scenario can be supported with future versions of ApplicationInsights SDK and agent.
+
+### 2.8.24
+- repackaged version of 2.8.21
+
 ### 2.8.23
 - Added aspnetcore 3.0 codeless monitoring support.
 - Updated Asp.Net Core SDK to [2.8.0](https://github.com/microsoft/ApplicationInsights-aspnetcore/releases/tag/2.8.0) for runtimes 2.1, 2.2 and 3.0. Apps targetting .Net Core 2.0 will continue to use 2.1.1 of the SDK.
 - Java and NodeJS codeless monitoring on App Services windows private preview bits.
 
+### 2.8.21
+- private preview for Java and nodeJS APM agents for AppSvcs Windows.
 
 ### 2.8.14
 - Update Asp.Net Core SDK version from 2.3.0 to the latest (2.6.1) for Apps targetting .Net Core 2.1, 2.2. Apps targetting .Net Core 2.0 will continue to use 2.1.1 of the SDK.
