@@ -67,6 +67,7 @@ Define your own SDK name and send PR to update the list below. Please do not re-
 | dsl | DiagnosticSource listener (Microsoft.ApplicationInsights.DiagnosticSourceListener) | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-logging) [nuget](https://www.nuget.org/packages/Microsoft.ApplicationInsights.DiagnosticSourceListener)
 | etw | ETW listener (Microsoft.ApplicationInsights.EtwCollector) | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-logging) [nuget](https://www.nuget.org/packages/Microsoft.ApplicationInsights.EtwCollector)
 | evl | EventSource listener (Microsoft.ApplicationInsights.EventSourceListener) | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-logging) [nuget](https://www.nuget.org/packages/Microsoft.ApplicationInsights.EventSourceSourceListener)
+| evtc | EventCounter collector | [github](https://github.com/microsoft/ApplicationInsights-dotnet/tree/develop/WEB/Src/EventCounterCollector)
 | exstat | Experimental exceptions statistics feature | [github](https://github.com/Microsoft/ApplicationInsights-dotnet-server/blob/eb884b81c568b1054f9b7168ea4b0ec61f9e3506/Src/WindowsServer/WindowsServer.Net45/FirstChanceExceptionStatisticsTelemetryModule.cs#L102)
 | go-oc | Opencensus for Go | [github](https://github.com/census-instrumentation/opencensus-go)
 | hbnet | Heartbeat telemetry sent in intervals reported this metric item for the dotnet SDK | [github](https://github.com/Microsoft/ApplicationInsights-dotnet/releases)
