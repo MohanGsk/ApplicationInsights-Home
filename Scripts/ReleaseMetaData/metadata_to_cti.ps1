@@ -24,24 +24,40 @@ Write-Verbose "MetaDataPath: $metadataPath"
 [xml]$metaData = Get-Content $metadataPath
 
 # build email
+# $sb = [System.Text.StringBuilder]::new();
+# [void]$sb.AppendFormat("CTI Test of {0} {1}", "_NAME_", $metaData.MetaData.ReleaseName);
+# [void]$sb.AppendLine("<br/>");
+# [void]$sb.AppendLine("<br/>Requesting a CTI Test of the following SDKs:");
+# [void]$sb.AppendLine("<br/>");
+# [void]$sb.AppendLine("<br/><ul>");
+# foreach( $package in $metaData.MetaData.Packages.Package) {
+#     [void]$sb.AppendLine([string]::Format("<li>{0} {1}</li>", $package.Name, $package.MyGetUri));
+# }
+# [void]$sb.AppendLine("</ul><br/>");
+# [void]$sb.AppendLine("<br/>");
+# [void]$sb.AppendFormat("<br/>If there are any issues, please reach out to {0}", "_NAME_");
+# $emailBody = $sb.ToString()
+
+# Write-Output $emailBody
+
+# Send-CtiEmail $emailBody
+
+
+
+
+# build email text
 $sb = [System.Text.StringBuilder]::new();
 [void]$sb.AppendFormat("CTI Test of {0} {1}", "_NAME_", $metaData.MetaData.ReleaseName);
-[void]$sb.AppendLine("<br/>");
-[void]$sb.AppendLine("<br/>Requesting a CTI Test of the following SDKs:");
-[void]$sb.AppendLine("<br/>");
-[void]$sb.AppendLine("<br/><ul>");
+[void]$sb.AppendLine("");
+[void]$sb.AppendLine("Requesting a CTI Test of the following SDKs:");
+[void]$sb.AppendLine("");
+[void]$sb.AppendLine("");
 foreach( $package in $metaData.MetaData.Packages.Package) {
-    [void]$sb.AppendLine([string]::Format("<li>{0} {1}</li>", $package.Name, $package.MyGetUri));
+    [void]$sb.AppendLine([string]::Format("{0} {1}", $package.Name, $package.MyGetUri));
 }
-[void]$sb.AppendLine("</ul><br/>");
-[void]$sb.AppendLine("<br/>");
-[void]$sb.AppendFormat("<br/>If there are any issues, please reach out to {0}", "_NAME_");
+[void]$sb.AppendLine("");
+[void]$sb.AppendLine("");
+[void]$sb.AppendFormat("If there are any issues, please reach out to {0}", "_NAME_");
 $emailBody = $sb.ToString()
 
-
 Write-Output $emailBody
-
-
-Write-Host "##vso[task.setvariable variable=emailBody]$emailBody"
-
-#Send-CtiEmail $emailBody
