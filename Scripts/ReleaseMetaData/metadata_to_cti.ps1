@@ -25,7 +25,7 @@ Write-Verbose "MetaDataPath: $metadataPath"
 
 # build email
 # $sb = [System.Text.StringBuilder]::new();
-# [void]$sb.AppendFormat("CTI Test of {0} {1}", "_NAME_", $metaData.MetaData.ReleaseName);
+# [void]$sb.AppendFormat("CTI Test of {0} {1}", "Application Insights SDKs", $metaData.MetaData.ReleaseName);
 # [void]$sb.AppendLine("<br/>");
 # [void]$sb.AppendLine("<br/>Requesting a CTI Test of the following SDKs:");
 # [void]$sb.AppendLine("<br/>");
@@ -47,7 +47,7 @@ Write-Verbose "MetaDataPath: $metadataPath"
 
 # build email text
 $sb = [System.Text.StringBuilder]::new();
-[void]$sb.AppendFormat("CTI Test of {0} {1}", "_NAME_", $metaData.MetaData.ReleaseName);
+[void]$sb.AppendFormat("CTI Test of {0} {1}", "Application Insights SDKs", $metaData.MetaData.ReleaseName);
 [void]$sb.AppendLine("");
 [void]$sb.AppendLine("Requesting a CTI Test of the following SDKs:");
 [void]$sb.AppendLine("");
