@@ -42,4 +42,6 @@ $emailBody = $sb.ToString()
 Write-Output $emailBody
 
 
+Write-Host "##vso[task.setvariable variable=emailBody]$emailBody"
+
 #Send-CtiEmail $emailBody
