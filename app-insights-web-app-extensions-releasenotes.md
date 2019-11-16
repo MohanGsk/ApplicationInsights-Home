@@ -14,9 +14,13 @@ Please navigate to: https://websitename.scm.azurewebsites.net/applicationinsight
 extension.
 
 *What if I am using private extensions*?
-Release notes for private extension can be found [here](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Azurewebsites)
+
+Please uninstall private site extension since it is no longer supported.
 
 ## Release Notes
+
+### 2.8.31
+- asnetcore agent: Fixed issue related to updated Application Insigths SDK's one of the references (see known issues for 2.8.26). If `System.Diagnostics.DiagnosticSource.dll` of incorrect version is already loaded by runtime, the codeless now will not crash the application and will simply back-off. For customers who was affected by that issue it is advised to remove the `System.Diagnostics.DiagnosticSource.dll` from their bin folder OR use older version of the extension by setting "ApplicationInsightsAgent_EXTENSIONVERSION=2.8.24", otherwise - the application monitoring will not be enabled.
 
 ### 2.8.26
 - aspnetcore agent: Fixed issue related to updated Application Insights SDK - the agent will not try to load `AiHostingStartup` if the ApplicationInsights.dll is already present in bin folder. This resolves issues related to reflection via Assembly\<AiHostingStartup\>.GetTypes().
