@@ -2,8 +2,8 @@
 
 ## TODO: Description
 
-one place for proxy configurations
-Government clouds.
+- one place for proxy configurations
+- Government clouds.
 
 
 ## TODO: Schema
