@@ -11,6 +11,11 @@
 
 ## TODO: Schema
 
+### Max Length
+
+The connection has a maximum supported length of 4096 characters.
+
+
 ### Key-Value pairs
 
 Connection string consists of a list of settings represented as key-value pairs separated by semicolon:
