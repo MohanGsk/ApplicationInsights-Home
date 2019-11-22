@@ -2,7 +2,7 @@
 
 ## TODO: Description
 
-- one place for proxy configurations
+- one place for proxy configurations https://docs.microsoft.com/en-us/azure/azure-monitor/app/troubleshoot-faq#can-i-monitor-an-intranet-web-server
 - Government clouds.
 ## Environment variables
 
