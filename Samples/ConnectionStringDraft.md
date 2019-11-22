@@ -2,11 +2,28 @@
 
 ## TODO: Description
 
-- one place for proxy configurations https://docs.microsoft.com/en-us/azure/azure-monitor/app/troubleshoot-faq#can-i-monitor-an-intranet-web-server
+- one setting for proxy configurations https://docs.microsoft.com/en-us/azure/azure-monitor/app/troubleshoot-faq#can-i-monitor-an-intranet-web-server
 - Government clouds. https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-services-monitoringandmanagement#net-with-applicationinsightsconfig
 
 
-## Environment variables
+## How to set a connection string
+
+Connection Strings are supported in the following SDK versions:\
+- .NET and .NET Core v2.12.0
+- Java v2.5.1
+- Javascript v2.3.0
+- NodeJS v1.5.0
+- Python v1.0.0
+
+A connection string can be set by either in code, environment variable, CLI (Java), or Configuration File.
+
+We do not recommend setting both Connection String and Instrumentation key. In the event that a user does set both, whichever was set last will take precidence. 
+
+
+### TODO: NEED example config for each SDK (Net, Java, Javascript, Node, Python).
+
+
+### Environment variables
 
 - Instrumentation Key: `APPINSIGHTS_INSTRUMENTATIONKEY`
 - Connection String: `APPLICATIONINSIGHTS_CONNECTION_STRING`
@@ -28,11 +45,13 @@ Connection string consists of a list of settings represented as key-value pairs 
 - `InstrumentationKey` (ex: 00000000-0000-0000-0000-000000000000)
 - `Authorization` (ex: ikey) (This setting is optional because today we only support ikey authorization.)
 - `EndpointSuffix` (ex: applicationinsights.azure.cn)
-- Explicit Endpoints
-   - `IngestionEndpoint` (ex: https://dc.applicationinsights.azure.cn)
-   - `LiveEndpoint` (ex: https://live.applicationinsights.azure.cn)
-   - `ProfilerEndpoint` (ex: https://profiler.applicationinsights.azure.cn)
-   - `SnapshotEndpoint` (ex: https://snapshot.applicationinsights.azure.cn)
+   Setting the endpoint suffix will instruct the SDK which Azure cloud to connect to. The SDK will assemble the rest of the endpoint for individual services.
+- Explicit Endpoints.
+  Any service can be explicitly overridden in the connection string.
+   - `IngestionEndpoint` (ex: https://dc.applicationinsights.azure.com)
+   - `LiveEndpoint` (ex: https://live.applicationinsights.azure.com)
+   - `ProfilerEndpoint` (ex: https://profiler.applicationinsights.azure.com)
+   - `SnapshotEndpoint` (ex: https://snapshot.applicationinsights.azure.com)
 
 
 ### Endpoint Schema
