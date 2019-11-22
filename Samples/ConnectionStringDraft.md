@@ -3,7 +3,9 @@
 ## TODO: Description
 
 - one place for proxy configurations https://docs.microsoft.com/en-us/azure/azure-monitor/app/troubleshoot-faq#can-i-monitor-an-intranet-web-server
-- Government clouds.
+- Government clouds. https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-services-monitoringandmanagement#net-with-applicationinsightsconfig
+
+
 ## Environment variables
 
 - Instrumentation Key: `APPINSIGHTS_INSTRUMENTATIONKEY`
