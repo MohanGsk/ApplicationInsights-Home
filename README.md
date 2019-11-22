@@ -11,10 +11,7 @@ SDK release schedule is [here](https://github.com/Microsoft/ApplicationInsights-
 
 ## Supported SDKs
 
-* [Asp.Net Core (formerly Asp.Net 5)](https://github.com/Microsoft/ApplicationInsights-aspnetcore)
-* [DotNet Base](https://github.com/Microsoft/ApplicationInsights-dotnet)
-* [DotNet Logging Adaptors](https://github.com/Microsoft/ApplicationInsights-dotnet-logging)
-* [DotNet Server](https://github.com/Microsoft/ApplicationInsights-server-dotnet)
+* [.NET](https://github.com/Microsoft/ApplicationInsights-dotnet)
 * [JavaScript](https://github.com/Microsoft/ApplicationInsights-js)
 * [Java](https://github.com/Microsoft/ApplicationInsights-Java)
 * [Node.js](https://github.com/Microsoft/ApplicationInsights-node.js)
@@ -32,4 +29,4 @@ We're aware that several other community-supported SDKs exist. However, Azure Mo
 
 ## Queries
 
-* [Recent issues and pull requests from all AppInsights repositories](https://github.com/issues?utf8=%E2%9C%93&q=repo%3AMicrosoft%2FApplicationInsights-dotnet-logging+repo%3AMicrosoft%2FApplicationInsights-JS+repo%3AMicrosoft%2FApplicationInsights-aspnetcore+repo%3AMicrosoft%2FApplicationInsights-DotNet-Server+repo%3AMicrosoft%2FApplicationInsights-DotNet+repo%3AMicrosoft%2FApplicationInsights-Home+repo%3AMicrosoft%2FApplicationInsights-node.js+repo%3AMicrosoft%2FApplicationInsights-Java+repo%3AMicrosoft%2FApplicationInsights-Java+repo%3AMicrosoft%2FApplicationInsights-Android+repo%3AMicrosoft%2FApplicationInsights-cpp+repo%3AMicrosoft%2FApplicationInsights-dotnet-logging+repo%3AMicrosoft%2FApplicationInsights-dotnet-server+repo%3AMicrosoft%2FApplicationInsights-go+repo%3AMicrosoft%2FApplicationInsights-ios+repo%3AMicrosoft%2FApplicationInsights-js+repo%3AMicrosoft%2FApplicationInsights-java+repo%3AMicrosoft%2FApplicationInsights-node.js+repo%3AMicrosoft%2FApplicationInsights-osx+repo%3AMicrosoft%2FApplicationInsights-php+repo%3AMicrosoft%2FApplicationInsights-python+repo%3AMicrosoft%2FApplicationInsights-ruby+repo%3AMicrosoft%2FApplicationInsights-statsd+repo%3AMicrosoft%2FApplicationInsights-wordpress+repo%3AMicrosoft%2FApplicationInsights-xamarin+is%3Aopen+)
+* [Recent issues and pull requests from all ApplicationInsights repositories](https://github.com/issues?utf8=%E2%9C%93&q=repo%3AMicrosoft%2FApplicationInsights-Home+repo%3AMicrosoft%2FApplicationInsights-DotNet+repo%3AMicrosoft%2FApplicationInsights-js+repo%3AMicrosoft%2FApplicationInsights-Java+repo%3AMicrosoft%2FApplicationInsights-node.js+is%3Aopen+)
