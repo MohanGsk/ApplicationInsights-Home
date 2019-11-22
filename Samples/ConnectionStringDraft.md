@@ -4,7 +4,10 @@
 
 - one place for proxy configurations
 - Government clouds.
+## Environment variables
 
+- Instrumentation Key: `APPINSIGHTS_INSTRUMENTATIONKEY`
+- Connection String: `APPLICATIONINSIGHTS_CONNECTION_STRING`
 
 ## TODO: Schema
 
