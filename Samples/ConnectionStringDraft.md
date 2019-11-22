@@ -26,7 +26,7 @@ Connection string consists of a list of settings represented as key-value pairs 
 ### Connection String Syntax
 
 - `InstrumentationKey` (ex: 00000000-0000-0000-0000-000000000000)
-- `Authorization` (ex: ikey)
+- `Authorization` (ex: ikey) (This setting is optional because today we only support ikey authorization.)
 - `EndpointSuffix` (ex: applicationinsights.azure.cn)
 - Explicit Endpoints
    - `IngestionEndpoint` (ex: https://dc.applicationinsights.azure.cn)
