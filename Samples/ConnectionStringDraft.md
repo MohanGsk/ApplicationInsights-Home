@@ -61,6 +61,17 @@ Connection string consists of a list of settings represented as key-value pairs 
 - Prefix: Defines a service. (ex: dc, live, profiler, snapshot)
 - Suffix: Defines the common domain name. (ex: applicationinsights.azure.cn)
 
+#### TODO: Valid Suffixes
+
+#### TODO: VALID Prefixes
+
+- Telemetry Ingestion: `dc`
+- Live Metrics: `live`
+- Profiler: `profiler`
+- Snapshot: `snapshot`
+
+**TODO: Include links to each individual product for reference**
+
 
 ## TODO: Examples
 
