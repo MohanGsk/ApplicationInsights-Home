@@ -84,6 +84,7 @@ Connection string consists of a list of settings represented as key-value pairs 
 ### Connection string with endpoint suffix and explicit endpoint override 
 
 This connection string uses endpoint suffix with one explicit endpoint override. It also specifies location which will be used to routing to regional endpoints (except for the explicit override) 
+
 `InstrumentationKey=00000000-0000-0000-0000-000000000000;EndpointSuffix=ai.contoso.com;ProfilerEndpoint=https://custom.profiler.contoso.com:444/;`
 In this example: 
 - Authorization scheme defaults to “ikey” 
