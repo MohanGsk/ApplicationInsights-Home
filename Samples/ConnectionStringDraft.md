@@ -15,7 +15,7 @@ Connection Strings are supported in the following SDK versions:\
 - NodeJS v1.5.0
 - Python v1.0.0
 
-A connection string can be set by either in code, environment variable, CLI (Java), or Configuration File.
+A connection string can be set by either in code, environment variable, CLI (Java only), or Configuration File.
 
 We do not recommend setting both Connection String and Instrumentation key. In the event that a user does set both, whichever was set last will take precidence. 
 
