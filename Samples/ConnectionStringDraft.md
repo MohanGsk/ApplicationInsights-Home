@@ -22,6 +22,12 @@ We do not recommend setting both Connection String and Instrumentation key. In t
 
 ### TODO: NEED example config for each SDK (Net, Java, Javascript, Node, Python).
 
+### .Net Example
+
+TelemetryConfiguration.ConnectionString: https://github.com/microsoft/ApplicationInsights-dotnet/blob/add45ceed35a817dc7202ec07d3df1672d1f610d/BASE/src/Microsoft.ApplicationInsights/Extensibility/TelemetryConfiguration.cs#L271-L274
+
+
+
 
 ### Environment variables
 
