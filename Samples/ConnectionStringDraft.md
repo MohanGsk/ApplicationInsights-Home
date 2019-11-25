@@ -20,6 +20,13 @@ A connection string can be set by either in code, environment variable, CLI (Jav
 We do not recommend setting both Connection String and Instrumentation key. In the event that a user does set both, whichever was set last will take precidence. 
 
 
+
+### Environment variables
+
+- Instrumentation Key: `APPINSIGHTS_INSTRUMENTATIONKEY`
+- Connection String: `APPLICATIONINSIGHTS_CONNECTION_STRING`
+
+
 ### TODO: NEED example config for each SDK (Net, Java, Javascript, Node, Python).
 
 ### .Net Example
@@ -27,12 +34,6 @@ We do not recommend setting both Connection String and Instrumentation key. In t
 TelemetryConfiguration.ConnectionString: https://github.com/microsoft/ApplicationInsights-dotnet/blob/add45ceed35a817dc7202ec07d3df1672d1f610d/BASE/src/Microsoft.ApplicationInsights/Extensibility/TelemetryConfiguration.cs#L271-L274
 
 
-
-
-### Environment variables
-
-- Instrumentation Key: `APPINSIGHTS_INSTRUMENTATIONKEY`
-- Connection String: `APPLICATIONINSIGHTS_CONNECTION_STRING`
 
 ## TODO: Schema
 
