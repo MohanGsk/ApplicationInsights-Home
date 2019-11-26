@@ -44,6 +44,8 @@ Connection string consists of a list of settings represented as key-value pairs 
 
 #### TODO: Valid Suffixes
 
+**TODO**
+
 #### VALID Prefixes
 
 **TODO: Include links to each individual product for reference**
@@ -156,7 +158,11 @@ appInsights.trackPageView();
 
 ### Node SDK Example
 
-**TODO**
+```
+const appInsights = require("applicationinsights");
+appInsights.setup("InstrumentationKey=00000000-0000-0000-0000-000000000000;");
+appInsights.start();
+```
 
 ### Python SDK Example
 
