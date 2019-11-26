@@ -1,5 +1,7 @@
 # Connection String Documentation [Draft]
 
+**The final version of this document will be published on Azure Docs: https://docs.microsoft.com/en-us/azure/azure-monitor/**
+
 ## TODO: Description
 
 - one setting for proxy configurations https://docs.microsoft.com/en-us/azure/azure-monitor/app/troubleshoot-faq#can-i-monitor-an-intranet-web-server
