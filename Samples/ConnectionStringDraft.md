@@ -7,6 +7,11 @@
 - one setting for proxy configurations https://docs.microsoft.com/en-us/azure/azure-monitor/app/troubleshoot-faq#can-i-monitor-an-intranet-web-server
 - Government clouds. https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-services-monitoringandmanagement#net-with-applicationinsightsconfig
 
+## Where can I find my connection string?
+
+Your connection string is displayed on the Overview blade of your Application Insights resource.
+
+**TODO: INCLUDE SCREENSHOT**
 
 ## Schema
 
@@ -39,8 +44,8 @@ Connection string consists of a list of settings represented as key-value pairs 
 
 `<prefix>.<suffix>`
 
-- Prefix: Defines a service. (ex: dc, live, profiler, snapshot)
-- Suffix: Defines the common domain name. (ex: applicationinsights.azure.cn)
+- Prefix: Defines a service. 
+- Suffix: Defines the common domain name.
 
 #### TODO: Valid Suffixes
 
@@ -89,9 +94,8 @@ We do not recommend setting both Connection String and Instrumentation key. In t
 
 
 
-### Environment variables
+### Environment variable
 
-- Instrumentation Key: `APPINSIGHTS_INSTRUMENTATIONKEY`
 - Connection String: `APPLICATIONINSIGHTS_CONNECTION_STRING`
 
 
