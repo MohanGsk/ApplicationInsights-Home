@@ -114,7 +114,10 @@ var configuration = new TelemetryConfiguration
 .Net Config File:
 
 ```
-<ConnectionString>InstrumentationKey=00000000-0000-0000-0000-000000000000</ConnectionString>
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationInsights xmlns="http://schemas.microsoft.com/ApplicationInsights/2013/Settings">
+    <ConnectionString>InstrumentationKey=00000000-0000-0000-0000-000000000000</ConnectionString>
+</ApplicationInsights>
 ```
 
 
