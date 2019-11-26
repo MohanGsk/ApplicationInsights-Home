@@ -52,6 +52,8 @@ It is recommended to set the environment variable.
 To explicitly set the connection string:
 
 ```
+from opencensus.ext.azure.trace_exporter import AzureExporter
+from opencensus.trace.samplers import ProbabilitySampler
 from opencensus.trace.tracer import Tracer
 
 tracer = Tracer(exporter=AzureExporter(connection_string='<your-connection-string-here'), sampler=ProbabilitySampler(1.0))
