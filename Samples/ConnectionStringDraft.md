@@ -33,12 +33,31 @@ We do not recommend setting both Connection String and Instrumentation key. In t
 
 TelemetryConfiguration.ConnectionString: https://github.com/microsoft/ApplicationInsights-dotnet/blob/add45ceed35a817dc7202ec07d3df1672d1f610d/BASE/src/Microsoft.ApplicationInsights/Extensibility/TelemetryConfiguration.cs#L271-L274
 
+.Net Explicitly Set:
 ```
 var configuration = new TelemetryConfiguration
 {
     ConnectionString = "InstrumentationKey=00000000-0000-0000-0000-000000000000;"
 };
 ```
+
+.Net Config File:
+
+```
+<ConnectionString>InstrumentationKey=00000000-0000-0000-0000-000000000000</ConnectionString>
+```
+
+
+NetCore config.json: 
+
+```
+{
+  "ApplicationInsights": {
+    "ConnectionString" : "InstrumentationKey=00000000-0000-0000-0000-000000000000;"
+    }
+  }
+```
+
 
 ### Java Example
 
@@ -66,7 +85,7 @@ from opencensus.trace.tracer import Tracer
 tracer = Tracer(exporter=AzureExporter(connection_string='InstrumentationKey=00000000-0000-0000-0000-000000000000;'), sampler=ProbabilitySampler(1.0))
 ```
 
-## TODO: Schema
+## Schema
 
 ### Max Length
 
@@ -112,7 +131,7 @@ Connection string consists of a list of settings represented as key-value pairs 
 **TODO: Include links to each individual product for reference**
 
 
-## TODO: Examples
+## Connection string examples
 
 ### Connection string with endpoint suffix and explicit endpoint override 
 
