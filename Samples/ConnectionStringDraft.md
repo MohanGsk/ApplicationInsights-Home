@@ -71,7 +71,7 @@ In this example, this connection string uses the endpoint suffix with one explic
 
 ## How to set a connection string
 
-Connection Strings are supported in the following SDK versions:\
+Connection Strings are supported in the following SDK versions:
 - .NET and .NET Core v2.12.0
 - Java v2.5.1
 - Javascript v2.3.0
