@@ -27,9 +27,7 @@ We do not recommend setting both Connection String and Instrumentation key. In t
 - Connection String: `APPLICATIONINSIGHTS_CONNECTION_STRING`
 
 
-### TODO: NEED example config for each SDK (Net, Java, Javascript, Node, Python).
-
-### .Net Example
+### .Net SDK Example
 
 TelemetryConfiguration.ConnectionString: https://github.com/microsoft/ApplicationInsights-dotnet/blob/add45ceed35a817dc7202ec07d3df1672d1f610d/BASE/src/Microsoft.ApplicationInsights/Extensibility/TelemetryConfiguration.cs#L271-L274
 
@@ -59,19 +57,19 @@ NetCore config.json:
 ```
 
 
-### Java Example
+### Java SDK Example
 
 TODO
 
-### Javascript Example
+### Javascript SDK Example
 
 TODO
 
-### Node Example
+### Node SDK Example
 
 TODO
 
-### Python Example
+### Python SDK Example
 
 It is recommended to set the environment variable.
 
