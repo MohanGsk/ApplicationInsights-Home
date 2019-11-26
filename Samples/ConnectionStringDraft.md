@@ -42,14 +42,15 @@ Connection string consists of a list of settings represented as key-value pairs 
 
 #### TODO: Valid Suffixes
 
-#### TODO: VALID Prefixes
+#### VALID Prefixes
+
+**TODO: Include links to each individual product for reference**
 
 - Telemetry Ingestion: `dc`
 - Live Metrics: `live`
 - Profiler: `profiler`
 - Snapshot: `snapshot`
 
-**TODO: Include links to each individual product for reference**
 
 
 ## Connection string examples
@@ -122,15 +123,15 @@ NetCore config.json:
 
 ### Java SDK Example
 
-TODO
+**TODO**
 
 ### Javascript SDK Example
 
-TODO
+**TODO**
 
 ### Node SDK Example
 
-TODO
+**TODO**
 
 ### Python SDK Example
 
