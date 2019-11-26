@@ -33,7 +33,21 @@ We do not recommend setting both Connection String and Instrumentation key. In t
 
 TelemetryConfiguration.ConnectionString: https://github.com/microsoft/ApplicationInsights-dotnet/blob/add45ceed35a817dc7202ec07d3df1672d1f610d/BASE/src/Microsoft.ApplicationInsights/Extensibility/TelemetryConfiguration.cs#L271-L274
 
+### Java Example
 
+TODO
+
+### Javascript Example
+
+TODO
+
+### Node Example
+
+TODO
+
+### Python Example
+
+TODO
 
 ## TODO: Schema
 
