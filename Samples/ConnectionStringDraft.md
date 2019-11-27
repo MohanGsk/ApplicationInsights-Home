@@ -148,6 +148,8 @@ ApplicationInsights.xml
 
 ### Javascript SDK Example
 
+Important: Javascript does not support the use of Environment Variables.
+
 Using the snippit:
 
 ```
