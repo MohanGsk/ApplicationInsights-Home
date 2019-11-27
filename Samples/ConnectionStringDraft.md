@@ -91,7 +91,7 @@ Connection Strings are supported in the following SDK versions:
 A connection string can be set by either in code, environment variable, CLI (Java only), or Configuration File.
 
 
-## Best practices
+### Best practices
 
 - We do not recommend setting both Connection String and Instrumentation key. In the event that a user does set both, whichever was set last will take precidence. 
 - Most users will only need to set the Instrumentation Key in their connection string. 
