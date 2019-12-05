@@ -19,6 +19,9 @@ Please uninstall private site extension since it is no longer supported.
 
 ## Release Notes
 
+### 2.8.33
+  - .net, .netcore, Java & NodeJS agents and the Windows Extension: support for Sovereign Clouds. Connections strings can be used to send data to sovereign clouds.
+
 ### 2.8.31
 - asnetcore agent: Fixed issue related to updated Application Insigths SDK's one of the references (see known issues for 2.8.26). If `System.Diagnostics.DiagnosticSource.dll` of incorrect version is already loaded by runtime, the codeless now will not crash the application and will simply back-off. For customers who was affected by that issue it is advised to remove the `System.Diagnostics.DiagnosticSource.dll` from their bin folder OR use older version of the extension by setting "ApplicationInsightsAgent_EXTENSIONVERSION=2.8.24", otherwise - the application monitoring will not be enabled.
 
