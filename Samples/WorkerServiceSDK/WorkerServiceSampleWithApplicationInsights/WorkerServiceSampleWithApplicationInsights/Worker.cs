@@ -27,7 +27,7 @@ namespace WorkerServiceSampleWithApplicationInsights
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                // Be default only Warning of above is captured.
+                // By default only Warning of above is captured.
                 // However the following Info level will be captured by ApplicationInsights,
                 // as appsettings.json configured Information level for the category 'WorkerServiceSampleWithApplicationInsights.Worker'
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
