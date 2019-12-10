@@ -138,9 +138,11 @@ NetCore config.json:
 
 ### Java SDK Example
 
-**TODO: CLI Example**
 
-**TODO: Explicit Example**
+Java explicitly set:
+```
+TelemetryConfiguration.getActive().setConnectionString("InstrumentationKey=00000000-0000-0000-0000-000000000000");
+```
 
 ApplicationInsights.xml
 ```
