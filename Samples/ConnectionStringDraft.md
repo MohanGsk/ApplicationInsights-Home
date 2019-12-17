@@ -49,7 +49,7 @@ Connection string consists of a list of settings represented as key-value pairs 
 
 #### TODO: Valid Suffixes
 
-**TODO**
+**TODO: Can we publish all valid suffixes here, or is it recommended to let customers find these within their resource.**
 
 #### VALID Prefixes
 
