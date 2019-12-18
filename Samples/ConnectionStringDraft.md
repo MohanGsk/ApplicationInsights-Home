@@ -47,9 +47,16 @@ Connection string consists of a list of settings represented as key-value pairs 
 - Prefix: Defines a service. 
 - Suffix: Defines the common domain name.
 
-#### TODO: Valid Suffixes
+#### Valid Suffixes
 
-**TODO: Can we publish all valid suffixes here, or is it recommended to let customers find these within their resource.**
+- applicationinsights.azure.cn
+- applicationinsights.us
+
+
+See also: https://docs.microsoft.com/en-us/azure/azure-monitor/app/custom-endpoints#regions-that-require-endpoint-modification
+
+
+
 
 #### VALID Prefixes
 
