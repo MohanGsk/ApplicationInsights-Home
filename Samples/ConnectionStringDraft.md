@@ -71,19 +71,52 @@ See also: https://docs.microsoft.com/en-us/azure/azure-monitor/app/custom-endpoi
 
 ## Connection string examples
 
-### Connection string with endpoint suffix and explicit endpoint override 
 
-`InstrumentationKey=00000000-0000-0000-0000-000000000000;EndpointSuffix=ai.contoso.com;ProfilerEndpoint=https://custom.profiler.contoso.com:444/;`
+### Minimal valid connection string
+
+`InstrumentationKey=00000000-0000-0000-0000-000000000000;`
+
+In this example, only the Instrumentation Key has been set.
+
+- Authorization scheme defaults to “ikey” 
+- Instrumentation Key: 00000000-0000-0000-0000-000000000000
+- The regional service URIs are based on the [SDK defaults](https://github.com/microsoft/ApplicationInsights-dotnet/blob/e50d569cebf485e72e98f4a08a0bc0e30cdf42bc/BASE/src/Microsoft.ApplicationInsights/Extensibility/Implementation/Endpoints/Constants.cs#L6) and will connect to the public global Azure:
+   - Breeze: https://dc.services.visualstudio.com/
+   - Live metrics: https://rt.services.visualstudio.com/
+   - Profiler: https://agent.azureserviceprofiler.net/
+   - Debugger: https://agent.azureserviceprofiler.net/  
+
+
+
+### Connection string with endpoint suffix
+
+`InstrumentationKey=00000000-0000-0000-0000-000000000000;EndpointSuffix=ai.contoso.com;`
 
 In this example, this connection string uses the endpoint suffix with one explicit endpoint override.
 
 - Authorization scheme defaults to “ikey” 
 - Instrumentation Key: 00000000-0000-0000-0000-000000000000
-- The regional service URIs are based on provided endpoint suffix and location, except for the override: 
+- The regional service URIs are based on provided endpoint suffix: 
    - Breeze: https://dc.ai.contoso.com
    - Live metrics: https://live.ai.contoso.com
-   - Profiler: https://custom.profiler.contoso.com:444  (this value is explictly overridden in the connection string)
+   - Profiler: https://profiler.ai.contoso.com 
    - Debugger: https://snapshot.ai.contoso.com   
+
+
+
+### Connection string with explicit endpoint overrides 
+
+`InstrumentationKey=00000000-0000-0000-0000-000000000000;IngestionEndpoint=https://custom.com:111/;LiveEndpoint=https://custom.com:222/;ProfilerEndpoint=https://custom.com:333/;SnapshotEndpoint=https://custom.com:444/;`
+
+In this example, this connection string uses the endpoint suffix with one explicit endpoint override.
+
+- Authorization scheme defaults to “ikey” 
+- Instrumentation Key: 00000000-0000-0000-0000-000000000000
+- The regional service URIs are based on the explicit override values: 
+   - Breeze: https://custom.com:111/
+   - Live metrics: https://custom.com:222/
+   - Profiler: https://custom.com:333/ 
+   - Debugger: https://custom.com:444/   
 
 
 ## How to set a connection string
