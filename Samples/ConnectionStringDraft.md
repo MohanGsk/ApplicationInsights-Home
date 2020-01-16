@@ -92,7 +92,7 @@ In this example, only the Instrumentation Key has been set.
 
 `InstrumentationKey=00000000-0000-0000-0000-000000000000;EndpointSuffix=ai.contoso.com;`
 
-In this example, this connection string uses the endpoint suffix with one explicit endpoint override.
+In this example, this connection string specifies the endpoint suffix and the SDK will construct service endpoints.
 
 - Authorization scheme defaults to “ikey” 
 - Instrumentation Key: 00000000-0000-0000-0000-000000000000
@@ -108,7 +108,7 @@ In this example, this connection string uses the endpoint suffix with one explic
 
 `InstrumentationKey=00000000-0000-0000-0000-000000000000;IngestionEndpoint=https://custom.com:111/;LiveEndpoint=https://custom.com:222/;ProfilerEndpoint=https://custom.com:333/;SnapshotEndpoint=https://custom.com:444/;`
 
-In this example, this connection string uses the endpoint suffix with one explicit endpoint override.
+In this example, this connection string specifies explicit overrides for every service. The SDK will use the exact endpoints provided without modification.
 
 - Authorization scheme defaults to “ikey” 
 - Instrumentation Key: 00000000-0000-0000-0000-000000000000
