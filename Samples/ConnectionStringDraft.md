@@ -2,30 +2,47 @@
 
 **The final version of this document will be published on Azure Docs: https://docs.microsoft.com/en-us/azure/azure-monitor/**
 
-## TODO: Description
+## Overview
 
-- one setting for proxy configurations https://docs.microsoft.com/en-us/azure/azure-monitor/app/troubleshoot-faq#can-i-monitor-an-intranet-web-server
-- Government clouds. https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-services-monitoringandmanagement#net-with-applicationinsightsconfig
+Connection strings provides Application Insight users with a single configuration setting, eliminating the need for multiple proxy settings at the same time. Highly useful for intranet web servers, sovereign or hybrid cloud environments looking to send in data to the monitoring service.
 
-## Where can I find my connection string?
+The key value pairs provide an easy way for users to define a prefix suffix combination for each Application Insights (AI) service/ product.
+
+## Scenario Overview 
+
+Customer scenarios where we visualize this having the most impact:
+
+1) Firewall exceptions or proxy redirects 
+
+In cases where monitoring for intranet web server is required, our earlier solution asked customers to add individual service endpoints to your configuration file. For more information:https://docs.microsoft.com/en-us/azure/azure-monitor/app/troubleshoot-faq#can-i-monitor-an-intranet-web-server. We are now providing you with a better alternative.
+With connection strings we're reducing this effort to a one step process. A simple prefix, suffix amendment allows automatic population and redirection of all endpoints to the right services. 
+
+2) Sovereign or Hybrid cloud environments
+
+In disconnected private environments users can now send data from Azure Insights to a defined Azure Government Region. This was previously documented here:https://docs.microsoft.com/en-us/azure/azure-government/documentation-government-services-monitoringandmanagement#net-with-applicationinsightsconfig). 
+With connection strings, configuring the application insight config file allows you to define endpoint settings for both intranet servers (useful in on-prem configurations) or hybrid cloud settings ( useful in on-prem/off-prem environments). 
+
+## Getting Started
+
+### Finding my connection string?
 
 Your connection string is displayed on the Overview blade of your Application Insights resource.
 
 <img src="https://user-images.githubusercontent.com/28785781/67131682-7c1d0b00-f1ba-11e9-960d-616880cbb41c.png" width="1000">
 
-## Schema
 
-### Max Length
+### Schema
+
+#### Max Length
 
 The connection has a maximum supported length of 4096 characters.
 
-
-### Key-Value pairs
+#### Key-Value pairs
 
 Connection string consists of a list of settings represented as key-value pairs separated by semicolon:
 `key1=value1;key2=value2;key3=value3`
 
-### Connection String Syntax
+#### Syntax
 
 - `InstrumentationKey` (ex: 00000000-0000-0000-0000-000000000000)
    The connection string is a **required** field.
@@ -39,16 +56,15 @@ Connection string consists of a list of settings represented as key-value pairs 
    - `ProfilerEndpoint` (ex: https://profiler.applicationinsights.azure.com)
    - `SnapshotEndpoint` (ex: https://snapshot.applicationinsights.azure.com)
 
-
-### Endpoint Schema
+#### Endpoint Schema
 
 `<prefix>.<suffix>`
-
 - Prefix: Defines a service. 
 - Suffix: Defines the common domain name.
 
-#### Valid Suffixes
+##### Valid Suffixes
 
+Here's a list of valid suffixes 
 - applicationinsights.azure.cn
 - applicationinsights.us
 
@@ -56,9 +72,7 @@ Connection string consists of a list of settings represented as key-value pairs 
 See also: https://docs.microsoft.com/en-us/azure/azure-monitor/app/custom-endpoints#regions-that-require-endpoint-modification
 
 
-
-
-#### VALID Prefixes
+##### VALID Prefixes
 
 **TODO: Include links to each individual product for reference**
 
@@ -137,11 +151,9 @@ A connection string can be set by either in code, environment variable, or confi
 - Most users will only need to set the Instrumentation Key in their connection string. 
 
 
-
 ### Environment variable
 
 - Connection String: `APPLICATIONINSIGHTS_CONNECTION_STRING`
-
 
 ### .Net SDK Example
 
