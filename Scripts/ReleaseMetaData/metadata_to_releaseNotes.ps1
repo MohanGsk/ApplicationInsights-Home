@@ -38,7 +38,7 @@ function Push-Github {
         # Set to true to mark this as a pre-release version
         [bool]$preRelease = $TRUE,
         # Set to true to mark this as a draft release (not visible to users)
-        [bool]$draft = $TRUE
+        [bool]$draft = $FALSE
     )
 
     $releaseData = @{
