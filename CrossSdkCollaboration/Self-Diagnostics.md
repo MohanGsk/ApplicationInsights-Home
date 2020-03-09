@@ -58,6 +58,7 @@ The SDK will revert back to the previous configuration if any of the following c
     
 #### "Destination=File" schema
 All SDKs must support File logging to provide a basic and consistent supportability experience.
+The following values are optional. If any value cannot be parsed, the default value will be used instead.
 
 - [Optional] `Path`
     - Value: The full path to a directory that the SDK will have write access. IMPORTANT: this field must be case sensitive
@@ -73,7 +74,6 @@ All SDKs must support File logging to provide a basic and consistent supportabil
     - Default: no max size? **TODO: Needs a decision. I'm leaning towards 20MB because that's a maximum attachment size for several email clients. I want to take some sample measurements.**
     - When a max size is exceeded, the SDK should close the file and start a new file. 
 
-**TODO: DEFINE THE BEHAVIOR IF ANY VALUE CANNOT BE PARSED**
 
 ##### File Name
 `ApplicationInsightsLog_{DateTime.UtcNow.ToInvariantString("yyyyMMdd_HHmmss")}_{process.ProcessName}_{process.Id}.log`
