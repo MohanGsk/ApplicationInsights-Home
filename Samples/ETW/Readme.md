@@ -16,8 +16,8 @@ Vance Morrison's blog has several articles for getting started:
 | Repo       	| Provider Name                                                              	| Provider Guid |
 |------------	|----------------------------------------------------------------------------	|---------------|
 | Base SDK    | Microsoft-ApplicationInsights-Core                                         	|74af9f20-af6a-5582-9382-f21f674fb271|
-|             | Microsoft-ApplicationInsights-Data                                         	|74af9f20-af6a-5582-9382-f21f674fb271|
-|             | Microsoft-ApplicationInsights-WindowsServer-TelemetryChannel               	|a62adddb-6b4b-519d-7ba1-f983d81623e0|
+|             | Microsoft-ApplicationInsights-Data                                         	|a62adddb-6b4b-519d-7ba1-f983d81623e0|
+|             | Microsoft-ApplicationInsights-WindowsServer-TelemetryChannel               	|4c4280fb-382a-56be-9a13-fab0d03395f6|
 | | | |
 | Web SDK     | Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Dependency   	|   |
 |             | Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Web          	|   |
