@@ -19,20 +19,20 @@ Vance Morrison's blog has several articles for getting started:
 |             | Microsoft-ApplicationInsights-Data                                         	|a62adddb-6b4b-519d-7ba1-f983d81623e0|
 |             | Microsoft-ApplicationInsights-WindowsServer-TelemetryChannel               	|4c4280fb-382a-56be-9a13-fab0d03395f6|
 | | | |
-| Web SDK     | Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Dependency   	|   |
-|             | Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Web          	|   |
-|             | Microsoft-ApplicationInsights-Extensibility-DependencyCollector            	|   |
-|             | Microsoft-ApplicationInsights-Extensibility-EventCounterCollector         	|   |
-|             | Microsoft-ApplicationInsights-Extensibility-HostingStartup                 	|   |
-|             | Microsoft-ApplicationInsights-Extensibility-PerformanceCollector           	|   |
-|             | Microsoft-ApplicationInsights-Extensibility-PerformanceCollector-QuickPulse	|   |
-|             | Microsoft-ApplicationInsights-Extensibility-Web                            	|   |
-|             | Microsoft-ApplicationInsights-Extensibility-WindowsServer                  	|   |
-|             | Microsoft-ApplicationInsights-WindowsServer-Core                           	|   |
+| Web SDK     | Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Dependency   	|08037ff3-aed4-5081-a6e0-f05fa0bd1f42|
+|             | Microsoft-ApplicationInsights-Extensibility-AppMapCorrelation-Web          	|0a458c93-c7fb-5fbe-1135-21b01e192abc|
+|             | Microsoft-ApplicationInsights-Extensibility-DependencyCollector            	|9e925f53-f61b-51a7-d10f-1148a547b70f|
+|             | Microsoft-ApplicationInsights-Extensibility-EventCounterCollector         	|3a5cd921-6470-5a93-a62f-5827813b3968|
+|             | Microsoft-ApplicationInsights-Extensibility-HostingStartup                 	|8be90d99-6348-569a-0517-642982a0623b|
+|             | Microsoft-ApplicationInsights-Extensibility-PerformanceCollector           	|47e5de30-9965-58bd-dfc8-64c697aa1908|
+|             | Microsoft-ApplicationInsights-Extensibility-PerformanceCollector-QuickPulse	|70faf222-f29d-5dee-433d-d3b77846888e|
+|             | Microsoft-ApplicationInsights-Extensibility-Web                            	|d6a4f609-0e40-51c8-0344-8d1a0c91cb10|
+|             | Microsoft-ApplicationInsights-Extensibility-WindowsServer                  	|5093fab5-865e-566a-cd34-857f08a430cf|
+|             | Microsoft-ApplicationInsights-WindowsServer-Core                           	|b38dc757-fc28-52f1-9241-fd6310c28590|
 | | | |
-| Logging SDK | Microsoft-ApplicationInsights-Extensibility-EventSourceListener            	|   |
+| Logging SDK | Microsoft-ApplicationInsights-Extensibility-EventSourceListener            	|e0b8ecfa-7c08-54f7-ac08-3cf0f7ba965e|
 | | | |
-| Core SDK    | Microsoft-ApplicationInsights-AspNetCore                                   	|   |
+| AspNetCore SDK    | Microsoft-ApplicationInsights-AspNetCore                              |dbf4c9d9-6cb3-54e3-0a54-9d138a74b116|
 | | | |
 | Extensions  | Microsoft-ApplicationInsights-FrameworkLightup                             	|323adc25-e39b-5c87-8658-2c1af1a92dc5   <sup>*1</sup>|
 |             | Microsoft-ApplicationInsights-IIS-ManagedHttpModuleHelper                  	|61f6ca3b-4b5f-5602-fa60-759a2a2d1fbd   <sup>*1</sup>|
