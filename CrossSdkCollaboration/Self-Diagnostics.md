@@ -95,7 +95,6 @@ This header also helps support teams get specific information about an SDK or ap
 The file header should include
 - sdk name
 - sdk version
-- heartbeat metadata (**TODO: NEED TO LIST WHAT THESE FIELDS ARE**)
 - how the file was turned on (ex: Environment Variable or other)
 
 
