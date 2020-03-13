@@ -72,13 +72,13 @@ PerfView.exe collect -MaxCollectSec:300 -NoGui /onlyProviders=*Microsoft-Applica
 #### Example
 To get started, create a txt of the providers you intend to collect (providers.txt):
 ```
-{4c4280fb-382a-56be-9a13-fab0d03395f6}         0xFFFFFFFF         0x5
-{74af9f20-af6a-5582-9382-f21f674fb271}         0xFFFFFFFF         0x5
-{a62adddb-6b4b-519d-7ba1-f983d81623e0}         0xFFFFFFFF         0x5
+{4c4280fb-382a-56be-9a13-fab0d03395f6}
+{74af9f20-af6a-5582-9382-f21f674fb271}
+{a62adddb-6b4b-519d-7ba1-f983d81623e0}
 ```
 The following commands will collect traces:
 ```
-logman -start ai-channel -pf providers.txt -ets
+logman -start ai-channel -pf providers.txt -ets -bs 1024 -nb 100 256
 logman -stop ai-channel -ets
 ```
 To inspect logs:
