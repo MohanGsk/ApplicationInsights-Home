@@ -70,8 +70,8 @@ The following values are optional. If any value cannot be parsed, the default va
     - If the provided value path does not exist, the SDK needs to try to create it.
     - If the provided value is illegal for any reason, the SDK will fall back to the default value "%TEMP%".
 - [Optional] `MaxSize`
-    - Value: Integer specifying max size in megabytes.
-    - Default: None.
+    - Value: Integer specifying max size in megabytes. A value of '0' will be interpreted as no limit.
+    - Default: 0.
     - When a max size is exceeded, the SDK should close the file and start a new file.
     - Note that not all SDKs will be able to support this field due to library constraints. We recommend a size of 20MB which is the maximum attachment size for several email clients.
 
