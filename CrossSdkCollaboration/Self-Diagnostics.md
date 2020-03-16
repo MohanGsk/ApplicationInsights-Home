@@ -50,6 +50,10 @@ Each product is free to define unique ways to set a configuration (aka "control 
     - Values: **File**, **ETW**, **Console**, **None**
     - Specifying a destination will "turn-on" temporary logging. This can override anything in the SDK's normal configuration. The destination will define where logs are sent and the value will define the sub keywords.
     - If this value is not found or is invalid, the SDK will take no action.
+- [Optional] `Level`
+    - Value: Verbose, Information, Warning, Error
+    - Default Value: Verbose
+    - Reference: https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.tracing.eventlevel?view=netframework-4.8
 
 The SDK will revert back to the previous configuration if any of the following conditions is met:
 - The Environment Variable `APPLICATIONINSIGHTS_SELF_DIAGNOSTICS` is deleted.
@@ -65,14 +69,11 @@ The following values are optional. If any value cannot be parsed, the default va
     - Default Value: "%TEMP%"
     - If the provided value path does not exist, the SDK needs to try to create it.
     - If the provided value is illegal for any reason, the SDK will fall back to the default value "%TEMP%".
-- [Optional] `Level`
-    - Value: Verbose, Information, Warning, Error
-    - Default Value: Verbose
-    - Reference: https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.tracing.eventlevel?view=netframework-4.8
 - [Optional] `MaxSize`
     - Value: Integer specifying max size in megabytes.
-    - Default: no max size? **TODO: Needs a decision. I'm leaning towards 20MB because that's a maximum attachment size for several email clients. I want to take some sample measurements.**
-    - When a max size is exceeded, the SDK should close the file and start a new file. 
+    - Default: None.
+    - When a max size is exceeded, the SDK should close the file and start a new file.
+    - Note that not all SDKs will be able to support this field due to library constraints. We recommend a size of 20MB which is the maximum attachment size for several email clients.
 
 
 ##### File Name
