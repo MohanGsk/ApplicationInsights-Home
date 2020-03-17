@@ -40,7 +40,7 @@ Each product is free to define unique ways to set a configuration (aka "control 
 - The configuration string keywords will be case insensitive.
 - The configuration string values will be case insensitive except where specified otherwise. (example: file path)
 - Keys will not be order dependent and are expected to appear only once.
-- The full length will not exceed XXX characters. **TODO: Needs a decision, waiting for this spec to be more mature before counting and estimating number of characters.**
+- The full length will not exceed 2048 characters.
 - Every process and SDK that reads the configuration string must apply these settings equally.
 - If the configuration string is invalid or cannot be parsed, the SDK will take no action.
 
